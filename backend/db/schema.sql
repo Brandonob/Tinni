@@ -4,12 +4,12 @@ CREATE DATABASE codename_ida;
 
 \c codename_ida;
 
-DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS itineraries;
-DROP TABLE IF EXISTS activities;
+DROP TABLE IF EXISTS participants;
 DROP TABLE IF EXISTS liked_itineraries;
 DROP TABLE IF EXISTS comments;
-DROP TABLE IF EXISTS participants;
+DROP TABLE IF EXISTS activities;
+DROP TABLE IF EXISTS itineraries;
+DROP TABLE IF EXISTS users;
 
 
 CREATE TABLE users 
@@ -47,7 +47,7 @@ CREATE TABLE liked_itineraries
 (
   id SERIAL PRIMARY KEY,
   user_id INT REFERENCES users(id) ON DELETE CASCADE,
-  iten_id INT REFERENCES itineraries(id) ON DELETE CASCADE
+  itin_id INT REFERENCES itineraries(id) ON DELETE CASCADE
 );
 CREATE TABLE comments
 (
@@ -60,6 +60,6 @@ CREATE TABLE participants
 (
   id SERIAL PRIMARY KEY,
   user_id INT REFERENCES users(id) ON DELETE CASCADE,
-  iten_id INT REFERENCES itineraries(id) ON DELETE CASCADE
+  itin_id INT REFERENCES itineraries(id) ON DELETE CASCADE
 );
 
