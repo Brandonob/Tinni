@@ -1,4 +1,5 @@
 -- This is schema
+-- example
 DROP DATABASE IF EXISTS codename_ida;
 CREATE DATABASE codename_ida;
 
