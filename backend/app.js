@@ -8,9 +8,9 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-const userRouter = require("");
+// const userRouter = require("");
 
-app.use("/users", userRouter);
+// app.use("/users", userRouter);
 
 app.listen(port, () => {
     console.log("App is listening on port", port);
