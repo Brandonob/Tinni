@@ -1,4 +1,4 @@
-const db = require ("../db/index")
+const db = require ("../../db/index")
 
 const createUser = async(req, res, next)=>{
     try{
