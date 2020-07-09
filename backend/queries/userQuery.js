@@ -39,29 +39,31 @@ const getAllUsers = async(req, res, next)=>{
     }
 }
 
- const loginUser = async(req, res, next)=>{
-     try{
-        let user = await db.one(
-            `SELECT * FROM users WHERE email = '${req.body.email} AND password = '${req.body.password}'`
-        )
-        res.status(200).json({
-            payload: user,
-            status:"success",
-            message:"user login succesful "
-        })
-     }catch(err){
-         res.json({
-             status:"error",
-             message:"The username or password you have entered is incorrect.",
-             payload: err
-         })
-         next(err)
-     }
- }
+//  const loginUser = async(req, res, next)=>{
+//      try{
+//         let user = await db.one(
+//             `SELECT * FROM users WHERE email = '${req.body.email} AND password = '${req.body.password}'`
+//         )
+//         res.status(200).json({
+//             payload: user,
+//             status:"success",
+//             message:"user login succesful "
+//         })
+//      }catch(err){
+//          res.json({
+//              status:"error",
+//              message:"The username or password you have entered is incorrect.",
+//              payload: err
+//          })
+//          next(err)
+//      }
+//  }
 
  const deleteUser = async(req, res, next)=>{
+    console.log(req.params.id)
      try{
-         let user = `DELETE FROM users WHERE id = ${req.body.id} RETURNING *`
+         let user = await db.one(`DELETE FROM users WHERE id = ${req.params.id} RETURNING *`)
+
          res.status(200).json({
              payload: user,
              status:"success",
@@ -92,4 +94,4 @@ const getAllUsers = async(req, res, next)=>{
 }
 
 
-module.exports = {createUser, getAllUsers, loginUser, deleteUser, getSingleUser}
+module.exports = {createUser, getAllUsers, deleteUser, getSingleUser}
