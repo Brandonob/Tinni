@@ -18,3 +18,21 @@ const getAllItin = async (req, res, next) => {
   }
 }
 
+const addItin = async (req, res, next) => {
+  let data = req.body
+  let itin = await db.one("INSERT INTO itineraries (user_id,itinerary_date,title) VALUES (${user_id}, ${itinerary_date}, ${title}) RETURNING *", data)
+
+  try {
+    res.status(200).json({
+      status: "Success",
+      message: "Itinerary has been successfully created.",
+      payload: itin
+    })
+  } catch(err) {
+    res.status(500).json({
+      status: "Error",
+      message: "Unable to create new itinerary.",
+      payload: null
+    })
+  }
+}

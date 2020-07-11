@@ -29,7 +29,7 @@ CREATE TABLE itineraries
   id SERIAL PRIMARY KEY,
   user_id INT REFERENCES users(id) ON DELETE CASCADE,
   time_created timestamp,
-  itinerary_date time,
+  itinerary_date DATE NOT NULL,
   title text,
   private boolean
 );
