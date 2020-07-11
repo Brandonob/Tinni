@@ -4,5 +4,6 @@ const {getAllItin, getItinById, addItin, deleteItin, editItin} = require("../que
 itineraries.get("/", getAllItin)
 itineraries.get("/:id", getItinById)
 itineraries.post("/", addItin)
+itineraries.delete("/:id", deleteItin)
 
 module.exports = itineraries
