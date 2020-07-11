@@ -2,7 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const app = express();
-const port = 3001;
+const port = 3002;
 
 
 const userRouter = require("../backend/routes/users/users");
@@ -22,9 +22,6 @@ app.use((err, req, res, next) => {
     }
   });
 
-
-
-
 app.listen(port, () => {
-    console.log("App is listening on port", port);
+  console.log("App is listening on port", port);
 });
