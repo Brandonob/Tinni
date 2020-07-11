@@ -79,7 +79,6 @@ const editItin = async (req, res, next) => {
   try {
     let {title} = req.body
     let {id} = req.params
-    console.log(id,title)
     let itin = await db.one(`UPDATE itineraries SET title = '${title}' WHERE id = ${id} RETURNING *`)
 
     res.status(200).json({
