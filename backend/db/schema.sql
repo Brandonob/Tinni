@@ -55,7 +55,8 @@ CREATE TABLE comments
   id SERIAL PRIMARY KEY,
   user_id INT REFERENCES users(id) ON DELETE CASCADE,
   itin_id INT REFERENCES itineraries(id) ON DELETE CASCADE,
-  body varchar
+  body varchar,
+  time_stamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 CREATE TABLE participants
 (
