@@ -79,7 +79,8 @@ const editItin = async (req, res, next) => {
   try {
     let {title} = req.body
     let {id} = req.params
-    let itin = await db.one(`UPDATE itineraries SET title = ${title} WHERE id = ${id} RETURNING *`)
+    console.log(id,title)
+    let itin = await db.one(`UPDATE itineraries SET title = '${title}' WHERE id = ${id} RETURNING *`)
 
     res.status(200).json({
       status: "Success",
@@ -90,7 +91,7 @@ const editItin = async (req, res, next) => {
     res.status(500).json({
       status: "Error",
       message: "Unable to edit itinerary.",
-      payload: null
+      payload: err
     })
   }
 }

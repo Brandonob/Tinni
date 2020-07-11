@@ -5,5 +5,6 @@ itineraries.get("/", getAllItin)
 itineraries.get("/:id", getItinById)
 itineraries.post("/", addItin)
 itineraries.delete("/:id", deleteItin)
+itineraries.patch("/:id", editItin)
 
 module.exports = itineraries
