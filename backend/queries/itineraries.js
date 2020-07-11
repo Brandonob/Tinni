@@ -1,9 +1,9 @@
 const db = require("../db/index.js")
 
 const getAllItin = async (req, res, next) => {
-  let itins = await db.any("SELECT * FROM itineraries")
-
   try {
+    let itins = await db.any("SELECT * FROM itineraries")
+
     res.status(200).json({
       status: "Success",
       message: "All itineraries have been retrieved.",
@@ -19,10 +19,10 @@ const getAllItin = async (req, res, next) => {
 }
 
 const getItinById = async (req, res, next) => {
-  let {id} = req.params
-  let itin = await db.one("SELECT * FROM itineraries WHERE id = $1", [id])
-
   try {
+    let {id} = req.params
+    let itin = await db.one("SELECT * FROM itineraries WHERE id = $1", [id])
+
     res.status(200).json({
       status: "Success",
       message: "Requested itinerary has been successfully retrieved.",
@@ -38,10 +38,10 @@ const getItinById = async (req, res, next) => {
 }
 
 const addItin = async (req, res, next) => {
-  let data = req.body
-  let itin = await db.one("INSERT INTO itineraries (user_id,itinerary_date,title) VALUES (${user_id}, ${itinerary_date}, ${title}) RETURNING *", data)
-
   try {
+    let data = req.body
+    let itin = await db.one("INSERT INTO itineraries (user_id,itinerary_date,title) VALUES (${user_id}, ${itinerary_date}, ${title}) RETURNING *", data)
+
     res.status(200).json({
       status: "Success",
       message: "Itinerary has been successfully created.",
@@ -51,6 +51,25 @@ const addItin = async (req, res, next) => {
     res.status(500).json({
       status: "Error",
       message: "Unable to create new itinerary.",
+      payload: null
+    })
+  }
+}
+
+const deleteItin = async (req, res, next) => {
+  try {
+    let {id} = req.params
+    let itin = await db.one("DELETE FROM itineraries WHERE id = $1 RETURNING *", [id])
+
+    res.status(200).json({
+      status: "Success",
+      message: "Itinerary has been deleted.",
+      payload: itin
+    })
+  } catch(err) {
+    res.status(404).json({
+      status: "Error",
+      message: "Itinerary does not exist.",
       payload: null
     })
   }
