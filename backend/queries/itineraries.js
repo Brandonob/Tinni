@@ -94,3 +94,5 @@ const editItin = async (req, res, next) => {
     })
   }
 }
+
+module.exports = {getAllItin, getItinById, addItin, deleteItin, editItin}
