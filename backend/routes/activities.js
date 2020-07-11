@@ -5,7 +5,7 @@ const {
   getActivity,
   addActivity,
   deleteActivity,
-} = require("../../queries/activities");
+} = require("../queries/activities");
 
 activities.get("/", getAllActivities); //  Get all activities
 activities.get("/:id", getActivity); //Get single activity
