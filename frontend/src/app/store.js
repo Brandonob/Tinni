@@ -1,8 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
-// import counterReducer from '../features/counter/counterSlice';
+// import searchReducer from "../features/SearchBar/SearchBarSlice";
+
+// const reducer = {
+//   search: searchReducer,
+// };
 
 export default configureStore({
   reducer: {
-    counter: "working",
+    // counter: "working",
+    // reducer,
   },
 });
