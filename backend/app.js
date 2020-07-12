@@ -18,7 +18,7 @@ app.use(bodyParser.json());
 app.use("/users", userRouter);
 app.use("/itineraries", itinerariesRouter)
 
-=======
+
 // app.use((err, req, res, next) => {
 //     console.log(err);
 //     if (err.status) {
