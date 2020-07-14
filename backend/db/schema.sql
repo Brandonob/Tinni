@@ -16,33 +16,33 @@ DROP TABLE IF EXISTS users;
 CREATE TABLE users 
 (
   id SERIAL PRIMARY KEY,
-  first_name text,
-  last_name text,
-  email varchar,
-  password varchar,
-  phone varchar,
-  location varchar,
-  profile_pic varchar
+  first_name TEXT NOT NULL,
+  last_name TEXT NOT NULL,
+  email VARCHAR NOT NULL,
+  password VARCHAR NOT NULL,
+  phone BIGINT NOT NULL DEFAULT 0,
+  location VARCHAR NOT NULL DEFAULT ' ',
+  profile_pic VARCHAR NOT NULL DEFAULT ' '
 );
 CREATE TABLE itineraries
 (
   id SERIAL PRIMARY KEY,
   user_id INT REFERENCES users(id) ON DELETE CASCADE,
-  time_created timestamp,
+  time_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   itinerary_date DATE NOT NULL,
-  title text,
-  private boolean
+  title VARCHAR NOT NULL DEFAULT 'Your Itinerary',
+  private BOOLEAN NOT NULL DEFAULT FALSE
 );
 CREATE TABLE activities
 (
   id SERIAL PRIMARY KEY,
   itin_id INT REFERENCES itineraries(id) ON DELETE CASCADE,
-  location varchar,
-  longitude varchar,
-  latitude varchar,
-  activity_name text,
-  category text,
-  activity_time time
+  location VARCHAR NOT NULL DEFAULT ' ',
+  longitude VARCHAR NOT NULL DEFAULT ' ',
+  latitude VARCHAR NOT NULL DEFAULT ' ',
+  activity_name VARCHAR NOT NULL DEFAULT ' ',
+  category TEXT NOT NULL DEFAULT ' ',
+  activity_time TIME NOT NULL DEFAULT '00:00:00'
 );
 CREATE TABLE liked_itineraries 
 (
