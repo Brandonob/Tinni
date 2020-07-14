@@ -45,7 +45,7 @@ const getActivity = async (req, res, next) => {
 const addActivity = async (req, res, next) => {
   try {
     let activityAdded = await db.one(
-      `INSERT INTO businesses (itin_id , location, longitude, latitude, activity_name, category,activity_time) VALUES ('${req.body.itin_id}','${req.body.location}','${req.body.longitude}','${req.body.latitude}','${req.body.activity_name}','${req.body.images}','${req.body.activity_time}') RETURNING *`
+      `INSERT INTO activities (itin_id , location, longitude, latitude, activity_name, category,activity_time) VALUES ('${req.body.itin_id}','${req.body.location}','${req.body.longitude}','${req.body.latitude}','${req.body.activity_name}','${req.body.images}','${req.body.activity_time}') RETURNING *`
     );
     res.status(200).json({
       status: "success",
