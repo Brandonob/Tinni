@@ -1,24 +1,24 @@
 import React, {useEffect} from "react"
-import Itinerary from "../Itinerary/itinerary"
-import { useSelector } from "react-redux";
-import { searchResults } from "../SearchBar/SearchBarSlice"
-import { useHistory } from "react-router-dom";
+import {useSelector} from "react-redux"
+import {searchResults} from "../SearchBar/SearchBarSlice"
+import {useHistory} from "react-router-dom"
+import Itinerary from "./itinerary"
 
-const ItineraryDisplayPage = ()=>{
-    const searchRes= useSelector(searchResults)
-    // const history = useHistory()
+const ItineraryDisplayPage =()=>{
+    const itinResult = useSelector(searchResults)
+    const history = useHistory()
 
-    // useEffect(() => {
-    //     return !searchResults.length ? history.push("/") : undefined;
-    //   }, [searchResults.length, history]);
-    
-      const results = searchRes.map((result) => {
-        if (result.rating > 3.5) {
-          return <Itinerary key={result.id} result={result} />;
+    useEffect(()=>{
+        return !itinResult.length ? history.push("/home"): undefined
+    }, [itinResult.length, history])
+
+    const results = itinResult.map((result)=>{
+        if(result.rating > 1){
+            return <Itinerary key={result.id} result={result}/>
         }
-      });
+    })
 
-      return(
+    return(
         <>
         {/* <Search/> */}
         <div className={"resultIndex"}>
@@ -27,10 +27,9 @@ const ItineraryDisplayPage = ()=>{
           </div>
           {results}
         </div>
-        {/* <ModalDisplay /> */}
+        
       </>
-      )
+    )
 
 }
-
 export default ItineraryDisplayPage

@@ -1,33 +1,26 @@
 import React from "react"
 import {useDispatch, useSelector} from "react-redux"
-// import { search } from "../../../../backend/routes/itineraries"
-
 
 const Itinerary = ({result})=>{
     const{
         id,
         name,
         image_url,
-        review_count,
+        review_count, 
         rating,
         price,
         display_phone,
-        categories
+        categories,
     } = result
-    const storeLocation = result.location
-    const {display_address} = storeLocation
-
-    const dispatch = useDispatch()
-      return(
-        <div  className={"restaurantCard"} key={id} value={id}>
+    return(
+        <div className={"restaurantCard"} key={id} value={id}>
         <div className={"basicInfo"}>
           <h2 id={"name"} title={id}  value={id}>
             {name}
           </h2>
           <img src={image_url} alt={"Restaurant"} id={"image"} />
           <h2 id={"address"}>
-            Address:
-            {display_address[0]},{display_address[1]}
+           Address
           </h2>
           <h2 id={"phone"}>Contact: {display_phone}</h2>
         </div>
@@ -39,6 +32,7 @@ const Itinerary = ({result})=>{
         </div>
         <br/>
       </div>
-      )
+    )
 }
+
 export default Itinerary

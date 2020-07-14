@@ -3,6 +3,7 @@ import "./App.css";
 import { Route, Switch } from "react-router-dom";
 import Homepage from "./features/Home/home";
 import ItineraryDisplayPage from "../../frontend/src/features/Itinerary/itineraryDisplayPage"
+// import Itinerary from "../../frontend/src/features/Itinerary/itinerary"
 
 function App() {
   return (
@@ -10,7 +11,7 @@ function App() {
       <Route exact path={"/home"}>
         <Homepage />
       </Route>
-       <Route exact path={"/itinerary"}>
+       <Route exact path={"/itineraries"}>
         <ItineraryDisplayPage/>
       </Route>
       {/* <Route exact path={"/signup"}>
