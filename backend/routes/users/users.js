@@ -5,7 +5,7 @@ const {
   getAllUsers,
   deleteUser,
   getSingleUser,
-} = require("../../queries/User/userQuery");
+} = require("../../queries/users/users");
 
 users.use("/:id/itineraries", userItineraries);
 users.post("/", createUser);
