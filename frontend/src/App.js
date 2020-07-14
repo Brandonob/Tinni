@@ -2,6 +2,7 @@ import React from "react";
 import "./App.css";
 import { Route, Switch } from "react-router-dom";
 import Homepage from "./features/Home/home";
+import Login from "./features/Login/Login"
 
 function App() {
   return (
@@ -11,10 +12,10 @@ function App() {
       </Route>
       {/* <Route exact path={"/itinerary"}>
         <Itinerarypage />
-      </Route>
-      <Route exact path={"/signup"}>
-        <SignUppage />
       </Route> */}
+      <Route exact path={"/login"}>
+        <Login />
+      </Route> 
     </div>
   );
 }
