@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 // import searchReducer from "../features/SearchBar/SearchBarSlice";
+import usersReducer from "../features/Users/usersSlice"
 
 // const reducer = {
 //   search: searchReducer,
@@ -7,7 +8,6 @@ import { configureStore } from "@reduxjs/toolkit";
 
 export default configureStore({
   reducer: {
-    // counter: "working",
-    // reducer,
+    users: usersReducer,
   },
 });
