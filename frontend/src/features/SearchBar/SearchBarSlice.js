@@ -11,5 +11,5 @@ export const SearchBarSlice = createSlice({
 });
 
 export const { receiveSearch } = SearchBarSlice.actions;
-export const searchResults = (state) => state.search;
+export const selectSearchResults = (state) => state.search;
 export default SearchBarSlice.reducer;
