@@ -1,26 +1,45 @@
-import React from "react";
+import React, { useState } from "react";
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
 } from "react-places-autocomplete";
 
-const LocationSearch = () => {
-  const [address, setAddress] = React.useState("");
+const LocationSearch = ({ setLatitude, setLongitude }) => {
+  const [address, setAddress] = useState("");
+  const [select, setSelect] = useState(false);
 
-  const [coordinates, setCoordinates] = React.useState({
+  const [coordinates, setCoordinates] = useState({
     lat: null,
     lng: null,
   });
 
-  const handleSelect = async (value) => {
+  const handleFocus = () => {
+    setSelect(true);
+  };
+  const handleBlur = () => {
+    setSelect(false);
+  };
+  const handleClick = () => {
     debugger;
-    const results = await geocodeByAddress(value);
+    try {
+      navigator.geolocation.getCurrentPosition(async (position) => {
+        setLatitude(position.coords.latitude);
+        setLongitude(position.coords.longitude);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
+  const handleSelect = async (value) => {
+    const results = await geocodeByAddress(value);
     const latLng = await getLatLng(results[0]);
 
     setAddress(value);
-    setCoordinates(latLng);
+    setLatitude(latLng.lat);
+    setLongitude(latLng.lng);
   };
+  console.log(select);
   return (
     <>
       <PlacesAutocomplete
@@ -30,10 +49,14 @@ const LocationSearch = () => {
       >
         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
           <div>
-            <p>Latitude: {coordinates.lat}</p>
-            <p>Longitude: {coordinates.lng}</p>
-            <input {...getInputProps({ placeholder: "Type address" })} />
+            <input
+              {...getInputProps({ placeholder: "Type address" })}
+              onFocus={handleFocus}
+            />
             <div>
+              {select === true ? (
+                <li onClick={handleClick}>use current location</li>
+              ) : null}
               {loading ? <div>...loading</div> : null}
 
               {suggestions.map((suggestion) => {
@@ -42,9 +65,9 @@ const LocationSearch = () => {
                 };
 
                 return (
-                  <div {...getSuggestionItemProps(suggestion, { style })}>
+                  <li {...getSuggestionItemProps(suggestion, { style })}>
                     {suggestion.description}
-                  </div>
+                  </li>
                 );
               })}
             </div>
