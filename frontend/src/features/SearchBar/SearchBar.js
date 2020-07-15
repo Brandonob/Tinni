@@ -3,6 +3,7 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import receiveSearch from "../SearchBar/SearchBarSlice";
+import LocationSearch from "./locationSearch";
 const API_KEY = process.env.REACT_APP_API_KEY;
 // const API_KEY =
 //   "8qnMAZ-CZ90tKgmGIL0GXzVK-teEHMAmfu0f-NlSKYgA-dSxs5WzkUz5DEu293l2ccgEUx9VMFEB3rMRMGXh0d7uU2cuybWSC91zVpq7-1l7Zq8LXBzoMVe9L8XvXnYx";
@@ -74,12 +75,13 @@ const SearchBar = () => {
           />
         </div>
         <div className="right_side_location_div">
-          <input
+          {/* <input
             className="location"
             placeholder="search location"
             value={location}
             onChange={(e) => setLocation(e.currentTarget.value)}
-          />
+          /> */}
+          <LocationSearch />
         </div>
         <button type="submit">Submit</button>
       </div>
