@@ -1,13 +1,12 @@
-import { configureStore } from "@reduxjs/toolkit";
-// import searchReducer from "../features/SearchBar/SearchBarSlice";
 
-// const reducer = {
-//   search: searchReducer,
-// };
+import { configureStore } from "@reduxjs/toolkit";
+import usersReducer from "../features/Users/usersSlice"
+import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";                          
+import searchReducer from "../features/SearchBar/SearchBarSlice";
+import logger from "redux-logger";
 
 export default configureStore({
-  reducer: {
-    // counter: "working",
-    // reducer,
-  },
+  reducer:{search: searchReducer,
+            users: usersReducer,},
+  middleware: [...getDefaultMiddleware(), logger],
 });
