@@ -65,3 +65,7 @@ CREATE TABLE participants
   itin_id INT REFERENCES itineraries(id) ON DELETE CASCADE
 );
 
+INSERT INTO itineraries
+    (user_id, time_created, itinerary_date, title, private)
+VALUES
+    ('1', '2:00PM', 'July 30th 2020', 'Brunch', False);
