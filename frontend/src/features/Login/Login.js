@@ -3,6 +3,8 @@ import { useHistory } from 'react-router-dom'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import { login } from '../../util/firebaseFunction'
+import { Input } from '@material-ui/core';
+
 
 const Login = () => {
     const [email, setEmail] = useState("");
@@ -16,8 +18,8 @@ const Login = () => {
         try {
             let res = await login(email, password)
             console.log("you have succesfully logged in");
-            // dispatch(addUser(res.user.uid));
-            // history.push("/home")
+            dispatch(addUser(res.user.uid));
+            history.push("/home")
         } catch (error) {
             setErrMessage(error.message)
         }
@@ -26,8 +28,8 @@ const Login = () => {
     return (
         <div>
             <form onSubmit={handleSubmit}>
-                <input value={email} type="text" placeholder="Email" onChange={(e)=> setEmail(e.target.value)}/>
-                <input value={password} type="password " placeholder="Password" onChange={(e)=> setPassword(e.target.value)}/>
+                <Input value={email} type="text" placeholder="Email" onChange={(e)=> setEmail(e.target.value)}/>
+                <Input value={password} type="password " placeholder="Password" onChange={(e)=> setPassword(e.target.value)}/>
             </form>
         </div>
     )
