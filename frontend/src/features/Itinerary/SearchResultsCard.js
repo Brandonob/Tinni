@@ -1,7 +1,7 @@
 import React from "react"
 import {useDispatch, useSelector} from "react-redux"
 
-const Itinerary = ({result})=>{
+const SearchResult = ({result})=>{
     const{
         id,
         name,
@@ -35,4 +35,4 @@ const Itinerary = ({result})=>{
     )
 }
 
-export default Itinerary
+export default SearchResult

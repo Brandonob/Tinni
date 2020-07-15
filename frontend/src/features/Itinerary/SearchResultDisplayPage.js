@@ -1,23 +1,25 @@
 import React, {useEffect} from "react"
 import {useSelector} from "react-redux"
-import {searchResults} from "../SearchBar/SearchBarSlice"
+import {selectSearchResults} from "../SearchBar/SearchBarSlice"
 import {useHistory} from "react-router-dom"
-import Itinerary from "./itinerary"
+import SearchResult from "./SearchResultsCard"
 
 const ItineraryDisplayPage =()=>{
-    const itinResult = useSelector(searchResults)
+    const itineraryResult = useSelector(selectSearchResults)
     const history = useHistory()
-
-    useEffect(()=>{
-        return !itinResult.length ? history.push("/home"): undefined
-    }, [itinResult.length, history])
-
-    const results = itinResult.map((result)=>{
+   const displayResults = ()=>{
+     return(
+        itineraryResult.map((result)=>{
+      
         if(result.rating > 1){
-            return <Itinerary key={result.id} result={result}/>
+          return <SearchResult key={result.id} result={result}/>
         }
-    })
-
+      })
+     )
+   }
+   
+    
+   debugger
     return(
         <>
         {/* <Search/> */}
@@ -25,7 +27,7 @@ const ItineraryDisplayPage =()=>{
           <div className={"topHeader"}>
             <h2 id={"heading"}>Search Results</h2>
           </div>
-          {results}
+          {!itineraryResult.length ? <p>No Results Found</p>: displayResults()}
         </div>
         
       </>
