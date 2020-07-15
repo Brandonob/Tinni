@@ -1,15 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-// import searchReducer from "../features/SearchBar/SearchBarSlice";
 import usersReducer from "../features/Users/usersSlice"
+import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";                          
+import searchReducer from "../features/SearchBar/SearchBarSlice";
 import itinerariesReducer from "../features/Itinerary/itinerarySlice"
-
-// const reducer = {
-//   search: searchReducer,
-// };
+import logger from "redux-logger";
 
 export default configureStore({
-  reducer: {
-    users: usersReducer,
-    itineraries: itinerariesReducer,
-  },
+  reducer:{search: searchReducer,
+            users: usersReducer,},
+  middleware: [...getDefaultMiddleware(), logger],
 });
