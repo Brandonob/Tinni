@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import LocationSearch from "./locationSearch";
 import {receiveSearch} from "../SearchBar/SearchBarSlice";
 // const API_KEY = process.env.REACT_APP_API_KEY;
 const API_KEY =
@@ -23,20 +24,20 @@ const SearchBar = () => {
     }
   };
 
-  const searchLocation = async () => {
-    try {
-      navigator.geolocation.getCurrentPosition(async (position) => {
-        setLatitude(position.coords.latitude);
-        setLongitude(position.coords.longitude);
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const searchLocation = async () => {
+  //   try {
+  //     navigator.geolocation.getCurrentPosition(async (position) => {
+  //       setLatitude(position.coords.latitude);
+  //       setLongitude(position.coords.longitude);
+  //     });
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
-  useEffect(() => {
-    searchLocation();
-  }, []);
+  // useEffect(() => {
+  //   searchLocation();
+  // }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -63,27 +64,35 @@ const SearchBar = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="container">
-        <div className="left_side_searchTerm_div">
-          <input
-            className="searchTerm"
-            placeholder="search destinations"
-            value={term}
-            onChange={(e) => setTerm(e.currentTarget.value)}
-          />
-        </div>
-        <div className="right_side_location_div">
-          <input
+    <>
+      <p>Latitude1: {latitude}</p>
+      <p>Longitude1: {longitude}</p>
+      <form onSubmit={handleSubmit}>
+        <div className="container">
+          <div className="left_side_searchTerm_div">
+            <input
+              className="searchTerm"
+              placeholder="search term"
+              value={term}
+              onChange={(e) => setTerm(e.currentTarget.value)}
+            />
+          </div>
+          <div className="right_side_location_div">
+            {/* <input
             className="location"
             placeholder="search location"
             value={location}
             onChange={(e) => setLocation(e.currentTarget.value)}
-          />
+          /> */}
+            <LocationSearch
+              setLatitude={setLatitude}
+              setLongitude={setLongitude}
+            />
+          </div>
+          <button type="submit">Submit</button>
         </div>
-        <button type="submit">Submit</button>
-      </div>
-    </form>
+      </form>
+    </>
   );
 };
 
