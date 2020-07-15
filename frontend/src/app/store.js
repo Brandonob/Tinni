@@ -1,8 +1,12 @@
-import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
+
+import { configureStore } from "@reduxjs/toolkit";
+import usersReducer from "../features/Users/usersSlice"
+import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";                          
 import searchReducer from "../features/SearchBar/SearchBarSlice";
 import logger from "redux-logger";
 
 export default configureStore({
-  reducer:{search: searchReducer},
+  reducer:{search: searchReducer,
+            users: usersReducer,},
   middleware: [...getDefaultMiddleware(), logger],
 });
