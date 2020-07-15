@@ -19,7 +19,8 @@ function App() {
       </Route>
       <Route exact path={"/signup"}>
         <Signup />
-      </Route> 
+      </Route>
+       
     </div>
   );
 }
