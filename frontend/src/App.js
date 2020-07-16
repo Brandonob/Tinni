@@ -4,7 +4,7 @@ import { Route, Switch } from "react-router-dom";
 import Homepage from "./features/Home/home";
 
 import Login from "./features/Login/Login"
-
+import Signup from "./features/Login/Signup";
 import ItineraryDisplayPage from "./features/Itinerary/SearchResultDisplayPage"
 
 
@@ -14,22 +14,15 @@ function App() {
       <Route exact path={"/home"}>
         <Homepage />
       </Route>
-// <<<<<<< LoginPage
-//       {<Route exact path={"/itinerary"}>
-//         <Itinerarypage />
-// =======
-//        <Route exact path={"/itineraries"}>
-//         <ItineraryDisplayPage/>
-//       </Route>
-//       <Route exact path={"/signup"}>
-//         <SignUppage />
-//       </Route>}
-//       <Route exact path={"/login"}>
-//         <Login />
-//       </Route>
-//       <Route exact path={"/login"}>
-//         <Login />
-//       </Route> 
+        <Route exact path={"/itineraries"}>
+         <ItineraryDisplayPage/>
+       </Route>
+       <Route exact path={"/signup"}>
+         <SignUppage />
+       </Route>
+       <Route exact path={"/login"}>
+         <Login />
+       </Route>
     </div>
   );
 }
