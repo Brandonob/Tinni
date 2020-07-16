@@ -3,7 +3,9 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import LocationSearch from "./locationSearch";
-import {receiveSearch} from "../SearchBar/SearchBarSlice";
+import { receiveSearch } from "../SearchBar/SearchBarSlice";
+import TextField from "@material-ui/core/TextField";
+import "./searchbar.css";
 // const API_KEY = process.env.REACT_APP_API_KEY;
 const API_KEY =
   "8qnMAZ-CZ90tKgmGIL0GXzVK-teEHMAmfu0f-NlSKYgA-dSxs5WzkUz5DEu293l2ccgEUx9VMFEB3rMRMGXh0d7uU2cuybWSC91zVpq7-1l7Zq8LXBzoMVe9L8XvXnYx";
@@ -52,7 +54,6 @@ const SearchBar = () => {
     };
 
     try {
-     
       let res = await axios(config);
       debugger;
       dispatch(receiveSearch(res.data.businesses));
@@ -70,12 +71,22 @@ const SearchBar = () => {
       <form onSubmit={handleSubmit}>
         <div className="container">
           <div className="left_side_searchTerm_div">
-            <input
+            <TextField
+              onChange={(e) => setTerm(e.currentTarget.value)}
+              value={term}
+              className="searchTerm"
+              placeholder="adventure ideas"
+              id="outlined-basic"
+              label="adventure ideas"
+              variant="outlined"
+            />
+
+            {/* <input
               className="searchTerm"
               placeholder="search term"
               value={term}
               onChange={(e) => setTerm(e.currentTarget.value)}
-            />
+            /> */}
           </div>
           <div className="right_side_location_div">
             {/* <input
