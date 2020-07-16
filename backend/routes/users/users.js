@@ -1,16 +1,16 @@
 const users = require("express").Router();
-const userItineraries = require("./itineraryroutes");
+const userItinerariesRouter = require("./itineraries/userItineraries");
 const {
   createUser,
   getAllUsers,
   deleteUser,
   getSingleUser,
-} = require("../../queries/User/userQuery");
+} = require("../../queries/users/users");
 
-users.use("/:id/itineraries", userItineraries);
+users.use("/:id/itineraries", userItinerariesRouter);
 users.post("/", createUser);
-users.get("/all", getAllUsers);
+users.get("/", getAllUsers);
 users.delete("/:id", deleteUser);
-users.get("/singleUser/:id", getSingleUser);
+users.get("/:id", getSingleUser);
 
 module.exports = users;
