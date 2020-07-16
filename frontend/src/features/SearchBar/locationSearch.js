@@ -3,8 +3,20 @@ import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
 } from "react-places-autocomplete";
+import { makeStyles } from "@material-ui/core/styles";
+import AddLocationIcon from "@material-ui/icons/AddLocation";
+import TextField from "@material-ui/core/TextField";
+import InputAdornment from "@material-ui/core/InputAdornment";
+
+const useStyles = makeStyles((theme) => ({
+  margin: {
+    margin: theme.spacing(1),
+  },
+}));
 
 const LocationSearch = ({ setLatitude, setLongitude }) => {
+  const classes = useStyles();
+
   const [address, setAddress] = useState("");
   const [select, setSelect] = useState(false);
 
@@ -49,10 +61,27 @@ const LocationSearch = ({ setLatitude, setLongitude }) => {
       >
         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
           <div>
-            <input
+            <TextField
+              className="searchTerm"
+              placeholder="location"
+              id="outlined-basic"
+              label="location"
+              variant="outlined"
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <AddLocationIcon />
+                  </InputAdornment>
+                ),
+              }}
               {...getInputProps({ placeholder: "Type address" })}
               onFocus={handleFocus}
             />
+
+            {/* <input
+              {...getInputProps({ placeholder: "Type address" })}
+              onFocus={handleFocus}
+            /> */}
             <div>
               {select === true ? (
                 <li onClick={handleClick}>use current location</li>
