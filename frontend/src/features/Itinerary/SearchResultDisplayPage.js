@@ -4,6 +4,7 @@ import {selectSearchResults} from "../SearchBar/SearchBarSlice"
 import {useHistory} from "react-router-dom"
 import SearchResult from "./SearchResultsCard"
 
+
 const ItineraryDisplayPage =()=>{
     const itineraryResult = useSelector(selectSearchResults)
     const history = useHistory()
@@ -11,7 +12,7 @@ const ItineraryDisplayPage =()=>{
      return(
         itineraryResult.map((result)=>{
       
-        if(result.rating > 1){
+        if(result.rating > 3.5){
           return <SearchResult key={result.id} result={result}/>
         }
       })
