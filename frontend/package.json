@@ -13,6 +13,7 @@
     "firebase": "^7.16.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-firebaseui": "^4.1.0",
     "react-modal": "^3.11.2",
     "react-places-autocomplete": "^7.3.0",
     "react-redux": "^7.2.0",
