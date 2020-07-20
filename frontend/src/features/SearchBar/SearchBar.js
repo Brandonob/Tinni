@@ -6,11 +6,41 @@ import LocationSearch from "./locationSearch";
 import { receiveSearch } from "../SearchBar/SearchBarSlice";
 import TextField from "@material-ui/core/TextField";
 import "./searchbar.css";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
+import Paper from "@material-ui/core/Paper";
+import InputBase from "@material-ui/core/InputBase";
+import Divider from "@material-ui/core/Divider";
+import IconButton from "@material-ui/core/IconButton";
+import SearchIcon from "@material-ui/icons/Search";
+import PersonPinCircleOutlinedIcon from "@material-ui/icons/PersonPinCircleOutlined";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    padding: "2px 4px",
+    display: "flex",
+    alignItems: "center",
+    width: 600,
+  },
+  input: {
+    marginLeft: theme.spacing(1),
+    flex: 1,
+  },
+  iconButton: {
+    padding: 10,
+  },
+  divider: {
+    height: 28,
+    margin: 4,
+  },
+}));
+
 // const API_KEY = process.env.REACT_APP_API_KEY;
 const API_KEY =
   "8qnMAZ-CZ90tKgmGIL0GXzVK-teEHMAmfu0f-NlSKYgA-dSxs5WzkUz5DEu293l2ccgEUx9VMFEB3rMRMGXh0d7uU2cuybWSC91zVpq7-1l7Zq8LXBzoMVe9L8XvXnYx";
 
 const SearchBar = () => {
+  const classes = useStyles();
   const [location, setLocation] = useState("");
   const [term, setTerm] = useState("");
   const [latitude, setLatitude] = useState("");
@@ -26,25 +56,9 @@ const SearchBar = () => {
     }
   };
 
-  // const searchLocation = async () => {
-  //   try {
-  //     navigator.geolocation.getCurrentPosition(async (position) => {
-  //       setLatitude(position.coords.latitude);
-  //       setLongitude(position.coords.longitude);
-  //     });
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   searchLocation();
-  // }, []);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     const url = locationURL();
-
     const config = {
       method: "get",
       url: url,
@@ -66,43 +80,38 @@ const SearchBar = () => {
 
   return (
     <>
-      <p>Latitude1: {latitude}</p>
-      <p>Longitude1: {longitude}</p>
-      <form onSubmit={handleSubmit}>
-        <div className="container">
-          <div className="left_side_searchTerm_div">
-            <TextField
-              onChange={(e) => setTerm(e.currentTarget.value)}
-              value={term}
-              className="searchTerm"
-              placeholder="adventure ideas"
-              id="outlined-basic"
-              label="adventure ideas"
-              variant="outlined"
-            />
+      <Paper component="form" className={classes.root} onSubmit={handleSubmit}>
+        <InputBase
+          onChange={(e) => setTerm(e.currentTarget.value)}
+          value={term}
+          className={classes.input}
+          placeholder="Search term"
+          variant="outlined"
+          // fullWidth="false"
+          autoFocus="true"
+        />
+        <Divider className={classes.divider} orientation="vertical" />
+        <LocationSearch setLatitude={setLatitude} setLongitude={setLongitude} />
+        <Divider className={classes.divider} orientation="vertical" />
 
-            {/* <input
-              className="searchTerm"
-              placeholder="search term"
-              value={term}
-              onChange={(e) => setTerm(e.currentTarget.value)}
-            /> */}
-          </div>
-          <div className="right_side_location_div">
-            {/* <input
-            className="location"
-            placeholder="search location"
-            value={location}
-            onChange={(e) => setLocation(e.currentTarget.value)}
-          /> */}
-            <LocationSearch
-              setLatitude={setLatitude}
-              setLongitude={setLongitude}
-            />
-          </div>
-          <button type="submit">Submit</button>
-        </div>
-      </form>
+        <IconButton
+          color="primary"
+          className={classes.iconButton}
+          aria-label="directions"
+          onClick={handleSubmit}
+        >
+          <SearchIcon />
+          <Typography
+            component="small"
+            variant="small"
+            align="baseline"
+            color="primary"
+            margin="none"
+          >
+            Search
+          </Typography>
+        </IconButton>
+      </Paper>
     </>
   );
 };
