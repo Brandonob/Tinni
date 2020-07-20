@@ -1,3 +1,23 @@
-.container {
+/* .container {
   display: flex;
+} */
+#searchResultsDiv {
+  position: absolute;
+  background-color: white;
+  border: 1px solid #d4d4d4;
+  border-bottom: none;
+  border-top: none;
+  z-index: 99;
+  top: 100%;
+  left: 0;
+  right: 0;
+  width: 300px;
+}
+#searchResultItem {
+  min-width: fit-content;
+}
+#searchDiv {
+  position: relative;
+  display: inline-block;
+  /* width: 200px; */
 }
