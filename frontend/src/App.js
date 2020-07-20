@@ -6,7 +6,7 @@ import Homepage from "./features/Home/home";
 import Login from "./features/Login/Login";
 import Signup from "./features/Login/Signup";
 import ItineraryDisplayPage from "./features/Itinerary/SearchResultDisplayPage";
-
+import MapContainer from "./features/Map/Map"
 function App() {
   return (
     <div className="App">
@@ -21,6 +21,9 @@ function App() {
       </Route>
       <Route exact path={"/login"}>
         <Login />
+      </Route>
+      <Route exact path ={"/map"}>
+        <MapContainer/>
       </Route>
     </div>
   );
