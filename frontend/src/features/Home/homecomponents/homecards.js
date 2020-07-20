@@ -106,7 +106,7 @@ export default function HomeButtonCards({ trendingTopics }) {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
+    <div className={classes.root} style={{ justifyContent: "center" }}>
       {trendingTopics.map((image) => (
         <ButtonBase
           focusRipple

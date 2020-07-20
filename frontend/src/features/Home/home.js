@@ -177,10 +177,13 @@ export default function Album() {
                                                 CodeName IDA
                                             </Typography> */}
           <Typography variant="h6" color="inherit">
-            codname
+            codenameIDA
           </Typography>
+
           <Grid container spacing={2} justify="flex-end">
             <Grid item>
+              {/* options 1 */}
+              <SearchBar />
               {/* <Typography variant="h6" color="inherit" noWrap>
                                                   CodeName IDA
                                               </Typography> */}
@@ -237,6 +240,7 @@ export default function Album() {
                     Secondary action
                   </Button>
                 </Grid> */}
+                {/* option 2 */}
                 <SearchBar />
               </Grid>
             </div>

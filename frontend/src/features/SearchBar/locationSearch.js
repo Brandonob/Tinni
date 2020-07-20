@@ -4,9 +4,6 @@ import PlacesAutocomplete, {
   getLatLng,
 } from "react-places-autocomplete";
 import { makeStyles } from "@material-ui/core/styles";
-// import AddLocationIcon from "@material-ui/icons/AddLocation";
-// import TextField from "@material-ui/core/TextField";
-// import InputAdornment from "@material-ui/core/InputAdornment";
 import IconButton from "@material-ui/core/IconButton";
 import SearchIcon from "@material-ui/icons/Search";
 import PersonPinCircleOutlinedIcon from "@material-ui/icons/PersonPinCircleOutlined";
@@ -89,14 +86,7 @@ const LocationSearch = ({ setLatitude, setLongitude }) => {
               onFocus={handleFocus}
             />
 
-            {/* <input
-              {...getInputProps({ placeholder: "Type address" })}
-              onFocus={handleFocus}
-            /> */}
             <div id="searchResultsDiv">
-              {/* {select === true ? (
-                <li onClick={handleClick}>use current location</li>
-              ) : null} */}
               {loading ? <div>...loading</div> : null}
 
               {suggestions.map((suggestion) => {
@@ -117,10 +107,6 @@ const LocationSearch = ({ setLatitude, setLongitude }) => {
                     <LocationOnIcon fontSize="small" />
                     {suggestion.description}
                   </ListItem>
-
-                  /* <li {...getSuggestionItemProps(suggestion, { style })}>
-                    {suggestion.description}
-                  </li> */
                 );
               })}
             </div>
