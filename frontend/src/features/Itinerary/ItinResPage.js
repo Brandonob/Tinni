@@ -1,5 +1,3 @@
-//NEEWW
-
 import React from "react";
 import SearchBar from "../SearchBar/SearchBar.js";
 import {
@@ -18,8 +16,11 @@ import {
 import CameraIcon from "@material-ui/icons/PhotoCamera";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import HomeButtonCards from "./homecomponents/homecards";
-import "./home.css";
+import ItineraryList from "./ItineraryList";
+import CustomizedMenus from "./openclose";
+import Map from "../Map/Map";
+// import HomeButtonCards from "./homecomponents/homecards";
+// import "./home.css";
 
 function Copyright() {
   return (
@@ -76,12 +77,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
   },
-  cardMedia: {
-    paddingTop: "56.25%", // 16:9
-  },
-  cardContent: {
-    flexGrow: 1,
-  },
+
   footer: {
     backgroundColor: theme.palette.background.paper,
     padding: theme.spacing(6),
@@ -89,9 +85,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 // const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-const cards = [1, 2, 3];
+// const cards = [1, 2, 3];
 
-export default function Album() {
+export default function ItinResPage() {
   const classes = useStyles();
 
   return (
@@ -109,9 +105,7 @@ export default function Album() {
 
           <Grid container spacing={2} justify="flex-end">
             <Grid item>
-              {/* <Typography variant="h6" color="inherit" noWrap>
-                                                  CodeName IDA
-                                              </Typography> */}
+              <SearchBar />
             </Grid>
             <Grid item>
               <Button
@@ -132,80 +126,26 @@ export default function Album() {
         </Toolbar>
       </AppBar>
       <main>
-        {/* Hero unit */}
+        <Container maxWidth="md">
+          {/* End hero unit */}
+          {/* <ItineraryList /> */}
+          {/* <CustomizedMenus /> */}
+        </Container>
+        {/* <Map /> */}
         <div
-          className={classes.heroContent}
           style={{
-            backgroundImage: `url("https://images.unsplash.com/photo-1584967918940-a7d51b064268?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=80")`,
+            width: "500px",
+            height: "500px",
+            position: "relative",
+            paddingBottom: "20px",
           }}
         >
-          <Container maxWidth="sm">
-            <Typography
-              component="h4"
-              variant="h4"
-              align="center"
-              color="secondary"
-              gutterBottom
-            >
-              LOGO CODE NAME IDA
-            </Typography>
-            <Typography variant="h5" align="center" color="secondary" paragraph>
-              Create your perfect iternary or take on an adventure made by one
-              of our users
-            </Typography>
-            <div className={classes.heroButtons}>
-              <Grid container spacing={2} justify="center">
-                {/* <Grid item>
-                  <Button variant="contained" color="primary">
-                    Main call to action
-                  </Button>
-                </Grid>
-                <Grid item>
-                  <Button variant="outlined" color="primary">
-                    Secondary action
-                  </Button>
-                </Grid> */}
-                {/* option 2 */}
-                <div style={{ backgroundColor: "#004346", height: "5em" }}>
-                  <SearchBar />
-                </div>
-              </Grid>
-            </div>
-          </Container>
+          <CustomizedMenus />
+          <Map />
         </div>
-        <Container className={classes.cardGrid} maxWidth="md">
-          {/* End hero unit */}
-          <Typography
-            component="h2"
-            variant="h4"
-            align="center"
-            color="Primary"
-            gutterBottom
-            id="section-name-Typ"
-          >
-            Trending Topics
-          </Typography>
-          <Grid container spacing={5}>
-            <HomeButtonCards trendingTopics={trendingTopics} />
-          </Grid>
-        </Container>
-
-        <Container className={classes.cardGrid} maxWidth="md">
-          {/* End hero unit */}
-          <Typography
-            component="h2"
-            variant="h4"
-            align="center"
-            color="Primary"
-            id="section-name-Typ"
-            // gutterBottom
-          >
-            Trending Iternary
-          </Typography>
-          <Grid container spacing={5}>
-            <HomeButtonCards trendingTopics={trendingTopics} />
-          </Grid>
-        </Container>
+        {/* <Container className={classes.cardGrid} maxWidth="md"> */}
+        {/* End hero unit */}
+        {/* </Container> */}
       </main>
       {/* Footer */}
       <hr />
