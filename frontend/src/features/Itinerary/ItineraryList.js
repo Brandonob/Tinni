@@ -17,7 +17,7 @@ import EditIcon from "@material-ui/icons/Edit";
 const getItems = (count) =>
   Array.from({ length: count }, (v, k) => k).map((k) => ({
     id: `item-${k}`,
-    primary: `item ${k}`,
+    primary: `Stop ${k}`,
     secondary: k % 2 === 0 ? `Whatever for ${k}` : undefined,
   }));
 
@@ -44,7 +44,7 @@ const getListStyle = (isDraggingOver) => ({
 });
 
 const ItneraryList = () => {
-  const [items, setItems] = useState(getItems(10));
+  const [items, setItems] = useState(getItems(5));
   //   const onDragEnd = onDragEnd.bind();
 
   const onDragEnd = async (result) => {
@@ -80,13 +80,14 @@ const ItneraryList = () => {
                         provided.draggableProps.style
                       )}
                     >
-                      <ListItemIcon>
-                        <InboxIcon />
-                      </ListItemIcon>
+                      {/* <ListItemIcon> */}
+                      {/* <p>{index}<p/> */}
+                      {/* </ListItemIcon> */}
                       <ListItemText
                         primary={item.primary}
                         secondary={item.secondary}
                       />
+                      <p>{index}</p>
                       <ListItemSecondaryAction>
                         <IconButton>
                           <EditIcon />

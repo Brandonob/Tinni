@@ -19,6 +19,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import ItineraryList from "./ItineraryList";
 import CustomizedMenus from "./openclose";
 import Map from "../Map/Map";
+import ItineraryDisplayPage from "./SearchResultDisplayPage";
 // import HomeButtonCards from "./homecomponents/homecards";
 // import "./home.css";
 
@@ -26,9 +27,9 @@ function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
-      <Link color="inherit" href="https://material-ui.com/">
+      <Link color="inherit" href="/home">
         CodeName IDA
-      </Link>{" "}
+      </Link>
       {new Date().getFullYear()}
     </Typography>
   );
@@ -100,7 +101,8 @@ export default function ItinResPage() {
                                                 CodeName IDA
                                             </Typography> */}
           <Typography variant="h6" color="inherit">
-            codenameIDA
+            <Link href="/home">codenameIDA</Link>
+            <Link href="/home">codenameIDA</Link>
           </Typography>
 
           <Grid container spacing={2} justify="flex-end">
@@ -126,11 +128,11 @@ export default function ItinResPage() {
         </Toolbar>
       </AppBar>
       <main>
-        <Container maxWidth="md">
-          {/* End hero unit */}
-          {/* <ItineraryList /> */}
-          {/* <CustomizedMenus /> */}
-        </Container>
+        {/* <Container maxWidth="md"> */}
+        {/* End hero unit */}
+        {/* <ItineraryList /> */}
+        {/* <CustomizedMenus /> */}
+        {/* </Container> */}
         {/* <Map /> */}
         <div
           style={{
@@ -142,6 +144,7 @@ export default function ItinResPage() {
         >
           <CustomizedMenus />
           <Map />
+          <div></div>
         </div>
         {/* <Container className={classes.cardGrid} maxWidth="md"> */}
         {/* End hero unit */}
@@ -149,7 +152,8 @@ export default function ItinResPage() {
       </main>
       {/* Footer */}
       <hr />
-      <footer className={classes.footer}>
+      <ItineraryDisplayPage />
+      {/* <footer className={classes.footer}>
         <Typography variant="h6" align="center" gutterBottom>
           Footer
         </Typography>
@@ -162,7 +166,7 @@ export default function ItinResPage() {
           Something here to give the footer a purpose!
         </Typography>
         <Copyright />
-      </footer>
+      </footer> */}
       {/* End footer */}
     </>
   );
