@@ -93,7 +93,7 @@ const LocationSearch = ({ setLatitude, setLongitude }) => {
                 const style = {
                   backgroundColor: suggestion.active ? "#068360" : "#fff",
                 };
-                debugger;
+              
                 return (
                   <ListItem
                     // component="small"

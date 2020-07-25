@@ -10,17 +10,32 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import {setBusiness} from "../BusinessInfo/BusinessInfoSlice"
 import {updateModal, modalState} from "../Modal/ModalSlice"
+import axios from "axios"
+import {useHistory} from "react-router-dom"
+import itinerariesSlice from "../Itinerary/itinerarySlice"
+import currentItinerarySlice from "../CurrentItinerary/currentItinerarySlice"
+import {addItemToItin, selectCurrentItin} from "../CurrentItinerary/currentItinerarySlice"
+
+
+
 import "../CSS/result.css"
+import { current } from "@reduxjs/toolkit";
 const SearchResult = ({result})=>{
+const currentItinerary = useSelector(selectCurrentItin)
     const{
         id,
         name,
         image_url,
         review_count, 
         rating,
+        categories,
         price,
         display_phone,
-        categories,
+        latitude,
+        longitude,
+        location,
+        term,
+        category
     } = result
 
     const useStyles = makeStyles({
@@ -28,7 +43,8 @@ const SearchResult = ({result})=>{
         maxWidth: 700,
       },
     });
-
+    const history = useHistory()
+    const dispatch = useDispatch()
     const classes = useStyles()
     // const dispatch = useDispatch()
     // const isOpen = useSelector(modalState);
@@ -39,6 +55,46 @@ const SearchResult = ({result})=>{
     // };
 
 
+    
+    const addItinerary = async (e)=>{
+      e.preventDefault()
+
+      let body = {location,
+                  latitude,
+                  longitude,
+                  location,
+                  term, 
+                  category,
+                  name
+       }
+      dispatch(addItemToItin(body))
+      // const currentItinerary = useSelector(currentItinerarySlice)
+      //  console.log(currentItinerary)
+     
+      
+
+      // const url = 'http://localhost:3001'
+      // let itineraries = await axios.post(`${url}/itineraries`,{
+      //   title: "myItinerary",
+      //   user_id: 2,
+      //   itinerary_id: '2020-07-07'
+      // })
+
+    
+      
+      // const url = 'http://localhost:3001/itineraryActivity'
+      // debugger
+      // try{
+      //   await axios.post(url,{
+      //     name:name
+      //   })
+      //   history.push("/itineraries")
+      // }catch(err){
+      //   console.log(err)
+      // }
+    }
+
+    console.log(currentItinerary)
     return(
       //   <div className={"restaurantCard"} key={id} value={id}>
       //   <div className={"basicInfo"}>
@@ -76,7 +132,7 @@ const SearchResult = ({result})=>{
         <Button size="small" color="primary">
           More Info
         </Button>
-        <Button size="small" color="primary">
+        <Button onClick = {addItinerary}size="small" color="primary">
           Add To Itinerary
         </Button>
       </CardActions>

@@ -27,6 +27,9 @@ const addActivityToItinerary = async (req, res, next) => {
     let activityAdded = await db.one(
       `INSERT INTO activities (itin_id , location, longitude, latitude, activity_name, category,activity_time) VALUES ('${req.body.itin_id}','${req.body.location}','${req.body.longitude}','${req.body.latitude}','${req.body.activity_name}','${req.body.images}','${req.body.activity_time}') RETURNING *`
     );
+    await db.one(
+      
+    )
     res.status(200).json({
       status: "success",
       message: "added new activity",
@@ -39,7 +42,7 @@ const addActivityToItinerary = async (req, res, next) => {
       payload: null,
     });
     next(err);
-  }
+  } 
 };
 
   module.exports = {fetchItineraryActivites, addActivityToItinerary}

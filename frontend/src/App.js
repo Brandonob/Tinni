@@ -6,9 +6,9 @@ import { ThemeProvider } from "@material-ui/core/styles";
 import theme from "./theme";
 // const theme = {};
 
-import Login from "./features/Login/Login";
+import Login from "./features/Login/Login"
 import Signup from "./features/Login/Signup";
-import ItineraryDisplayPage from "./features/Itinerary/SearchResultDisplayPage";
+import ItineraryDisplayPage from "./features/Search/SearchResultDisplayPage";
 import MapContainer from "./features/Map/Map"
 function App() {
   return (
@@ -17,7 +17,7 @@ function App() {
         <Route exact path={"/home"}>
           <Homepage />
         </Route>
-        <Route exact path={"/itineraries"}>
+        <Route exact path={"/search"}>
           <ItineraryDisplayPage />
         </Route>
         <Route exact path={"/signup"}>

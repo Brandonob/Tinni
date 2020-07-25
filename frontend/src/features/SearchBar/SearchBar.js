@@ -72,7 +72,7 @@ const SearchBar = () => {
       debugger;
       dispatch(receiveSearch(res.data.businesses));
       debugger;
-      history.push("/itineraries");
+      history.push("/search");
     } catch (error) {
       console.log(error);
     }
