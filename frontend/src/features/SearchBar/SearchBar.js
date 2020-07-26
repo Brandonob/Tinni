@@ -8,10 +8,10 @@ import TextField from "@material-ui/core/TextField";
 import "./searchbar.css";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
-import InputBase from "@material-ui/core/InputBase";
-import Divider from "@material-ui/core/Divider";
-import IconButton from "@material-ui/core/IconButton";
+import { Paper, InputBase, Divider, IconButton } from "@material-ui/core";
+// import InputBase from "@material-ui/core/InputBase";
+// import Divider from "@material-ui/core/Divider";
+// import IconButton from "@material-ui/core/IconButton";
 import SearchIcon from "@material-ui/icons/Search";
 import PersonPinCircleOutlinedIcon from "@material-ui/icons/PersonPinCircleOutlined";
 
@@ -72,7 +72,7 @@ const SearchBar = () => {
       debugger;
       dispatch(receiveSearch(res.data.businesses));
       debugger;
-      history.push("/search");
+      history.push("/ItinResPage");
     } catch (error) {
       console.log(error);
     }

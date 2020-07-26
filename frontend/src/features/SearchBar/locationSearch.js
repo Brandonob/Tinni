@@ -5,9 +5,7 @@ import PlacesAutocomplete, {
 } from "react-places-autocomplete";
 import { makeStyles } from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
-import SearchIcon from "@material-ui/icons/Search";
 import PersonPinCircleOutlinedIcon from "@material-ui/icons/PersonPinCircleOutlined";
-import { InputAdornment } from "@material-ui/core";
 import { Typography, ListItem } from "@material-ui/core";
 import InputBase from "@material-ui/core/InputBase";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
