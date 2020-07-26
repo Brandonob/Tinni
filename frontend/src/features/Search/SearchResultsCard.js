@@ -65,7 +65,7 @@ const currentItinerary = useSelector(selectCurrentItin)
                   location,
                   term, 
                   category,
-                  name
+                  name,
        }
       dispatch(addItemToItin(body))
       // const currentItinerary = useSelector(currentItinerarySlice)
