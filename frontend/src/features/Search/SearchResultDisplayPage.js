@@ -2,7 +2,7 @@ import React, {useEffect} from "react"
 import {useSelector} from "react-redux"
 import {selectSearchResults} from "../SearchBar/SearchBarSlice"
 import {useHistory} from "react-router-dom"
-import SearchResult from "./SearchResultsCard"
+import SearchResult from "../Search/SearchResultsCard"
 
 
 const ItineraryDisplayPage =()=>{
