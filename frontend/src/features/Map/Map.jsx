@@ -40,7 +40,7 @@ import {
   InfoWindow
 } from "@react-google-maps/api"
 import {formatRelative} from "date-fns"
-
+import mapStyles from "./mapStyles"
 const libraries = ["places"]
 const mapContainerStyle = {
   width: "100vw",
@@ -49,6 +49,12 @@ const mapContainerStyle = {
 const center = {
   lat: 40.73,
   lng: -73.93
+}
+const options = {
+  styles: mapStyles,
+  disableDefaultUI: true,
+  zoomControl: true,
+  streetViewControl: true,
 }
 
 export default function App() {
@@ -62,8 +68,9 @@ export default function App() {
   return <div>
     <GoogleMap
     mapContainerStyle={mapContainerStyle}
-    zoom={8}
+    zoom={12}
     center={center}
+    options={options}
     ></GoogleMap>
   </div>
 }
