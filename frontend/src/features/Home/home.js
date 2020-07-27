@@ -1,76 +1,3 @@
-// //homepage
-// import React from "react";
-// import SearchBar from "../SearchBar/SearchBar.js";
-// // import ProductCategories from "./modules/views/ProductCategories";
-// // import ProductSmokingHero from "./modules/views/ProductSmokingHero";
-// // import AppFooter from "./modules/views/AppFooter";
-// // import ProductHero from "./modules/views/ProductHero";
-// // import ProductValues from "./modules/views/ProductValues";
-// // import ProductHowItWorks from "./modules/views/ProductHowItWorks";
-// // import ProductCTA from "./modules/views/ProductCTA";
-// // import NewsCard2Demo from "./homecomponents.js/homecards";
-// let img =
-//   "https://images.unsplash.com/photo-1531299204812-e6d44d9a185c?auto=format&amp;fit=crop&amp;w=400&amp;q=80";
-
-// const Homepage = () => {
-//   return (
-//     <div>
-//       <p>Homepage</p>
-//       {/* <NewsCard2Demo /> */}
-//       <SearchBar />
-//       {/* <button
-//         class="MuiButtonBase-root-140 jss252"
-//         Tabindex="0"
-//         Type="button"
-//         style={{
-//           Width: "40%",
-//         }}
-//       >
-//         <div
-//           class="jss254"
-//           style={{
-//             backgroundImage: `url(${img})`,
-//             // backgroundRepeat: "no-repeat",
-//             width: "250px",
-//             height: "250px",
-//             // textAlign: "center",
-//             // color: "white",
-//             backgroundPosition: "center",
-//             backgroundRepeat: "no-repeat",
-//             backgroundSize: "cover",
-//             // height: "100%",
-//           }}
-//           // url(https://images.unsplash.com/photo-1531299204812-e6d44d9a185c?auto=format&amp;fit=crop&amp;w=400&amp;q=80)"
-//         ></div>
-//         <div class="jss255"></div>
-//         <div class="jss253">
-//           <h3
-//             class="MuiTypography-root-59 jss256 MuiTypography-h6-69 MuiTypography-colorInherit-81"
-//             style={{
-//               paddingTop: "16px",
-//               paddingRight: "32px",
-//               paddingBottom: "14px",
-//               paddingLeft: "32px",
-//               position: "relative",
-//             }}
-//           >
-//             Snorkeling<div class="jss257"></div>
-//           </h3>
-//         </div>
-//         <span class="MuiTouchRipple-root-360"></span>
-//       </button> */}
-//       {/* <AppAppBar /> */}
-//       {/* <ProductHero />
-//       <ProductValues />
-//       <ProductCategories />
-//       <ProductHowItWorks />
-//       <ProductCTA />
-//       <ProductSmokingHero />
-//       <AppFooter /> */}
-//     </div>
-//   );
-// };
-
 //NEEWW
 
 import React, {useState, useEffect} from "react";
@@ -208,8 +135,6 @@ export default function Album() {
 
           <Grid container spacing={2} justify="flex-end">
             <Grid item>
-              {/* options 1 */}
-              <SearchBar />
               {/* <Typography variant="h6" color="inherit" noWrap>
                                                   CodeName IDA
                                               </Typography> */}
@@ -268,7 +193,9 @@ export default function Album() {
                   </Button>
                 </Grid> */}
                 {/* option 2 */}
-                <SearchBar />
+                <div style={{ backgroundColor: "#004346", height: "5em" }}>
+                  <SearchBar />
+                </div>
               </Grid>
             </div>
           </Container>
@@ -281,6 +208,7 @@ export default function Album() {
             align="center"
             color="Primary"
             gutterBottom
+            id="section-name-Typ"
           >
             Trending Topics
           </Typography>
@@ -288,6 +216,7 @@ export default function Album() {
             <HomeButtonCards trendingTopics={trendingTopics} />
           </Grid>
         </Container>
+
         <Container className={classes.cardGrid} maxWidth="md">
           {/* End hero unit */}
           <Typography
@@ -295,7 +224,8 @@ export default function Album() {
             variant="h4"
             align="center"
             color="Primary"
-            gutterBottom
+            id="section-name-Typ"
+            // gutterBottom
           >
             Trending Iternary
           </Typography>
@@ -305,6 +235,7 @@ export default function Album() {
         </Container>
       </main>
       {/* Footer */}
+      <hr />
       <footer className={classes.footer}>
         <Typography variant="h6" align="center" gutterBottom>
           Footer

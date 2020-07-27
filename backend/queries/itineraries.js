@@ -40,8 +40,10 @@ const getItinById = async (req, res, next) => {
 const addItin = async (req, res, next) => {
   try {
     let data = req.body
-    let itin = await db.one("INSERT INTO itineraries (user_id,itinerary_date,title) VALUES (${user_id}, ${itinerary_date}, ${title}) RETURNING *", data)
-
+    console.log(data)
+    console.log(data.user_id)
+    let itin = await db.any("INSERT INTO itineraries (user_id,itinerary_date,title) VALUES (${user_id}, ${itinerary_date}, ${title}) RETURNING *", data)
+    
     res.status(200).json({
       status: "Success",
       message: "Itinerary has been successfully created.",
