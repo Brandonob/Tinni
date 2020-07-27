@@ -66,6 +66,9 @@ export default function App() {
   if (loadError) return "Error loading maps"
   if (!isLoaded) return "Loading maps"
   return <div>
+  <h1>
+    Codename Ida {" "} <span role="img" aria-label="world map">🗺</span>
+  </h1>
     <GoogleMap
     mapContainerStyle={mapContainerStyle}
     zoom={12}
