@@ -12,7 +12,7 @@ import {
 import RootRef from "@material-ui/core/RootRef";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import InboxIcon from "@material-ui/icons/Inbox";
-import EditIcon from "@material-ui/icons/Edit";
+
 import {
   addItemToItin,
   selectCurrentItin,
