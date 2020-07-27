@@ -73,7 +73,7 @@
 
 //NEEWW
 
-import React from "react";
+import React, {useState, useEffect} from "react";
 import SearchBar from "../SearchBar/SearchBar.js";
 import {
   AppBar,
@@ -93,6 +93,9 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import HomeButtonCards from "./homecomponents/homecards";
 import "./home.css";
+import { addUser, logOutUser } from '../Users/usersSlice';
+import { useDispatch } from 'react-redux'
+import firebase from 'firebase/app'
 
 function Copyright() {
   return (
@@ -166,6 +169,29 @@ const cards = [1, 2, 3];
 
 export default function Album() {
   const classes = useStyles();
+  const [currentUser, setCurrentUser] = useState("");
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged(user => {
+      if(user) {
+        setCurrentUser(user)
+      }
+    })
+  }, [])
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    firebase.auth().signOut()
+    setCurrentUser("")
+    //call other actions to clear react state
+  }
+
+  const handleUser = () => {
+    dispatch(addUser(currentUser.providerData[0].uid))
+    //calls to save user into backend
+  }
 
   return (
     <>
@@ -202,6 +228,7 @@ export default function Album() {
               <Button variant="outlined" color="secondary" href="./login">
                 signup
               </Button>
+              {currentUser ? <Button onClick={handleClick} variant="outlined" color="secondary" >logout</Button> : null}
             </Grid>
           </Grid>
         </Toolbar>
@@ -293,6 +320,9 @@ export default function Album() {
         <Copyright />
       </footer>
       {/* End footer */}
+      {/* {console.log(firebase.auth().currentUser)} */}
+      {currentUser ? handleUser() : null}
+    
     </>
-  );
+    );
 }

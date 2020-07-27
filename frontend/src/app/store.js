@@ -12,7 +12,7 @@ export default configureStore({
     modal: modalReducer,
     business: businessReducer,
     users: usersReducer,
-    itineraries: itinerariesReducer,
+    // itineraries: itinerariesReducer,
   },
   middleware: [...getDefaultMiddleware(), logger],
 });
