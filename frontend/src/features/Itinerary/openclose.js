@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
@@ -9,6 +9,11 @@ import InboxIcon from "@material-ui/icons/MoveToInbox";
 import DraftsIcon from "@material-ui/icons/Drafts";
 import SendIcon from "@material-ui/icons/Send";
 import ItneraryList from "./ItineraryList";
+import { useSelector } from "react-redux";
+import {
+  addItemToItin,
+  selectCurrentItin,
+} from "../CurrentItinerary/currentItinerarySlice";
 
 const StyledMenu = withStyles({
   paper: {
@@ -42,7 +47,9 @@ const StyledMenuItem = withStyles((theme) => ({
 }))(MenuItem);
 
 export default function CustomizedMenus() {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const currentItinerary = useSelector(selectCurrentItin);
+
+  const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -70,7 +77,7 @@ export default function CustomizedMenus() {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <ItneraryList />
+        <ItneraryList currentItinerary={currentItinerary} />
       </StyledMenu>
     </div>
   );

@@ -5,12 +5,10 @@ import Homepage from "./features/Home/home";
 import { ThemeProvider } from "@material-ui/core/styles";
 import theme from "./theme";
 
-
-
 import ItinResPage from "./features/Itinerary/ItinResPage";
 import Login from "./features/Login/Login";
 import Signup from "./features/Login/Signup";
-import ItineraryDisplayPage from "./features/Itinerary/SearchResultDisplayPage";
+// import ItineraryDisplayPage from "./features/Itinerary/SearchResultDisplayPage";
 import MapContainer from "./features/Map/Map";
 
 function App() {
@@ -20,9 +18,9 @@ function App() {
         <Route exact path={"/home"}>
           <Homepage />
         </Route>
-        <Route exact path={"/search"}>
+        {/* <Route exact path={"/search"}>
           <ItineraryDisplayPage />
-        </Route>
+        </Route> */}
         <Route exact path={"/signup"}>
           <Signup />
         </Route>
