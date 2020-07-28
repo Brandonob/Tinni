@@ -47,7 +47,7 @@ const StyledMenuItem = withStyles((theme) => ({
 }))(MenuItem);
 
 export default function CustomizedMenus() {
-  const currentItinerary = useSelector(selectCurrentItin);
+  // const currentItinerary = useSelector(selectCurrentItin);
 
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -77,7 +77,7 @@ export default function CustomizedMenus() {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <ItneraryList currentItinerary={currentItinerary} />
+        <ItneraryList/>
       </StyledMenu>
     </div>
   );
