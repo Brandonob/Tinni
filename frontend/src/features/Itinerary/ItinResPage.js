@@ -17,9 +17,11 @@ import {
 import CameraIcon from "@material-ui/icons/PhotoCamera";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import ItineraryDisplayPage from "../Search/SearchResultDisplayPage";
 import CustomizedMenus from "./openclose";
 import Map from "../Map/Map";
+
+import ItineraryDisplayPage from "../Search/SearchResultDisplayPage"
+
 import ResultsDisplayCard from "../ResultsDisplay/ResultsDisplayCard";
 
 import {
