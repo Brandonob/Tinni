@@ -10,7 +10,7 @@ import theme from "./theme";
 import ItinResPage from "./features/Itinerary/ItinResPage";
 import Login from "./features/Login/Login";
 import Signup from "./features/Login/Signup";
-import ItineraryDisplayPage from "./features/Itinerary/SearchResultDisplayPage";
+import ItineraryDisplayPage from "./features/Search/SearchResultDisplayPage"
 import MapContainer from "./features/Map/Map";
 
 function App() {

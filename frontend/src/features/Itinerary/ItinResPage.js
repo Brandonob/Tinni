@@ -19,7 +19,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import ItineraryList from "./ItineraryList";
 import CustomizedMenus from "./openclose";
 import Map from "../Map/Map";
-import ItineraryDisplayPage from "./SearchResultDisplayPage";
+import ItineraryDisplayPage from "../Search/SearchResultDisplayPage"
 // import HomeButtonCards from "./homecomponents/homecards";
 // import "./home.css";
 
