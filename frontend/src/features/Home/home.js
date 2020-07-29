@@ -1,6 +1,6 @@
 //NEEWW
 
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import SearchBar from "../SearchBar/SearchBar.js";
 import {
   AppBar,
@@ -20,9 +20,9 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import HomeButtonCards from "./homecomponents/homecards";
 import "./home.css";
-import { addUser, logOutUser } from '../Users/usersSlice';
-import { useDispatch } from 'react-redux'
-import firebase from 'firebase/app'
+import { addUser, logOutUser } from "../Users/usersSlice";
+import { useDispatch } from "react-redux";
+import firebase from "firebase/app";
 
 function Copyright() {
   return (
@@ -39,7 +39,7 @@ const trendingTopics = [
   {
     url:
       "https://www.thenewpotato.com/wp-content/uploads/2017/06/best-burger-new-york-2017.jpg",
-    title: "Brugers",
+    title: "Burgers",
     margin: "1px",
     width: "30%",
   },
@@ -101,24 +101,25 @@ export default function Album() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    firebase.auth().onAuthStateChanged(user => {
-      if(user) {
-        setCurrentUser(user)
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        console.log("User has successfullylogged in!");
+        setCurrentUser(user);
       }
-    })
-  }, [])
+    });
+  }, []);
 
   const handleClick = (e) => {
     e.preventDefault();
-    firebase.auth().signOut()
-    setCurrentUser("")
+    firebase.auth().signOut();
+    setCurrentUser("");
     //call other actions to clear react state
-  }
+  };
 
   const handleUser = () => {
-    dispatch(addUser(currentUser.providerData[0].uid))
+    dispatch(addUser(currentUser.uid));
     //calls to save user into backend
-  }
+  };
 
   return (
     <>
@@ -140,20 +141,32 @@ export default function Album() {
                                               </Typography> */}
             </Grid>
             <Grid item>
-              <Button
-                id="navbarButton"
-                variant="contained"
-                color="secondary"
-                href="./login"
-              >
-                login
-              </Button>
+              {currentUser ? null : (
+                <Button
+                  id="navbarButton"
+                  variant="contained"
+                  color="secondary"
+                  href="./login"
+                >
+                  login
+                </Button>
+              )}
             </Grid>
             <Grid item>
-              <Button variant="outlined" color="secondary" href="./login">
-                signup
-              </Button>
-              {currentUser ? <Button onClick={handleClick} variant="outlined" color="secondary" >logout</Button> : null}
+              {currentUser ? null : (
+                <Button variant="outlined" color="secondary" href="./login">
+                  signup
+                </Button>
+              )}
+              {currentUser ? (
+                <Button
+                  onClick={handleClick}
+                  variant="outlined"
+                  color="secondary"
+                >
+                  logout
+                </Button>
+              ) : null}
             </Grid>
           </Grid>
         </Toolbar>
@@ -253,7 +266,6 @@ export default function Album() {
       {/* End footer */}
       {/* {console.log(firebase.auth().currentUser)} */}
       {currentUser ? handleUser() : null}
-    
     </>
-    );
+  );
 }

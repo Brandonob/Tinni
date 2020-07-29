@@ -59,6 +59,15 @@ export default function CustomizedMenus() {
 
   const [anchorEl, setAnchorEl] = useState(null);
 
+  const navButton = () => {
+    return (
+      <>
+        <button>Review/Share itnerary</button>
+        <button>Save itnerary</button>
+      </>
+    );
+  };
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -88,9 +97,9 @@ export default function CustomizedMenus() {
         >
           <ItneraryList />
           {currentItinerary.length ? (
-            <button>review itnerary</button>
+            navButton()
           ) : (
-            <p>Add to Itinerary</p>
+            <p>Add Items to Itinerary</p>
           )}
         </StyledMenu>
       </Badge>

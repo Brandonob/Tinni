@@ -1,7 +1,7 @@
 import React, { Component, useState } from "react";
 import ReactDOM from "react-dom";
 import { useSelector, useDispatch } from "react-redux";
-import {updateItin} from "../CurrentItinerary/currentItinerarySlice"
+import { updateItin } from "../CurrentItinerary/currentItinerarySlice";
 import {
   List,
   ListItem,
@@ -61,19 +61,23 @@ const ItneraryList = () => {
     if (!result.destination) {
       return;
     }
-
+    const items = reorder(
+      currentItinerary,
+      result.source.index,
+      result.destination.index
+    );
+    dispatch(updateItin(items));
     // setItems(reorder(items, result.source.index, result.destination.index));
 
     // await setItems(items);
   };
- 
-  const dispatch = useDispatch()
-  const deleteItin = (e)=>{
-    debugger
-    // let updatedItinerary = currentItinerary.splice(e.currentTarget.id,1) 
-    dispatch(updateItin(currentItinerary, e.currentTarget.id))
-  }
 
+  const dispatch = useDispatch();
+  const deleteItin = (e) => {
+    debugger;
+    // let updatedItinerary = currentItinerary.splice(e.currentTarget.id,1)
+    dispatch(updateItin(currentItinerary, e.currentTarget.id));
+  };
 
   // Normally you would want to split things out into separate components.
   // But in this example everything is just done in one place for simplicity
@@ -100,7 +104,7 @@ const ItneraryList = () => {
                         provided.draggableProps.style
                       )}
                     >
-                      <p> {index+1}</p>
+                      <p> {index + 1}</p>
                       <ListItemText
                         style={{ margin: "5px" }}
                         primary={item.body.name}
@@ -108,7 +112,7 @@ const ItneraryList = () => {
                       />
 
                       <ListItemSecondaryAction>
-                        <IconButton onClick = {deleteItin} id={index}>
+                        <IconButton onClick={deleteItin} id={index}>
                           <HighlightOffIcon />
                         </IconButton>
                       </ListItemSecondaryAction>

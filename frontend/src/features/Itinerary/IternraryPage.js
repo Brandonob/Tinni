@@ -20,7 +20,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import CustomizedMenus from "./openclose";
 import Map from "../Map/Map";
 
-import ItineraryDisplayPage from "../Search/SearchResultDisplayPage"
+import ItineraryDisplayPage from "../Search/SearchResultDisplayPage";
 
 import ResultsDisplayCard from "../ResultsDisplay/ResultsDisplayCard";
 
