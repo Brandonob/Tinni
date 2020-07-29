@@ -103,7 +103,9 @@ export default function Album() {
   useEffect(() => {
     firebase.auth().onAuthStateChanged(user => {
       if(user) {
+        console.log("User has successfullylogged in!");
         setCurrentUser(user)
+
       }
     })
   }, [])
@@ -116,7 +118,7 @@ export default function Album() {
   }
 
   const handleUser = () => {
-    dispatch(addUser(currentUser.providerData[0].uid))
+    dispatch(addUser(currentUser.uid))
     //calls to save user into backend
   }
 
@@ -140,6 +142,7 @@ export default function Album() {
                                               </Typography> */}
             </Grid>
             <Grid item>
+              {currentUser ? null :
               <Button
                 id="navbarButton"
                 variant="contained"
@@ -148,12 +151,22 @@ export default function Album() {
               >
                 login
               </Button>
+              }
             </Grid>
             <Grid item>
+            {currentUser ? null :
               <Button variant="outlined" color="secondary" href="./login">
                 signup
               </Button>
-              {currentUser ? <Button onClick={handleClick} variant="outlined" color="secondary" >logout</Button> : null}
+}
+              {currentUser ? 
+              <Button 
+              onClick={handleClick} 
+              variant="outlined" 
+              color="secondary" 
+              >
+                logout
+              </Button> : null}
             </Grid>
           </Grid>
         </Toolbar>
