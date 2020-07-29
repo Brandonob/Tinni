@@ -17,7 +17,7 @@ const mapContainerStyle = {
   width: "100vw",
   height: "100vh"
 }
-const center = {
+const defaultCenter = {
   lat: 40.73,
   lng: -73.93
 }
@@ -31,23 +31,28 @@ const options = {
 
 export default function App() {
   const searchResults = useSelector(selectSearchResults)
-  const markers = searchResults.map((location) => {
+
+  const curatedSearchResults = searchResults.filter(location => location.rating > 3.5)
+
+  const markers = curatedSearchResults.map((location) => {
     let {id, coordinates} = location
-
-   if (location.rating > 3.5){
-    return <Marker key={id} position={{lat: coordinates.latitude, lng: coordinates.longitude}}/>
-   }  
+    return <Marker key={id} position={{lat: coordinates.latitude, lng: coordinates.longitude}}/>  
   })
+  const findSearchCenter = () => {
+    return {
+      lat: curatedSearchResults[0].coordinates.latitude,
+      lng: curatedSearchResults[0].coordinates.longitude
+    }
+  }
 
-  console.log(searchResults)
   return <div>
   <h1>
     Codename Ida {" "} <span role="img" aria-label="world map">🗺</span>
   </h1>
     <GoogleMap
     mapContainerStyle={mapContainerStyle}
-    zoom={12}
-    center={center}
+    zoom={16}
+    center={curatedSearchResults.length ? findSearchCenter() : defaultCenter}
     options={options}
     >
       {markers}
