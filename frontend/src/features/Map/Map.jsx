@@ -7,8 +7,8 @@ import {
 } from "@react-google-maps/api"
 import {formatRelative} from "date-fns"
 import mapStyles from "./mapStyles"
-import {receiveSearch} from "../SearchBar/SearchBarSlice"
-import { useDispatch } from "react-redux";
+import {receiveSearch, selectSearchResults} from "../SearchBar/SearchBarSlice"
+import { useDispatch, useSelector } from "react-redux";
 
 
 
@@ -30,9 +30,16 @@ const options = {
 }
 
 export default function App() {
+  const searchResults = useSelector(selectSearchResults)
+  const markers = searchResults.map((location) => {
+    let {id, coordinates} = location
 
-  const [markers, setMarkers] = useState([])
-  const dispatch = useDispatch()
+   if (location.rating > 3.5){
+    return <Marker key={id} position={{lat: coordinates.latitude, lng: coordinates.longitude}}/>
+   }  
+  })
+
+  console.log(searchResults)
   return <div>
   <h1>
     Codename Ida {" "} <span role="img" aria-label="world map">🗺</span>
@@ -42,15 +49,8 @@ export default function App() {
     zoom={12}
     center={center}
     options={options}
-    onClick = {(e) => {
-      setMarkers(current => [...current, {
-        lat: e.latLng.lat(),
-        lng: e.latLng.lng(),
-        time: new Date()
-      }])
-    }}
     >
-      {markers.map(marker => <Marker key={marker.time.toISOString()} position={{lat: marker.lat, lng: marker.lng}}/>)}
+      {markers}
     </GoogleMap>
   </div>
 }

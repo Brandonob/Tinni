@@ -129,8 +129,8 @@ export default function ItinResPage() {
             paddingBottom: "20px",
           }}
         >
-          {/* <CustomizedMenus />
-          <Map /> */}
+          {/* {/* <CustomizedMenus /> */}
+          <Map />
           <div></div>
         </div>
         {/* <Container className={classes.cardGrid} maxWidth="md"> */}
