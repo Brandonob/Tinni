@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import SearchBar from "../SearchBar/SearchBar.js";
 import {
   AppBar,
@@ -16,10 +17,18 @@ import {
 import CameraIcon from "@material-ui/icons/PhotoCamera";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import ItineraryList from "./ItineraryList";
 import CustomizedMenus from "./openclose";
 import Map from "../Map/Map";
-import ItineraryDisplayPage from "./SearchResultDisplayPage";
+
+import ItineraryDisplayPage from "../Search/SearchResultDisplayPage"
+
+import ResultsDisplayCard from "../ResultsDisplay/ResultsDisplayCard";
+
+import {
+  addItemToItin,
+  selectCurrentItin,
+} from "../CurrentItinerary/currentItinerarySlice";
+
 // import HomeButtonCards from "./homecomponents/homecards";
 // import "./home.css";
 
@@ -34,29 +43,6 @@ function Copyright() {
     </Typography>
   );
 }
-const trendingTopics = [
-  {
-    url:
-      "https://www.thenewpotato.com/wp-content/uploads/2017/06/best-burger-new-york-2017.jpg",
-    title: "Brugers",
-    margin: "1px",
-    width: "30%",
-  },
-  {
-    url:
-      "https://upload.wikimedia.org/wikipedia/commons/7/72/Unisfera_Flushing.jpg",
-    title: "Parks",
-    width: "30%",
-    margin: "1px",
-    width: "30%",
-  },
-  {
-    url: "https://itsinqueens.com/wp-content/uploads/2019/08/MG_2910.jpg",
-    title: "Salsa",
-    margin: "1px",
-    width: "30%",
-  },
-];
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -90,6 +76,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ItinResPage() {
   const classes = useStyles();
+  // const itineraryResult = useSelector(selectSearchResults);
+  const currentItinerary = useSelector(selectCurrentItin);
 
   return (
     <>
@@ -127,12 +115,11 @@ export default function ItinResPage() {
           </Grid>
         </Toolbar>
       </AppBar>
-      <main>
-        {/* <Container maxWidth="md"> */}
-        {/* End hero unit */}
-        {/* <ItineraryList /> */}
-        {/* <CustomizedMenus /> */}
-        {/* </Container> */}
+      <main style={{ display: "flex", boxSizing: "border-box" }}>
+        <div style={{ overflow: "scroll", height: "1000px" }}>
+          <ItineraryDisplayPage />
+        </div>
+        <CustomizedMenus />
         {/* <Map /> */}
         <div
           style={{
@@ -142,8 +129,8 @@ export default function ItinResPage() {
             paddingBottom: "20px",
           }}
         >
-          <CustomizedMenus />
-          <Map />
+          {/* <CustomizedMenus />
+          <Map /> */}
           <div></div>
         </div>
         {/* <Container className={classes.cardGrid} maxWidth="md"> */}
@@ -152,22 +139,20 @@ export default function ItinResPage() {
       </main>
       {/* Footer */}
       <hr />
-      <ItineraryDisplayPage />
-      {/* <footer className={classes.footer}>
-        <Typography variant="h6" align="center" gutterBottom>
-          Footer
-        </Typography>
-        <Typography
-          variant="subtitle1"
-          align="center"
-          color="textSecondary"
-          component="p"
-        >
-          Something here to give the footer a purpose!
-        </Typography>
-        <Copyright />
-      </footer> */}
-      {/* End footer */}
+      {/* <ItineraryDisplayPage /> */}
+      <Typography variant="h6" align="center" gutterBottom>
+        Footer
+      </Typography>
+      <Typography
+        variant="subtitle1"
+        align="center"
+        color="textSecondary"
+        component="p"
+      >
+        Something here to give the footer a purpose!
+      </Typography>
+      <Copyright />
+      End footer
     </>
   );
 }
