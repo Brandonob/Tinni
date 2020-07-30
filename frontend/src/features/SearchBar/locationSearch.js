@@ -9,6 +9,7 @@ import PersonPinCircleOutlinedIcon from "@material-ui/icons/PersonPinCircleOutli
 import { Typography, ListItem } from "@material-ui/core";
 import InputBase from "@material-ui/core/InputBase";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     padding: "2px 4px",
