@@ -11,7 +11,7 @@ const Itinerary = () => {
 
     return (
         <div>
-            
+          
         </div>
     )
 }

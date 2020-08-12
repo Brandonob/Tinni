@@ -17,7 +17,11 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import AddCircleSharpIcon from "@material-ui/icons/AddCircleSharp";
 import { useDispatch, useSelector } from "react-redux";
-
+import {setBusiness} from "../BusinessInfo/BusinessInfoSlice"
+import { updateModal, modalState } from "../BusinessModal/ModalSlice"
+import ModalDisplay from "../BusinessModal/ModalDisplay"
+import BusinessInfo from "../BusinessInfo/BusinessInfo"
+import BusinessInfoDisplay from "../BusinessInfo/BusinessInfoDisplay"
 import {
   addItemToItin,
   selectCurrentItin,
@@ -65,6 +69,7 @@ export default function ResultsDisplayCard({
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
+
   };
   const handleClick = () => {
     let body = {
@@ -76,6 +81,13 @@ export default function ResultsDisplayCard({
     };
     dispatch(addItemToItin(body));
   };
+
+  const isOpen = useSelector(modalState)
+
+  const handleMoreInformation = (e)=>{
+    dispatch(setBusiness(e.target.title))
+    dispatch(updateModal(!isOpen))
+  }
 
   return (
     <Card className={classes.root} id={id}>
@@ -107,33 +119,26 @@ export default function ResultsDisplayCard({
           onClick={handleExpandClick}
           aria-expanded={expanded}
           aria-label="show more"
+          id = {id}
         >
           <ExpandMoreIcon />
         </IconButton>
         <IconButton aria-label="add to intinerary">
           <AddCircleSharpIcon onClick={handleClick} />
         </IconButton>
-        {/* <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton> */}
-        {/* <IconButton
-          className={clsx(classes.expand, {
-            [classes.expandOpen]: expanded
-          })}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-        >
-          <ExpandMoreIcon />
-        </IconButton> */}
+
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
           {/* <Typography paragraph>Method:</Typography> */}
 
           <Typography variant="body2" color="textPrimary" component="p">
-            more information
+            {/* <button onClick = {handleMoreInformation}>more information</button> */}
+          <ModalDisplay/>
+
           </Typography>
+          <BusinessInfoDisplay id={id}/>
+
         </CardContent>
       </Collapse>
     </Card>
