@@ -23,7 +23,7 @@ const BusinessInfo = ({ hours }) => {
         <div style={{ marginLeft: "15px" }}>
           <div>
             <span>{format(day.start)}am</span> - {" "}
-            <span>{format((parseInt(day.end) - 1200).toString())}pm</span>
+            <span>{format((parseInt(day.end) - 1200).toString())}pm</span>;
           </div>
         </div>
       </div>
