@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import SearchBar from "../SearchBar/SearchBar.js";
+import firebase from "firebase/app";
+import { selectInfo, addInfo, addUser } from '../Users/usersSlice'
+import { useDispatch } from "react-redux";
 import Avatar from "@material-ui/core/Avatar";
 import { deepOrange } from "@material-ui/core/colors";
 import {
@@ -84,6 +87,33 @@ export default function ItinResPage() {
   const classes = useStyles();
   // const itineraryResult = useSelector(selectSearchResults);
   const currentItinerary = useSelector(selectCurrentItin);
+  const userInformation = useSelector(selectInfo);
+  const [currentUser, setCurrentUser] = useState("");
+
+  const dispatch = useDispatch();
+  
+
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        console.log("User has successfullylogged in!");
+        setCurrentUser(user);
+      }
+    });
+  }, []);
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    firebase.auth().signOut();
+    setCurrentUser("");
+    //call other actions to clear react state
+  };
+
+  const handleUser = () => {
+    dispatch(addUser(currentUser.uid));
+    dispatch(addInfo(currentUser.providerData[0]))
+    //calls to save user into backend
+  };
 
   return (
     <>
@@ -104,19 +134,32 @@ export default function ItinResPage() {
               <SearchBar />
             </Grid>
             <Grid item>
-              <Button
-                id="navbarButton"
-                variant="contained"
-                color="secondary"
-                href="./login"
-              >
-                login
-              </Button>
+              {currentUser ? null : (
+                <Button
+                  id="navbarButton"
+                  variant="contained"
+                  color="secondary"
+                  href="./login"
+                >
+                  login
+                </Button>
+              )}
             </Grid>
             <Grid item>
-              <Button variant="outlined" color="secondary" href="./login">
-                signup
-              </Button>
+              {currentUser ? null : (
+                <Button variant="outlined" color="secondary" href="./login">
+                  signup
+                </Button>
+              )}
+              {currentUser ? (
+                <Button
+                  onClick={handleClick}
+                  variant="outlined"
+                  color="secondary"
+                >
+                  logout
+                </Button>
+              ) : null}
             </Grid>
           </Grid>
         </Toolbar>
@@ -125,14 +168,14 @@ export default function ItinResPage() {
         <div style={{ overflow: "scroll", height: "1000px" }}>
           <Avatar
             alt="Remy Sharp"
-            src="/broken-image.jpg"
+            src={userInformation.photoURL}
             className={classes.orange}
           >
-            D
+            
           </Avatar>
           <div style={{ marginTop: "10px" }}>
             <Typography variant="h4">BIO</Typography>
-            <Typography>Name:Doug</Typography>
+              <Typography>Name: {userInformation.displayName}</Typography>
             <Typography>Favortive Spot:Long Island City Piers </Typography>
             <Typography>Number of Adventures:3 </Typography>
             <Typography>DOB: January 8</Typography>
@@ -173,6 +216,8 @@ export default function ItinResPage() {
       </Typography>
       <Copyright />
       End footer
+      {currentUser ? handleUser() : null}
+      {console.log(userInformation)}
     </>
   );
 }

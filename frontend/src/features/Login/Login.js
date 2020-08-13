@@ -92,7 +92,7 @@ import { useHistory } from 'react-router-dom'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import { login, config, uiConfig } from '../../util/firebaseFunction'
-import { addUser } from '../Users/usersSlice'
+import { addUser, addInfo } from '../Users/usersSlice'
 import firebase from 'firebase/app'
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 import { getAPI } from '../../util/utils'
@@ -147,31 +147,20 @@ const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [errMessage, setErrMessage] = useState("")
-    const [currentUser, setCurrentUser] = useState("");
+    
     
     const history = useHistory();
     const dispatch = useDispatch();
     const API = getAPI()
     const classes = useStyles();
 
-//     // useEffect(() => {
-//     //     if (!firebase.apps.length) {
-//     //         firebase.initializeApp(config);
-//     //       }
-//     // },[])
     useEffect(() => {
         firebase.auth().onAuthStateChanged(user => {
           if(user !== null) {
-            setCurrentUser(user)
             signInAuthUser(user)
           }
         })
       }, [])
-
-    const handleUser = () => {
-        dispatch(addUser(currentUser.uid))
-        //calls to save user into backend
-    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -207,7 +196,7 @@ const Login = () => {
                 profile_pic: photoURL
             });
         } catch (error) {
-            
+            console.log()
         }
     }
 
@@ -278,7 +267,6 @@ const Login = () => {
       <Box mt={8}>
         <Copyright />
       </Box>
-    {currentUser ? handleUser() : null}
     {console.log(errMessage)}
     </Container>
   );
