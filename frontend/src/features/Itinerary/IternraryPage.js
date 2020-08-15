@@ -88,10 +88,9 @@ export default function ItinResPage() {
           {/* <Typography variant="h6" color="inherit" noWrap>
                                                 CodeName IDA
                                             </Typography> */}
-          <Typography variant="h6" color="inherit">
+          {/* <Typography variant="h6" color="pink">
             <Link href="/home">codenameIDA</Link>
-            <Link href="/home">codenameIDA</Link>
-          </Typography>
+          </Typography> */}
 
           <Grid container spacing={2} justify="flex-end">
             <Grid item>
@@ -119,9 +118,10 @@ export default function ItinResPage() {
         <div style={{ overflow: "scroll", height: "1000px" }}>
           <ItineraryDisplayPage />
         </div>
-        <CustomizedMenus />
+        {/* <CustomizedMenus /> */}
         {/* <Map /> */}
         <div
+          id="mapDiv"
           style={{
             width: "500px",
             height: "500px",
@@ -130,8 +130,10 @@ export default function ItinResPage() {
           }}
         >
           {/* {/* <CustomizedMenus /> */}
+          <div style={{ position: "absolute" }}>
+            <CustomizedMenus />
+          </div>
           <Map />
-          <div></div>
         </div>
         {/* <Container className={classes.cardGrid} maxWidth="md"> */}
         {/* End hero unit */}
