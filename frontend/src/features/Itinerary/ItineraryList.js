@@ -136,6 +136,9 @@
 
 import React, { Component, useState } from "react";
 import ReactDOM from "react-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { updateItin } from "../CurrentItinerary/currentItinerarySlice";
+
 import {
   List,
   ListItem,
@@ -148,6 +151,12 @@ import RootRef from "@material-ui/core/RootRef";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import InboxIcon from "@material-ui/icons/Inbox";
 import EditIcon from "@material-ui/icons/Edit";
+import {
+  reorder,
+  addItemToItin,
+  selectCurrentItin,
+} from "../CurrentItinerary/currentItinerarySlice";
+import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 
 // fake data generator
 const getItems = (count) =>
@@ -180,21 +189,28 @@ const getListStyle = (isDraggingOver) => ({
 });
 
 const ItneraryList = () => {
+  const dispatch = useDispatch();
+  const currentItinerary = useSelector(selectCurrentItin);
   // constructor(props) {
   //   super(props);
   //   this.state = {
-  const [items, setItems] = useState(getItems(10));
+  // const [items, setItems] = useState(currentItinerary);
   //   };
   //   this.onDragEnd = this.onDragEnd.bind(this);
   // }
 
-  const reorder = (list, startIndex, endIndex) => {
-    const result = Array.from(list);
-    const [removed] = result.splice(startIndex, 1);
-    result.splice(endIndex, 0, removed);
-
-    return result;
+  const deleteItin = (e) => {
+    // let updatedItinerary = currentItinerary.splice(e.currentTarget.id, 1);
+    dispatch(updateItin(e.currentTarget.id));
   };
+
+  // const reorder = (list, startIndex, endIndex) => {
+  //   const result = Array.from(list);
+  //   const [removed] = result.splice(startIndex, 1);
+  //   result.splice(endIndex, 0, removed);
+
+  //   return result;
+  // };
 
   const onDragEnd = (result) => {
     // dropped outside the list
@@ -202,14 +218,18 @@ const ItneraryList = () => {
       return;
     }
 
-    let newitems = reorder(
-      items,
-      result.source.index,
-      result.destination.index
-    );
+    // let newitems = reorder(
+    //   currentItinerary,
+    //   result.source.index,
+    //   result.destination.index
+    // );
+    let startIndex = result.source.index;
+    let endIndex = result.destination.index;
+    debugger;
+    dispatch(reorder({ startIndex, endIndex }));
 
     // this.setState({
-    setItems(newitems);
+    // setItems(newitems);
     // items,
     // });
   };
@@ -218,50 +238,53 @@ const ItneraryList = () => {
   // But in this example everything is just done in one place for simplicity
 
   return (
-    <>
-      <DragDropContext onDragEnd={onDragEnd}>
-        <Droppable droppableId="droppable">
-          {(provided, snapshot) => (
-            <RootRef rootRef={provided.innerRef}>
-              <List style={getListStyle(snapshot.isDraggingOver)}>
-                {items.map((item, index) => (
-                  <Draggable key={item.id} draggableId={item.id} index={index}>
-                    {(provided, snapshot) => (
-                      <ListItem
-                        ContainerComponent="li"
-                        ContainerProps={{ ref: provided.innerRef }}
-                        {...provided.draggableProps}
-                        {...provided.dragHandleProps}
-                        style={getItemStyle(
-                          snapshot.isDragging,
-                          provided.draggableProps.style
-                        )}
-                      >
-                        <ListItemIcon>
-                          <p>Stop{index} </p>
-                          <InboxIcon />
-                        </ListItemIcon>
-
-                        <ListItemText
-                          primary={item.primary}
-                          secondary={item.secondary}
-                        />
-                        <ListItemSecondaryAction>
-                          <IconButton>
-                            <EditIcon />
-                          </IconButton>
-                        </ListItemSecondaryAction>
-                      </ListItem>
+    <DragDropContext onDragEnd={onDragEnd}>
+      <Droppable droppableId="droppable">
+        {(provided, snapshot) => (
+          <div
+            ref={provided.innerRef}
+            style={getListStyle(snapshot.isDraggingOver)}
+          >
+            {currentItinerary.map((item, index) => (
+              <Draggable
+                key={item.body.id}
+                draggableId={item.body.id}
+                index={index}
+              >
+                {(provided, snapshot) => (
+                  <ListItem
+                    ContainerComponent="li"
+                    ContainerProps={{ ref: provided.innerRef }}
+                    {...provided.draggableProps}
+                    {...provided.dragHandleProps}
+                    style={getItemStyle(
+                      snapshot.isDragging,
+                      provided.draggableProps.style
                     )}
-                  </Draggable>
-                ))}
-                {provided.placeholder}
-              </List>
-            </RootRef>
-          )}
-        </Droppable>
-      </DragDropContext>
-    </>
+                  >
+                    {/* <ListItemIcon>
+                          {/* <p>Stop{index} </p> */}
+                    {/* <InboxIcon /> */}
+                    {/* </ListItemIcon>  */}
+
+                    <ListItemText
+                      primary={item.body.name}
+                      // secondary={item.secondary}
+                    />
+                    <ListItemSecondaryAction>
+                      <IconButton onClick={deleteItin} id={index}>
+                        <HighlightOffIcon />
+                      </IconButton>
+                    </ListItemSecondaryAction>
+                  </ListItem>
+                )}
+              </Draggable>
+            ))}
+            {provided.placeholder}
+          </div>
+        )}
+      </Droppable>
+    </DragDropContext>
   );
 };
 export default ItneraryList;

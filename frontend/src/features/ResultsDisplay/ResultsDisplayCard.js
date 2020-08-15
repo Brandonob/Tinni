@@ -67,12 +67,15 @@ export default function ResultsDisplayCard({
     setExpanded(!expanded);
   };
   const handleClick = () => {
+    let num = "" + Math.random().toString(36).substr(2, 9);
+    // let id = latitude + longitude + "" + num++;
     let body = {
       latitude,
       longitude,
       address,
       term,
       name,
+      id: num,
     };
     dispatch(addItemToItin(body));
   };
