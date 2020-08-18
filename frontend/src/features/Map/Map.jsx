@@ -34,9 +34,9 @@ export default function App() {
 
   const curatedSearchResults = searchResults.filter(location => location.rating > 3.5)
 
-  const markers = curatedSearchResults.map((location) => {
+  const markers = curatedSearchResults.map((location, i = 0) => {
     let {id, coordinates} = location
-    return <Marker key={id} position={{lat: coordinates.latitude, lng: coordinates.longitude}}/>  
+    return <Marker key={id} position={{lat: coordinates.latitude, lng: coordinates.longitude}} label={`${i + 1}`}/>  
   })
   const findSearchCenter = () => {
     return {
