@@ -36,15 +36,22 @@ export default function App() {
     (location) => location.rating > 3.5
   );
 
-  const markers = curatedSearchResults.map((location) => {
-    let { id, coordinates } = location;
-    return (
-      <Marker
-        key={id}
-        position={{ lat: coordinates.latitude, lng: coordinates.longitude }}
-      />
-    );
-  });
+
+  const markers = curatedSearchResults.map((location, i = 0) => {
+    let {id, coordinates} = location
+    return <Marker key={id} position={{lat: coordinates.latitude, lng: coordinates.longitude}} label={`${i + 1}`}/>  
+  })
+
+// <!--   const markers = curatedSearchResults.map((location) => {
+//     let { id, coordinates } = location;
+//     return (
+//       <Marker
+//         key={id}
+//         position={{ lat: coordinates.latitude, lng: coordinates.longitude }}
+//       />
+//     );
+//   }); -->
+
   const findSearchCenter = () => {
     return {
       lat: curatedSearchResults[0].coordinates.latitude,
