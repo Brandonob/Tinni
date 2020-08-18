@@ -7,8 +7,10 @@ import theme from "./theme";
 import ItinResPage from "./features/Itinerary/ItinResPage";
 import Login from "./features/Login/Login";
 import Signup from "./features/Login/Signup";
+import UserProfile from "./features/UserProfile/UserProfile";
 // import ItineraryDisplayPage from "./features/Itinerary/SearchResultDisplayPage";
 import MapContainer from "./features/Map/Map";
+import MyItin from "./features/Itinerary/NewitinDisplayPage";
 function App() {
   return (
     <div className="App">
@@ -28,9 +30,15 @@ function App() {
         <Route exact path={"/ItinResPage"}>
           <ItinResPage />
         </Route>
+        <Route exact path={"/userprofile"}>
+          <UserProfile />
+        </Route>
       </ThemeProvider>
       <Route exact path={"/map"}>
         <MapContainer />
+      </Route>
+      <Route exact path={"/myItin"}>
+        <MyItin />
       </Route>
     </div>
   );

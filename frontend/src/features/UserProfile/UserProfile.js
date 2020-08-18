@@ -1,6 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import SearchBar from "../SearchBar/SearchBar.js";
+import Avatar from "@material-ui/core/Avatar";
+import { deepOrange } from "@material-ui/core/colors";
 import {
   AppBar,
   Button,
@@ -17,13 +19,7 @@ import {
 import CameraIcon from "@material-ui/icons/PhotoCamera";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import CustomizedMenus from "./openclose";
-import Map from "../Map/Map";
-
-import ItineraryDisplayPage from "../Search/SearchResultDisplayPage";
-
-import ResultsDisplayCard from "../ResultsDisplay/ResultsDisplayCard";
-
+import UserItin from "./UserItin";
 import {
   addItemToItin,
   selectCurrentItin,
@@ -45,6 +41,16 @@ function Copyright() {
 }
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    display: "flex",
+    "& > *": {
+      margin: theme.spacing(1),
+    },
+  },
+  orange: {
+    color: theme.palette.getContrastText(deepOrange[500]),
+    backgroundColor: deepOrange[500],
+  },
   icon: {
     marginRight: theme.spacing(2),
   },
@@ -88,8 +94,9 @@ export default function ItinResPage() {
           {/* <Typography variant="h6" color="inherit" noWrap>
                                                 CodeName IDA
                                             </Typography> */}
-          <Typography variant="h6" color="secondary'">
-            <a href="./home">codenameIDA</a>
+          <Typography variant="h6" color="inherit">
+            <Link href="/home">codenameIDA</Link>
+            <Link href="/home">codenameIDA</Link>
           </Typography>
 
           <Grid container spacing={2} justify="flex-end">
@@ -116,21 +123,35 @@ export default function ItinResPage() {
       </AppBar>
       <main style={{ display: "flex", boxSizing: "border-box" }}>
         <div style={{ overflow: "scroll", height: "1000px" }}>
-          <ItineraryDisplayPage />
+          <Avatar
+            alt="Remy Sharp"
+            src="/broken-image.jpg"
+            className={classes.orange}
+          >
+            D
+          </Avatar>
+          <div style={{ marginTop: "10px" }}>
+            <Typography variant="h4">BIO</Typography>
+            <Typography>Name:Doug</Typography>
+            <Typography>Favortive Spot:Long Island City Piers </Typography>
+            <Typography>Number of Adventures:3 </Typography>
+            <Typography>DOB: January 8</Typography>
+          </div>
         </div>
-        <CustomizedMenus />
+
         {/* <Map /> */}
         <div
           style={{
-            width: "500px",
+            width: "550px",
             height: "500px",
             position: "relative",
             paddingBottom: "20px",
+            marginLeft: "150px",
           }}
         >
           {/* {/* <CustomizedMenus /> */}
-          <Map />
-          <div></div>
+
+          <UserItin />
         </div>
         {/* <Container className={classes.cardGrid} maxWidth="md"> */}
         {/* End hero unit */}
