@@ -1,7 +1,10 @@
+/////////////////////////////////////////////////////////////////////
+
 import React, { Component, useState } from "react";
 import ReactDOM from "react-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { updateItin } from "../CurrentItinerary/currentItinerarySlice";
+
 import {
   List,
   ListItem,
@@ -13,121 +16,99 @@ import {
 import RootRef from "@material-ui/core/RootRef";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import InboxIcon from "@material-ui/icons/Inbox";
-
+import EditIcon from "@material-ui/icons/Edit";
 import {
+  reorder,
   addItemToItin,
   selectCurrentItin,
 } from "../CurrentItinerary/currentItinerarySlice";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
-// data generator
-// const getItems = (count) =>
-//   Array.from({ length: count }, (v, k) => k).map((k) => ({
-//     id: `item-${k}`,
-//     primary: `Stop ${k}`,
-//     secondary: k % 2 === 0 ? `Whatever for ${k}` : undefined,
-//   }));
-
-// a little function to help us with reordering the result
-const reorder = (list, startIndex, endIndex) => {
-  const result = Array.from(list);
-  const [removed] = result.splice(startIndex, 1);
-  result.splice(endIndex, 0, removed);
-
-  return result;
-};
 
 const getItemStyle = (isDragging, draggableStyle) => ({
   // styles we need to apply on draggables
   ...draggableStyle,
 
-  ...(isDragging && {
-    background: "rgb(235,235,235)",
-  }),
+  // ...(isDragging && {
+  //   background: "rgb(235,235,235)",
+  // }),
+  background: isDragging ? "lightgreen" : "grey",
 });
 
 const getListStyle = (isDraggingOver) => ({
-  //background: isDraggingOver ? 'lightblue' : 'lightgrey',
+  // background: isDraggingOver ? "lightblue" : "lightgrey",
 });
 
 const ItneraryList = () => {
-  // dispatch = useDispatch();
+  const dispatch = useDispatch();
   const currentItinerary = useSelector(selectCurrentItin);
 
-  // const [items, setItems] = useState([...currentItinerary]);
-  //   const onDragEnd = onDragEnd.bind();
+  // delete item from currentItinerary
+  const deleteItin = (e) => {
+    dispatch(updateItin(e.currentTarget.id));
+  };
 
-  const onDragEnd = async (result) => {
+  const onDragEnd = (result) => {
     // dropped outside the list
     if (!result.destination) {
       return;
     }
-    const items = reorder(
-      currentItinerary,
-      result.source.index,
-      result.destination.index
-    );
-    dispatch(updateItin(items));
-    // setItems(reorder(items, result.source.index, result.destination.index));
-
-    // await setItems(items);
-  };
-
-  const dispatch = useDispatch();
-  const deleteItin = (e) => {
+    let startIndex = result.source.index;
+    let endIndex = result.destination.index;
     debugger;
-    // let updatedItinerary = currentItinerary.splice(e.currentTarget.id,1)
-    dispatch(updateItin(currentItinerary, e.currentTarget.id));
+    dispatch(reorder({ startIndex, endIndex }));
   };
 
   // Normally you would want to split things out into separate components.
   // But in this example everything is just done in one place for simplicity
+
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId="droppable">
         {(provided, snapshot) => (
-          <RootRef rootRef={provided.innerRef}>
-            <List style={getListStyle(snapshot.isDraggingOver)}>
-              {currentItinerary.map((item, index) => (
-                <Draggable
-                  key={item.body.id}
-                  draggableId={item.body.id}
-                  index={index}
-                >
-                  {(provided, snapshot) => (
-                    <ListItem
-                      ContainerComponent="li"
-                      ContainerProps={{ ref: provided.innerRef }}
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                      style={getItemStyle(
-                        snapshot.isDragging,
-                        provided.draggableProps.style
-                      )}
-                    >
-                      <p> {index + 1}</p>
-                      <ListItemText
-                        style={{ margin: "5px" }}
-                        primary={item.body.name}
-                        // secondary={item.secondary}
-                      />
+          <div
+            ref={provided.innerRef}
+            style={getListStyle(snapshot.isDraggingOver)}
+          >
+            {currentItinerary.map((item, index) => (
+              <Draggable
+                key={item.body.id}
+                draggableId={item.body.id}
+                index={index}
+              >
+                {(provided, snapshot) => (
+                  <ListItem
+                    ContainerComponent="li"
+                    ContainerProps={{ ref: provided.innerRef }}
+                    {...provided.draggableProps}
+                    {...provided.dragHandleProps}
+                    style={getItemStyle(
+                      snapshot.isDragging,
+                      provided.draggableProps.style
+                    )}
+                  >
+                    {/* <ListItemIcon>
+                          {/* <p>Stop{index} </p> */}
+                    {/* <InboxIcon /> */}
+                    {/* </ListItemIcon>  */}
 
-                      <ListItemSecondaryAction>
-                        <IconButton onClick={deleteItin} id={index}>
-                          <HighlightOffIcon />
-                        </IconButton>
-                      </ListItemSecondaryAction>
-                    </ListItem>
-                  )}
-                </Draggable>
-              ))}
-              {provided.placeholder}
-            </List>
-          </RootRef>
+                    <ListItemText
+                      primary={item.body.name}
+                      // secondary={item.secondary}
+                    />
+                    <ListItemSecondaryAction>
+                      <IconButton onClick={deleteItin} id={index}>
+                        <HighlightOffIcon />
+                      </IconButton>
+                    </ListItemSecondaryAction>
+                  </ListItem>
+                )}
+              </Draggable>
+            ))}
+            {provided.placeholder}
+          </div>
         )}
       </Droppable>
     </DragDropContext>
   );
 };
-
-// Put the thing into the DOM!
 export default ItneraryList;
