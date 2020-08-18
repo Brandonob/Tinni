@@ -22,6 +22,7 @@ import { updateModal, modalState } from "../BusinessModal/ModalSlice"
 import ModalDisplay from "../BusinessModal/ModalDisplay"
 import BusinessInfo from "../BusinessInfo/BusinessInfo"
 import BusinessInfoDisplay from "../BusinessInfo/BusinessInfoDisplay"
+import "../../Default_Pics/food.jpeg"
 import {
   addItemToItin,
   selectCurrentItin,
@@ -35,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: "10px",
     backgroundColor: "#E6F0EE",
   },
-
+  
   media: {
     height: 0,
     paddingTop: "56.25%", // 16:9
@@ -91,59 +92,117 @@ export default function ResultsDisplayCard({
     dispatch(setBusiness(e.target.title))
     dispatch(updateModal(!isOpen))
   }
-
-  return (
-    <Card className={classes.root} id={id}>
-      {/* <CardHeader
-        // variant="h6"
-        component="paragraph"
-        // font-size="10px"
-
-        subheader="Shrimp and Chorizo Paella"
-      /> */}
-      <Typography gutterBottom variant="h6" component="h2">
-        {name}
-      </Typography>
-      <CardMedia className={classes.media} image={image_url} title={name} />
-      <CardContent>
-        <Typography variant="paragraph" color="textPrimary" component="p">
-          Location: {address}
-          <br></br>
-          Rating: {rating}
-          <br></br>
-          Distance: {(distance * 0.00062137).toFixed(1)} mile
+  if(image_url){
+    return (
+      <Card className={classes.root} id={id}>
+        {/* <CardHeader
+          // variant="h6"
+          component="paragraph"
+          // font-size="10px"
+  
+          subheader="Shrimp and Chorizo Paella"
+        /> */}
+        <Typography gutterBottom variant="h6" component="h2">
+          {name}
         </Typography>
-      </CardContent>
-      <CardActions disableSpacing>
-        <IconButton
-          className={clsx(classes.expand, {
-            [classes.expandOpen]: expanded,
-          })}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-          id = {id}
-        >
-          <ExpandMoreIcon />
-        </IconButton>
-        <IconButton aria-label="add to intinerary">
-          <AddCircleSharpIcon onClick={handleClick} />
-        </IconButton>
-
-      </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
+        <CardMedia className={classes.media} image={image_url} title={name} />
         <CardContent>
-          {/* <Typography paragraph>Method:</Typography> */}
-
-          <Typography variant="body2" color="textPrimary" component="p">
-            {/* <button onClick = {handleMoreInformation}>more information</button> */}
-          <ModalDisplay/>
-
+          <Typography variant="paragraph" color="textPrimary" component="p">
+            Location: {address}
+            <br></br>
+            Rating: {rating}
+            <br></br>
+            Distance: {(distance * 0.00062137).toFixed(1)} mile
           </Typography>
-          <BusinessInfoDisplay id={id}/>
-
         </CardContent>
-      </Collapse>
-    </Card>
-  );
+        <CardActions disableSpacing>
+          <IconButton
+            className={clsx(classes.expand, {
+              [classes.expandOpen]: expanded,
+            })}
+            onClick={handleExpandClick}
+            aria-expanded={expanded}
+            aria-label="show more"
+            id = {id}
+          >
+            <ExpandMoreIcon />
+          </IconButton>
+          <IconButton aria-label="add to intinerary">
+            <AddCircleSharpIcon onClick={handleClick} />
+          </IconButton>
+  
+        </CardActions>
+        <Collapse in={expanded} timeout="auto" unmountOnExit>
+          <CardContent>
+            {/* <Typography paragraph>Method:</Typography> */}
+  
+            <Typography variant="body2" color="textPrimary" component="p">
+              {/* <button onClick = {handleMoreInformation}>more information</button> */}
+            <ModalDisplay/>
+  
+            </Typography>
+            <BusinessInfoDisplay id={id}/>
+  
+          </CardContent>
+        </Collapse>
+      </Card>
+    );
+  }else{
+    return (
+      <Card className={classes.root} id={id}>
+        {/* <CardHeader
+          // variant="h6"
+          component="paragraph"
+          // font-size="10px"
+  
+          subheader="Shrimp and Chorizo Paella"
+        /> */}
+        <Typography gutterBottom variant="h6" component="h2">
+          {name}
+        </Typography>
+        <CardMedia className={classes.media} image={"https://static.techspot.com/images2/news/bigimage/2019/12/2019-12-19-image-2.png"} title={name} />
+        
+        <CardContent>
+          <Typography variant="paragraph" color="textPrimary" component="p">
+            Location: {address}
+            <br></br>
+            Rating: {rating}
+            <br></br>
+            Distance: {(distance * 0.00062137).toFixed(1)} mile
+          </Typography>
+        </CardContent>
+        <CardActions disableSpacing>
+          <IconButton
+            className={clsx(classes.expand, {
+              [classes.expandOpen]: expanded,
+            })}
+            onClick={handleExpandClick}
+            aria-expanded={expanded}
+            aria-label="show more"
+            id = {id}
+          >
+            <ExpandMoreIcon />
+          </IconButton>
+          <IconButton aria-label="add to intinerary">
+            <AddCircleSharpIcon onClick={handleClick} />
+          </IconButton>
+  
+        </CardActions>
+        <Collapse in={expanded} timeout="auto" unmountOnExit>
+          <CardContent>
+            {/* <Typography paragraph>Method:</Typography> */}
+  
+            <Typography variant="body2" color="textPrimary" component="p">
+              {/* <button onClick = {handleMoreInformation}>more information</button> */}
+            <ModalDisplay/>
+  
+            </Typography>
+            <BusinessInfoDisplay id={id}/>
+  
+          </CardContent>
+        </Collapse>
+      </Card>
+    );
+  }
+  
 }
