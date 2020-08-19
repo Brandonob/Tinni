@@ -154,13 +154,13 @@ const Login = () => {
     const API = getAPI()
     const classes = useStyles();
 
-    useEffect(() => {
-        firebase.auth().onAuthStateChanged(user => {
-          if(user !== null) {
-            signInAuthUser(user)
-          }
-        })
-      }, [])
+    // useEffect(() => {
+    //     firebase.auth().onAuthStateChanged(user => {
+    //       if(user !== null) {
+    //         signInAuthUser(user)
+    //       }
+    //     })
+    //   }, [])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -176,29 +176,7 @@ const Login = () => {
         }
     }
 
-    const signInAuthUser = async (currentUser) => {
-        try {
-            let {
-                displayName,
-                email,
-                phoneNumber,
-                photoURL,
-                uid
-            } = currentUser.providerData[0]
-            await axios.post(`${API}/users/`, {    //signup auth user
-                id: uid,
-                first_name: displayName,
-                last_name: "",
-                email: email,
-                password: "",
-                phone: phoneNumber,
-                location: "",
-                profile_pic: photoURL
-            });
-        } catch (error) {
-            console.log()
-        }
-    }
+    
 
 
   return (

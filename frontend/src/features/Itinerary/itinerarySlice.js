@@ -1,6 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
 import { getAPI } from '../../util/utils'
+import { useSelector } from "react-redux";
+import { userID } from '../Users/usersSlice'
 
 const API = getAPI();
 
@@ -12,12 +14,13 @@ export const itinerariesSlice = createSlice({
     }
 })
 
-export const fetchAllPosts = () => async dispatch => {
+export const fetchItineraries = () => async dispatch => {
+    const currentUserID = useSelector(userID)
     try {
-        let res = await axios.get(`${API}/itineraries`);
-        const { itineraries } = res.data.body;
+        let res = await axios.get(`${API}/itineraries/${currentUserID}`);
+        let { body } = res.data;
         // debugger
-        dispatch(recieveAllItins(itineraries))
+        dispatch(recieveAllItins(body))
     } catch (error) {
         console.log(error.message);
     }

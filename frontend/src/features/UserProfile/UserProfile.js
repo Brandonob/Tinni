@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import SearchBar from "../SearchBar/SearchBar.js";
 import firebase from "firebase/app";
-import { selectInfo, addInfo, addUser } from '../Users/usersSlice'
+import { selectInfo, addInfo, addUser, userID } from '../Users/usersSlice'
 import { useDispatch } from "react-redux";
+import { getAPI } from '../../util/utils'
+import axios from 'axios'
 import Avatar from "@material-ui/core/Avatar";
 import { deepOrange } from "@material-ui/core/colors";
 import {
@@ -88,19 +90,58 @@ export default function ItinResPage() {
   // const itineraryResult = useSelector(selectSearchResults);
   const currentItinerary = useSelector(selectCurrentItin);
   const userInformation = useSelector(selectInfo);
+  const currentUserID = useSelector(userID)
   const [currentUser, setCurrentUser] = useState("");
 
   const dispatch = useDispatch();
   
+  const API = getAPI();
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        console.log("User has successfullylogged in!");
+        console.log("User has successfully logged in!");
         setCurrentUser(user);
+        getAllUsers()
+        signInAuthUser(user)
       }
     });
   }, []);
+
+  const signInAuthUser = async (currentUser) => {
+    try {
+        let {
+            displayName,
+            email,
+            phoneNumber,
+            photoURL
+        } = currentUser.providerData[0]
+        
+        await axios.post(`${API}/users/`, {    //signup auth user
+            id: currentUserID,
+            first_name: displayName,
+            last_name: "",
+            email: email,
+            password: "",
+            phone: phoneNumber,
+            location: "",
+            profile_pic: photoURL
+        });
+    } catch (error) {
+        console.log("USER IS SIGNED UP ALREADY")
+    }
+}
+
+  const getAllUsers = async() => {
+    try {
+      let res = await axios.get(`${API}/users/`)
+      console.log(res);
+      debugger
+      
+    } catch (error) {
+      
+    }
+  }
 
   const handleClick = (e) => {
     e.preventDefault();
