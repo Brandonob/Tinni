@@ -6,7 +6,7 @@ import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
-import Collapse from "@material-ui/core/Collapse";
+import { Collapse, Button } from "@material-ui/core/";
 import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
@@ -16,16 +16,23 @@ import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import AddCircleSharpIcon from "@material-ui/icons/AddCircleSharp";
+import { SnackbarProvider, useSnackbar } from "notistack";
 import { useDispatch, useSelector } from "react-redux";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
 
 import {
   addItemToItin,
   selectCurrentItin,
 } from "../CurrentItinerary/currentItinerarySlice";
 
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 250,
+    maxWidth: 200,
     // height: 375,
     // fontSize: "10px",
     marginBottom: "10px",
@@ -62,6 +69,7 @@ export default function ResultsDisplayCard({
   const dispatch = useDispatch();
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -78,48 +86,70 @@ export default function ResultsDisplayCard({
       id: num,
     };
     dispatch(addItemToItin(body));
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
   };
 
   return (
-    <Card className={classes.root} id={id}>
-      {/* <CardHeader
+    <SnackbarProvider maxSnack={3}>
+      <Card className={classes.root} id={id}>
+        {/* <CardHeader
         // variant="h6"
         component="paragraph"
         // font-size="10px"
 
         subheader="Shrimp and Chorizo Paella"
       /> */}
-      <Typography gutterBottom variant="h6" component="h2">
-        {name}
-      </Typography>
-      <CardMedia className={classes.media} image={image_url} title={name} />
-      <CardContent>
-        <Typography variant="paragraph" color="textPrimary" component="p">
-          Location: {address}
-          <br></br>
-          Rating: {rating}
-          <br></br>
-          Distance: {(distance * 0.00062137).toFixed(1)} mile
+        <Typography gutterBottom variant="h6" component="h2">
+          {name}
         </Typography>
-      </CardContent>
-      <CardActions disableSpacing>
-        <IconButton
-          className={clsx(classes.expand, {
-            [classes.expandOpen]: expanded,
-          })}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-        >
-          <ExpandMoreIcon />
-        </IconButton>
-        <IconButton aria-label="add to intinerary">
-          <AddCircleSharpIcon onClick={handleClick} />
-        </IconButton>
-        {/* <IconButton aria-label="share">
+        <CardMedia className={classes.media} image={image_url} title={name} />
+        <CardContent>
+          <Typography variant="paragraph" color="textPrimary" component="p">
+            Location: {address}
+            <br></br>
+            Rating: {rating}
+            <br></br>
+            Distance: {(distance * 0.00062137).toFixed(1)} mile
+          </Typography>
+        </CardContent>
+        <CardActions disableSpacing>
+          <IconButton
+            className={clsx(classes.expand, {
+              [classes.expandOpen]: expanded,
+            })}
+            onClick={handleExpandClick}
+            aria-expanded={expanded}
+            aria-label="show more"
+          >
+            <ExpandMoreIcon />
+          </IconButton>
+          <Button variant="contained" color="secondary" onClick={handleClick}>
+            Add
+            {/* <AddCircleSharpIcon onClick={handleClick} /> */}
+          </Button>
+          <Snackbar
+            open={open}
+            autoHideDuration={1000}
+            anchorOrigin={{ vertical: "top", horizontal: "left" }}
+            onClose={handleClose}
+          >
+            <Alert onClose={handleClose} severity="success">
+              This is a success message!
+            </Alert>
+          </Snackbar>
+
+          {/* <IconButton aria-label="share">
           <ShareIcon />
         </IconButton> */}
-        {/* <IconButton
+          {/* <IconButton
           className={clsx(classes.expand, {
             [classes.expandOpen]: expanded
           })}
@@ -129,16 +159,17 @@ export default function ResultsDisplayCard({
         >
           <ExpandMoreIcon />
         </IconButton> */}
-      </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
-          {/* <Typography paragraph>Method:</Typography> */}
+        </CardActions>
+        <Collapse in={expanded} timeout="auto" unmountOnExit>
+          <CardContent>
+            {/* <Typography paragraph>Method:</Typography> */}
 
-          <Typography variant="body2" color="textPrimary" component="p">
-            more information
-          </Typography>
-        </CardContent>
-      </Collapse>
-    </Card>
+            <Typography variant="body2" color="textPrimary" component="p">
+              more information
+            </Typography>
+          </CardContent>
+        </Collapse>
+      </Card>
+    </SnackbarProvider>
   );
 }

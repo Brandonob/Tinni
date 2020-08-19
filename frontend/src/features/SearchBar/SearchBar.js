@@ -76,10 +76,10 @@ const SearchBar = () => {
 
     try {
       let res = await axios(config);
-      debugger;
+
       dispatch(receiveSearch(res.data.businesses));
-      debugger;
-      history.push("/ItinResPage");
+
+      // history.push("/ItinResPage");
       //new page
       history.push("/myitin");
     } catch (error) {
@@ -89,7 +89,6 @@ const SearchBar = () => {
 
   const handleChange = (e) => {
     setSearchType(e.target.value);
-    debugger;
   };
   return (
     <>

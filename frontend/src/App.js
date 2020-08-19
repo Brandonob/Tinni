@@ -33,12 +33,12 @@ function App() {
         <Route exact path={"/userprofile"}>
           <UserProfile />
         </Route>
+        <Route exact path={"/myItin"}>
+          <MyItin />
+        </Route>
       </ThemeProvider>
       <Route exact path={"/map"}>
         <MapContainer />
-      </Route>
-      <Route exact path={"/myItin"}>
-        <MyItin />
       </Route>
     </div>
   );

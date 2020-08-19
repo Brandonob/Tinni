@@ -43,22 +43,13 @@ const SearchResult = ({ result }) => {
 
   const useStyles = makeStyles({
     root: {
-      maxWidth: 700,
+      // maxWidth: 700,
+      width: "200px",
     },
   });
   const history = useHistory();
   const dispatch = useDispatch();
   const classes = useStyles();
-  // const dispatch = useDispatch()
-  // const isOpen = useSelector(modalState);
-
-  // const handleClick = (e) => {
-  //   dispatch(setBusiness(e.target.title));
-  //   dispatch(updateModal(!isOpen));
-  // };
-  // const handleClick = () => {
-  //   setOpen(true);
-  // };
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -82,56 +73,18 @@ const SearchResult = ({ result }) => {
     };
     dispatch(addItemToItin(body));
     setOpen(true);
-    // const currentItinerary = useSelector(currentItinerarySlice)
-    //  console.log(currentItinerary)
-
-    // const url = 'http://localhost:3001'
-    // let itineraries = await axios.post(`${url}/itineraries`,{
-    //   title: "myItinerary",
-    //   user_id: 2,
-    //   itinerary_id: '2020-07-07'
-    // })
-
-    // const url = 'http://localhost:3001/itineraryActivity'
-    // debugger
-    // try{
-    //   await axios.post(url,{
-    //     name:name
-    //   })
-    //   history.push("/itineraries")
-    // }catch(err){
-    //   console.log(err)
-    // }
   };
 
   console.log(currentItinerary);
   return (
-    //   <div className={"restaurantCard"} key={id} value={id}>
-    //   <div className={"basicInfo"}>
-    //     <h2 id={"name"} title={id}  value={id}>
-    //       {name}
-    //     </h2>
-    //     <img src={image_url} alt={"Restaurant"} id={"image"} />
-    //     <h2 id={"address"}>
-    //      Address
-    //     </h2>
-    //     <h2 id={"phone"}>Contact: {display_phone}</h2>
-    //   </div>
-    //   <div className={"information"}>
-    //     <h2 id={"category"}>Category: {categories[0].title}</h2>
-    //     <h2 id={"reviews"}>Reviews: {review_count}</h2>
-    //     <h2 id={"rating"}>Rating: {rating}</h2>
-    //     <h3 id={"price"}>Price: {price}</h3>
-    //   </div>
-    //   <br/>
-    // </div>
+    //
     <Card className={classes.root}>
       <CardActionArea>
         <CardContent>
           <Typography
             gutterBottom
-            variant="h5"
-            component="h2"
+            variant="h4"
+            component="h4"
             className={"restaurantCard"}
             key={id}
             value={id}
