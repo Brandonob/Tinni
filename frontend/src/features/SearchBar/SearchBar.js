@@ -69,6 +69,8 @@ const SearchBar = () => {
       dispatch(receiveSearch(res.data.businesses));
       debugger;
       history.push("/ItinResPage");
+      //new page
+      // history.push("/myitin");
     } catch (error) {
       console.log(error);
     }
