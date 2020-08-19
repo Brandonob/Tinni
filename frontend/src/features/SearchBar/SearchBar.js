@@ -7,7 +7,16 @@ import { receiveSearch } from "../SearchBar/SearchBarSlice";
 import "./searchbar.css";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import { Paper, InputBase, Divider, IconButton } from "@material-ui/core";
+import {
+  Paper,
+  InputBase,
+  Divider,
+  IconButton,
+  Button,
+  MenuItem,
+  Select,
+  InputLabel,
+} from "@material-ui/core";
 
 import SearchIcon from "@material-ui/icons/Search";
 
@@ -24,6 +33,7 @@ const useStyles = makeStyles((theme) => ({
   },
   iconButton: {
     padding: 10,
+    color: "secondary",
   },
   divider: {
     height: 28,
@@ -43,6 +53,7 @@ const SearchBar = () => {
   const [longitude, setLongitude] = useState("");
   const dispatch = useDispatch();
   const history = useHistory();
+  const [searchType, setSearchType] = useState("Places");
 
   const locationURL = () => {
     if (location) {
@@ -70,15 +81,46 @@ const SearchBar = () => {
       debugger;
       history.push("/ItinResPage");
       //new page
-      // history.push("/myitin");
+      history.push("/myitin");
     } catch (error) {
       console.log(error);
     }
   };
 
+  const handleChange = (e) => {
+    setSearchType(e.target.value);
+    debugger;
+  };
   return (
     <>
+      {/* <InputLabel id="demo-simple-select-filled-label">Age</InputLabel>
+      <Select
+        labelId="demo-simple-select-filled-label"
+        id="demo-simple-select-filled"
+        value={age}
+        onChange={handleChange}
+      >
+        <MenuItem value="">
+          <em>None</em>
+        </MenuItem>
+        <MenuItem value={10}>Ten</MenuItem>
+        <MenuItem value={20}>Twenty</MenuItem>
+        <MenuItem value={30}>Thirty</MenuItem>
+      </Select> */}
+      {/* old */}
       <Paper component="form" className={classes.root} onSubmit={handleSubmit}>
+        {/* <InputLabel id="demo-simple-select-filled-label">Age</InputLabel> */}
+        <Select
+          labelId="demo-simple-select-filled-label"
+          id="demo-simple-select-filled"
+          value={searchType}
+          onChange={handleChange}
+        >
+          <MenuItem value="Places">Places</MenuItem>
+          <MenuItem value="Events">Events</MenuItem>
+          <MenuItem value="Itineraries">Itineraries </MenuItem>
+        </Select>
+        <Divider className={classes.divider} orientation="vertical" />
         <InputBase
           onChange={(e) => setTerm(e.currentTarget.value)}
           value={term}
@@ -89,26 +131,45 @@ const SearchBar = () => {
           autoFocus="true"
         />
         <Divider className={classes.divider} orientation="vertical" />
-        <LocationSearch setLatitude={setLatitude} setLongitude={setLongitude} />
+        <LocationSearch
+          color="secondary"
+          setLatitude={setLatitude}
+          setLongitude={setLongitude}
+        />
         <Divider className={classes.divider} orientation="vertical" />
 
-        <IconButton
-          color="primary"
+        {/* <IconButton
+          // color="primary"
           className={classes.iconButton}
-          aria-label="directions"
+          aria-label="search"
           onClick={handleSubmit}
+          // variant="contained"
+          color="secondary"
         >
           <SearchIcon />
           <Typography
             component="small"
             variant="small"
             align="baseline"
-            color="primary"
+            // color="primary"
+            // backgroundColor="secondary"
             margin="none"
           >
             Search
           </Typography>
-        </IconButton>
+        </IconButton> */}
+        <Button
+          variant="contained"
+          color="secondary"
+          className={classes.iconButton}
+          // fontColor="white"
+          // outlined
+          onClick={handleSubmit}
+          endIcon={<SearchIcon />}
+          align="baseline"
+        >
+          Send
+        </Button>
       </Paper>
     </>
   );

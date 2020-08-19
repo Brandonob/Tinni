@@ -37,14 +37,14 @@ const useStyles = makeStyles((theme) => ({
       duration: theme.transitions.duration.leavingScreen,
     }),
   },
-  appBarShift: {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(["width", "margin"], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
+  //   appBarShift: {
+  //     marginLeft: drawerWidth,
+  //     width: `calc(100% - ${drawerWidth}px)`,
+  //     transition: theme.transitions.create(["width", "margin"], {
+  //       easing: theme.transitions.easing.sharp,
+  //       duration: theme.transitions.duration.enteringScreen,
+  //     }),
+  //   },
   menuButton: {
     marginRight: 36,
   },
@@ -52,11 +52,13 @@ const useStyles = makeStyles((theme) => ({
     display: "none",
   },
   drawer: {
+    marginTop: "50px",
     width: drawerWidth,
     flexShrink: 0,
     whiteSpace: "nowrap",
   },
   drawerOpen: {
+    marginTop: "50px",
     width: drawerWidth,
     transition: theme.transitions.create("width", {
       easing: theme.transitions.easing.sharp,
@@ -64,6 +66,7 @@ const useStyles = makeStyles((theme) => ({
     }),
   },
   drawerClose: {
+    marginTop: "50px",
     transition: theme.transitions.create("width", {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -111,25 +114,52 @@ export default function MyItin() {
         })}
       >
         <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            className={clsx(classes.menuButton, {
-              [classes.hide]: open,
-            })}
-          >
-            <MenuIcon />
-            <p style={{ padding: 0, margin: 0 }}>view Itin</p>
-          </IconButton>
+          {/* <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={handleDrawerOpen}
+              edge="start"
+              className={clsx(classes.menuButton, {
+                [classes.hide]: open,
+              })}
+            >
+              <MenuIcon />
+              <p style={{ padding: 0, margin: 0 }}>view Itin</p>
+            </IconButton> */}
+
+          {open === true ? (
+            <div className={classes.toolbar}>
+              <IconButton onClick={handleDrawerClose}>
+                {theme.direction === "rtl" ? (
+                  <ChevronRightIcon />
+                ) : (
+                  <ChevronLeftIcon />
+                )}
+              </IconButton>
+            </div>
+          ) : (
+            <div>
+              <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                onClick={handleDrawerOpen}
+                edge="start"
+                className={clsx(classes.menuButton, {
+                  [classes.hide]: open,
+                })}
+              >
+                <MenuIcon />
+              </IconButton>
+            </div>
+          )}
+
           {/* <Typography variant="h6" noWrap>
             Mini variant drawer
           </Typography> */}
           <SearchBar />
         </Toolbar>
       </AppBar>
-      <p>view Itin</p>
+
       <Drawer
         variant="permanent"
         className={clsx(classes.drawer, {
@@ -143,7 +173,7 @@ export default function MyItin() {
           }),
         }}
       >
-        <div className={classes.toolbar}>
+        {/* <div className={classes.toolbar}>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === "rtl" ? (
               <ChevronRightIcon />
@@ -152,7 +182,7 @@ export default function MyItin() {
             )}
           </IconButton>
         </div>
-        <Divider />
+        <Divider /> */}
         {/* <List>
           {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
             <ListItem button key={text}>
@@ -182,7 +212,9 @@ export default function MyItin() {
       <main className={classes.content}>
         <div className={classes.toolbar} />
         <div style={{ display: "flex", flexDirection: "row" }}>
-          <ItineraryDisplayPage />
+          <ItineraryDisplayPage
+            style={{ padding: " 0 5px 0px 0", width: "120px" }}
+          />
           <Map />
         </div>
       </main>
