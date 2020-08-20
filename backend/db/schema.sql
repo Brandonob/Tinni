@@ -15,19 +15,19 @@ DROP TABLE IF EXISTS users;
 
 CREATE TABLE users 
 (
-  id SERIAL PRIMARY KEY,
-  first_name TEXT ,
-  last_name TEXT ,
-  email VARCHAR ,
-  password VARCHAR ,
+  id VARCHAR PRIMARY KEY,
+  first_name TEXT NOT NULL,
+  last_name TEXT NOT NULL,
+  email VARCHAR NOT NULL,
+  password VARCHAR NOT NULL,
   phone BIGINT DEFAULT 0,
-  location VARCHAR DEFAULT ' ',
-  profile_pic VARCHAR DEFAULT ' '
+  location VARCHAR NOT NULL DEFAULT ' ',
+  profile_pic VARCHAR NOT NULL DEFAULT ' '
 );
 CREATE TABLE itineraries
 (
   id SERIAL PRIMARY KEY,
-  user_id INT REFERENCES users(id) ON DELETE CASCADE,
+  user_id VARCHAR REFERENCES users(id) ON DELETE CASCADE,
   time_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   itinerary_date DATE NOT NULL,
   title VARCHAR NOT NULL DEFAULT 'Your Itinerary',
@@ -48,13 +48,13 @@ CREATE TABLE activities
 CREATE TABLE liked_itineraries 
 (
   id SERIAL PRIMARY KEY,
-  user_id INT REFERENCES users(id) ON DELETE CASCADE,
+  user_id VARCHAR REFERENCES users(id) ON DELETE CASCADE,
   itin_id INT REFERENCES itineraries(id) ON DELETE CASCADE
 );
 CREATE TABLE comments
 (
   id SERIAL PRIMARY KEY,
-  user_id INT REFERENCES users(id) ON DELETE CASCADE,
+  user_id VARCHAR REFERENCES users(id) ON DELETE CASCADE,
   itin_id INT REFERENCES itineraries(id) ON DELETE CASCADE,
   body varchar,
   time_stamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -62,7 +62,7 @@ CREATE TABLE comments
 CREATE TABLE participants
 (
   id SERIAL PRIMARY KEY,
-  user_id INT REFERENCES users(id) ON DELETE CASCADE,
+  user_id VARCHAR REFERENCES users(id) ON DELETE CASCADE,
   itin_id INT REFERENCES itineraries(id) ON DELETE CASCADE
 );
 

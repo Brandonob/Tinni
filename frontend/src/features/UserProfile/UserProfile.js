@@ -90,7 +90,7 @@ export default function ItinResPage() {
   // const itineraryResult = useSelector(selectSearchResults);
   const currentItinerary = useSelector(selectCurrentItin);
   const userInformation = useSelector(selectInfo);
-  const currentUserID = useSelector(userID)
+  const currentUserID = useSelector(userID);
   const [currentUser, setCurrentUser] = useState("");
 
   const dispatch = useDispatch();
@@ -116,6 +116,8 @@ export default function ItinResPage() {
             phoneNumber,
             photoURL
         } = currentUser.providerData[0]
+
+        
         
         await axios.post(`${API}/users/`, {    //signup auth user
             id: currentUserID,
@@ -151,7 +153,7 @@ export default function ItinResPage() {
   };
 
   const handleUser = () => {
-    dispatch(addUser(currentUser.uid));
+    dispatch(addUser(currentUserID));
     dispatch(addInfo(currentUser.providerData[0]))
     //calls to save user into backend
   };
