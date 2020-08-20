@@ -23,6 +23,7 @@ import "./home.css";
 import { addUser, logOutUser } from "../Users/usersSlice";
 import { useDispatch } from "react-redux";
 import firebase from "firebase/app";
+import { white, purple } from "@material-ui/core/colors";
 
 function Copyright() {
   return (
@@ -189,7 +190,7 @@ export default function Album() {
             >
               LOGO CODE NAME IDA
             </Typography>
-            <Typography variant="h5" align="center" color="secondary" paragraph>
+            <Typography variant="h5" align="center" color="purple" paragraph>
               Create your perfect iternary or take on an adventure made by one
               of our users
             </Typography>

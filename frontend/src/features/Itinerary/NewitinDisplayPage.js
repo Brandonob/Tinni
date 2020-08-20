@@ -12,7 +12,7 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import ListItem from "@material-ui/core/ListItem";
+import { ListItem, Button } from "@material-ui/core";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
@@ -37,14 +37,7 @@ const useStyles = makeStyles((theme) => ({
       duration: theme.transitions.duration.leavingScreen,
     }),
   },
-  appBarShift: {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(["width", "margin"], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
+
   menuButton: {
     marginRight: 36,
   },
@@ -52,11 +45,13 @@ const useStyles = makeStyles((theme) => ({
     display: "none",
   },
   drawer: {
+    marginTop: "50px",
     width: drawerWidth,
     flexShrink: 0,
     whiteSpace: "nowrap",
   },
   drawerOpen: {
+    marginTop: "50px",
     width: drawerWidth,
     transition: theme.transitions.create("width", {
       easing: theme.transitions.easing.sharp,
@@ -64,14 +59,17 @@ const useStyles = makeStyles((theme) => ({
     }),
   },
   drawerClose: {
+    marginTop: "50px",
     transition: theme.transitions.create("width", {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
     overflowX: "hidden",
-    width: theme.spacing(7) + 1,
+    width: "40px",
+    // width: theme.spacing(7) + 1,
     [theme.breakpoints.up("sm")]: {
-      width: theme.spacing(9) + 1,
+      width: "40px",
+      //   width: theme.spacing(9) + 1,
     },
   },
   toolbar: {
@@ -84,7 +82,9 @@ const useStyles = makeStyles((theme) => ({
   },
   content: {
     flexGrow: 1,
-    padding: theme.spacing(3),
+    // padding: theme.spacing(3),
+    marginTop: "10px",
+    padding: "10px",
   },
 }));
 
@@ -111,26 +111,38 @@ export default function MyItin() {
         })}
       >
         <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            className={clsx(classes.menuButton, {
-              [classes.hide]: open,
-            })}
-          >
-            <MenuIcon />
-            <p style={{ padding: 0, margin: 0 }}>view Itin</p>
-          </IconButton>
-          {/* <Typography variant="h6" noWrap>
-            Mini variant drawer
-          </Typography> */}
+          {open === true ? (
+            <div className={classes.toolbar}>
+              <IconButton onClick={handleDrawerClose}>
+                {theme.direction === "rtl" ? (
+                  <ChevronRightIcon />
+                ) : (
+                  <ChevronLeftIcon />
+                )}
+              </IconButton>
+            </div>
+          ) : (
+            <div>
+              <Button
+                color="inherit"
+                aria-label="open drawer"
+                onClick={handleDrawerOpen}
+                edge="start"
+                className={clsx(classes.menuButton, {
+                  [classes.hide]: open,
+                })}
+              >
+                <p>View My Itinerary</p>
+                <MenuIcon />
+              </Button>
+            </div>
+          )}
           <SearchBar />
         </Toolbar>
       </AppBar>
-      <p>view Itin</p>
+
       <Drawer
+        style={{ background: "#172A3A" }}
         variant="permanent"
         className={clsx(classes.drawer, {
           [classes.drawerOpen]: open,
@@ -143,46 +155,18 @@ export default function MyItin() {
           }),
         }}
       >
-        <div className={classes.toolbar}>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === "rtl" ? (
-              <ChevronRightIcon />
-            ) : (
-              <ChevronLeftIcon />
-            )}
-          </IconButton>
-        </div>
-        <Divider />
-        {/* <List>
-          {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                <NotListedLocationRoundedIcon />
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List> */}
-        {/* <Divider />
-        <List>
-          {["All mail", "Trash", "Spam"].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
-        /////////ITIN LIST/////////
-        <ItneraryList />
-        {/* <CustomizedMenus />  */}
-        <ItneraryList />
+        <ItneraryList style={{ background: "#172A3A" }} />
       </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />
         <div style={{ display: "flex", flexDirection: "row" }}>
-          <ItineraryDisplayPage />
+          <ItineraryDisplayPage
+            style={{
+              padding: " 0 5px 0px 0",
+              overflow: "scroll",
+              height: "1000px",
+            }}
+          />
           <Map />
         </div>
       </main>

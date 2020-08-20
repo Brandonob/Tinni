@@ -1,0 +1,7 @@
+#item::before {
+  padding: 1px;
+}
+li {
+  text-decoration: none;
+  list-style-type: none;
+}
