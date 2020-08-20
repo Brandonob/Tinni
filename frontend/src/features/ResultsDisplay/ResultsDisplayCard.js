@@ -20,6 +20,12 @@ import { SnackbarProvider, useSnackbar } from "notistack";
 import { useDispatch, useSelector } from "react-redux";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
+import {setBusiness} from "../BusinessInfo/BusinessInfoSlice"
+import { updateModal, modalState } from "../BusinessModal/ModalSlice"
+import ModalDisplay from "../BusinessModal/ModalDisplay"
+import BusinessInfo from "../BusinessInfo/BusinessInfo"
+import BusinessInfoDisplay from "../BusinessInfo/BusinessInfoDisplay"
+import "../../Default_Pics/food.jpeg"
 
 import {
   addItemToItin,
@@ -38,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: "10px",
     backgroundColor: "#E6F0EE",
   },
-
+  
   media: {
     height: 0,
     paddingTop: "56.25%", // 16:9
@@ -73,6 +79,7 @@ export default function ResultsDisplayCard({
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
+
   };
   const handleClick = () => {
     let num = "" + Math.random().toString(36).substr(2, 9);
@@ -96,20 +103,27 @@ export default function ResultsDisplayCard({
 
     setOpen(false);
   };
+  
+  
+  
+  
 
-  return (
-    <SnackbarProvider maxSnack={3}>
+
+  const isOpen = useSelector(modalState)
+
+  const handleMoreInformation = (e)=>{
+    dispatch(setBusiness(e.target.title))
+    dispatch(updateModal(!isOpen))
+  }
+
+    return (
+       <SnackbarProvider maxSnack={3}>
       <Card className={classes.root} id={id}>
-        {/* <CardHeader
-        // variant="h6"
-        component="paragraph"
-        // font-size="10px"
-
-        subheader="Shrimp and Chorizo Paella"
-      /> */}
         <Typography gutterBottom variant="h6" component="h2">
           {name}
         </Typography>
+          <CardMedia className={classes.media} image={"https://static.techspot.com/images2/news/bigimage/2019/12/2019-12-19-image-2.png"} title={name} />
+
         <CardMedia className={classes.media} image={image_url} title={name} />
         <CardContent>
           <Typography variant="paragraph" color="textPrimary" component="p">
@@ -159,17 +173,18 @@ export default function ResultsDisplayCard({
         >
           <ExpandMoreIcon />
         </IconButton> */}
-        </CardActions>
-        <Collapse in={expanded} timeout="auto" unmountOnExit>
-          <CardContent>
-            {/* <Typography paragraph>Method:</Typography> */}
-
+  
             <Typography variant="body2" color="textPrimary" component="p">
-              more information
+              {/* <button onClick = {handleMoreInformation}>more information</button> */}
+            <ModalDisplay/>
+  
             </Typography>
+            <BusinessInfoDisplay id={id}/>
+  
           </CardContent>
         </Collapse>
       </Card>
-    </SnackbarProvider>
-  );
+    );
+  }
+
 }
