@@ -40,16 +40,6 @@ export default function App() {
     return <Marker key={id} position={{lat: coordinates.latitude, lng: coordinates.longitude}} label={`${i + 1}`} title={name}/>  
   })
 
-// <!--   const markers = curatedSearchResults.map((location) => {
-//     let { id, coordinates } = location;
-//     return (
-//       <Marker
-//         key={id}
-//         position={{ lat: coordinates.latitude, lng: coordinates.longitude }}
-//       />
-//     );
-//   }); -->
-
   const findSearchCenter = () => {
     return {
       lat: curatedSearchResults[0].coordinates.latitude,
