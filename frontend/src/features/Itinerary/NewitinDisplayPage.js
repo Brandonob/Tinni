@@ -18,12 +18,14 @@ import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
 import NotListedLocationRoundedIcon from "@material-ui/icons/NotListedLocationRounded";
-import CustomizedMenus from "./openclose";
+import CustomizedMenus from "./ItneraryDisplay";
 //components//
 import SearchBar from "../SearchBar/SearchBar";
 import ItneraryList from "./ItineraryList";
 import Map from "../Map/Map";
 import ItineraryDisplayPage from "../Search/SearchResultDisplayPage";
+import ItineraryDisplay from "./ItneraryDisplay";
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -51,6 +53,7 @@ const useStyles = makeStyles((theme) => ({
     whiteSpace: "nowrap",
   },
   drawerOpen: {
+    background: "#508991",
     marginTop: "50px",
     width: drawerWidth,
     transition: theme.transitions.create("width", {
@@ -142,7 +145,6 @@ export default function MyItin() {
       </AppBar>
 
       <Drawer
-        style={{ background: "#172A3A" }}
         variant="permanent"
         className={clsx(classes.drawer, {
           [classes.drawerOpen]: open,
@@ -155,7 +157,10 @@ export default function MyItin() {
           }),
         }}
       >
-        <ItneraryList style={{ background: "#172A3A" }} />
+        <p>Name</p>
+        <p>Date</p>
+        {/* <ItneraryList style={{ background: "#172A3A" }} /> */}
+        <ItineraryDisplay />
       </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />
