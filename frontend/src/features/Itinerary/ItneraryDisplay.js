@@ -21,32 +21,44 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(2),
     },
   },
+  textField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+    width: 300,
+    color: "black",
+    fontSize: 30,
+    opacity: 1,
+    borderBottom: 0,
+    "&:before": {
+      borderBottom: 0,
+    },
+  },
+  disabled: {
+    color: "black",
+    borderBottom: 0,
+    "&:before": {
+      borderBottom: 0,
+    },
+  },
 }));
 
 export default function ItineraryDisplay() {
   const classes = useStyles();
   const currentItinerary = useSelector(selectCurrentItin);
   const [ItineraryName, setItineraryName] = useState("My Itinerary");
-  const [ItineraryDate, setItinerarydate] = useState("");
+  const [ItineraryDate, setItinerarydate] = useState("2020-08-23");
   const [editMode, setEditMode] = useState(false);
 
   const handleChange = (event) => {
+    debugger;
     `set${event.target.name}`(event.target.value);
   };
 
   const handleClick = () => {
-    setEditMode(
-      true
-      // mouseOver: false,
-      // isediting: true
-    );
+    setEditMode(true);
   };
   const handleDone = () => {
-    setEditMode(
-      false
-      // mouseOver: false,
-      // isediting: false
-    );
+    setEditMode(false);
   };
 
   const navButton = () => {
@@ -66,7 +78,7 @@ export default function ItineraryDisplay() {
           // defaultValue={value}
           value={ItineraryName}
           margin="normal"
-          onChange={handleChange}
+          onChange={(e) => setItineraryName(e.target.value)}
           disabled={!editMode}
           className={classes.textField}
           InputProps={{
@@ -80,7 +92,9 @@ export default function ItineraryDisplay() {
           type="date"
           value={ItineraryDate}
           margin="normal"
-          onChange={handleChange}
+          onChange={(e) => {
+            setItinerarydate(e.target.value);
+          }}
           disabled={!editMode}
           className={classes.textField}
           InputProps={{
