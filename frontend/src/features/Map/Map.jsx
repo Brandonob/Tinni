@@ -31,26 +31,16 @@ const options = {
 
 export default function App() {
   const searchResults = useSelector(selectSearchResults);
-
-  const curatedSearchResults = searchResults.filter(
-    (location) => location.rating > 3.5
-  );
+  const curatedSearchResults = searchResults.filter(location => location.rating > 3.5)
+  const [selected, setSelected] = useState(null)
 
 
   const markers = curatedSearchResults.map((location, i = 0) => {
-    let {id, coordinates} = location
-    return <Marker key={id} position={{lat: coordinates.latitude, lng: coordinates.longitude}} label={`${i + 1}`}/>  
+    let {id, coordinates, name} = location
+    return <Marker key={id} position={{lat: coordinates.latitude, lng: coordinates.longitude}} label={`${i + 1}`} title={name} onClick={() => {
+      setSelected(location)
+    }}/>  
   })
-
-// <!--   const markers = curatedSearchResults.map((location) => {
-//     let { id, coordinates } = location;
-//     return (
-//       <Marker
-//         key={id}
-//         position={{ lat: coordinates.latitude, lng: coordinates.longitude }}
-//       />
-//     );
-//   }); -->
 
   const findSearchCenter = () => {
     return {
@@ -73,6 +63,9 @@ export default function App() {
         options={options}
       >
         {markers}
+        {selected ? (<InfoWindow position={{lat: selected.coordinates.latitude, lng: selected.coordinates.longitude}} onCloseClick={() => setSelected(null)}>
+          <h2>{selected.name}</h2>
+        </InfoWindow>) : null}
       </GoogleMap>
     </div>
   );
