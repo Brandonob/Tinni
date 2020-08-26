@@ -33,7 +33,8 @@ const getItemStyle = (isDragging, draggableStyle) => ({
   // ...(isDragging && {
   //   background: "rgb(235,235,235)",
   // }),
-  background: isDragging ? "#172A3A" : "#E6F0EE",
+
+  background: isDragging ? "#E6F0EE" : "#172A3A",
 });
 
 const getListStyle = (isDraggingOver) => ({
@@ -79,7 +80,8 @@ const ItneraryList = () => {
               >
                 {(provided, snapshot) => (
                   <ListItem
-                    ContainerComponent="li"
+                    id="listItinItem"
+                    // ContainerComponent="li"
                     ContainerProps={{ ref: provided.innerRef }}
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
@@ -95,7 +97,7 @@ const ItneraryList = () => {
                     // primary={item.body.name}
                     // secondary={item.secondary}
                     />
-                    <p>{item.body.name}</p>
+                    <p>{item.body.time + "  "}</p> <p>{item.body.name}</p>
                     <IconButton onClick={deleteItin} id={index}>
                       <HighlightOffIcon />
                     </IconButton>

@@ -5,17 +5,17 @@ import { useDispatch, useSelector } from "react-redux";
 import LocationSearch from "./locationSearch";
 import { receiveSearch } from "../SearchBar/SearchBarSlice";
 import "./searchbar.css";
-import Typography from "@material-ui/core/Typography";
+// import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Paper,
   InputBase,
   Divider,
-  IconButton,
+  // IconButton,
   Button,
   MenuItem,
   Select,
-  InputLabel,
+  // InputLabel,
 } from "@material-ui/core";
 
 import SearchIcon from "@material-ui/icons/Search";
@@ -63,7 +63,7 @@ const SearchBar = () => {
     }
   };
 
-  const handleSubmit = async (e) => {
+  const searchPlaces = async (e) => {
     e.preventDefault();
     const url = locationURL();
     const config = {
@@ -87,26 +87,19 @@ const SearchBar = () => {
     }
   };
 
+  const handleSubmit = async (e) => {
+    if (searchType === "Places") {
+      searchPlaces(e);
+    } else if (searchType === "Events") {
+    } else if (searchType === "Itineraries") {
+    }
+  };
+
   const handleChange = (e) => {
     setSearchType(e.target.value);
   };
   return (
     <>
-      {/* <InputLabel id="demo-simple-select-filled-label">Age</InputLabel>
-      <Select
-        labelId="demo-simple-select-filled-label"
-        id="demo-simple-select-filled"
-        value={age}
-        onChange={handleChange}
-      >
-        <MenuItem value="">
-          <em>None</em>
-        </MenuItem>
-        <MenuItem value={10}>Ten</MenuItem>
-        <MenuItem value={20}>Twenty</MenuItem>
-        <MenuItem value={30}>Thirty</MenuItem>
-      </Select> */}
-      {/* old */}
       <Paper component="form" className={classes.root} onSubmit={handleSubmit}>
         {/* <InputLabel id="demo-simple-select-filled-label">Age</InputLabel> */}
         <Select

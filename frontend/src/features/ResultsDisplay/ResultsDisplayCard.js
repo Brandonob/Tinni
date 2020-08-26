@@ -205,7 +205,8 @@ import { SnackbarProvider, useSnackbar } from "notistack";
 import { useDispatch, useSelector } from "react-redux";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
-
+import SimpleDialog from "../Itinerary/ItineraryDial/ItineraryDial";
+import "./ResultsDisplayCard.css";
 import {
   addItemToItin,
   selectCurrentItin,
@@ -256,11 +257,29 @@ export default function ResultsDisplayCard({
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
   const [open, setOpen] = useState(false);
+  const [opendia, setOpenDia] = useState(false);
+  const [time, setTime] = useState("5:00 pm");
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
   const handleClick = () => {
+    // let num = "" + Math.random().toString(36).substr(2, 9);
+    // // let id = latitude + longitude + "" + num++;
+    // let body = {
+    //   latitude,
+    //   longitude,
+    //   address,
+    //   term,
+    //   name,
+    //   id: num,
+    // };
+    // setOpen(true);
+    setOpenDia(true);
+    // dispatch(addItemToItin(body));
+  };
+
+  const handleADD = (e) => {
     let num = "" + Math.random().toString(36).substr(2, 9);
     // let id = latitude + longitude + "" + num++;
     let body = {
@@ -270,9 +289,17 @@ export default function ResultsDisplayCard({
       term,
       name,
       id: num,
+      time: time,
     };
+
     dispatch(addItemToItin(body));
+    setOpenDia(false);
     setOpen(true);
+  };
+
+  const handleDiaClose = (value) => {
+    setOpenDia(false);
+    // setSelectedValue(value);
   };
 
   const handleClose = (event, reason) => {
@@ -284,68 +311,73 @@ export default function ResultsDisplayCard({
   };
 
   return (
-    <SnackbarProvider maxSnack={3}>
-      <Card className={classes.root} id={id}>
-        {/* <CardHeader
+    <Card className={classes.root} id={id}>
+      {/* <CardHeader
         // variant="h6"
         component="paragraph"
         // font-size="10px"
 
         subheader="Shrimp and Chorizo Paella"
       /> */}
-        <Typography gutterBottom variant="h6" component="h2">
-          c{" " + name}
+      <Typography gutterBottom variant="h6" component="h2">
+        {" " + name}
+      </Typography>
+      {image_url ? (
+        <CardMedia className={classes.media} image={image_url} title={name} />
+      ) : (
+        <CardMedia
+          className={classes.media}
+          image={
+            "https://static.techspot.com/images2/news/bigimage/2019/12/2019-12-19-image-2.png"
+          }
+          title={name}
+        />
+      )}
+      <CardContent>
+        <Typography variant="paragraph" color="textPrimary" component="p">
+          Location: {address}
+          <br></br>
+          Rating: {rating}
+          <br></br>
+          Distance: {(distance * 0.00062137).toFixed(1)} mile
         </Typography>
-        {image_url ? (
-          <CardMedia className={classes.media} image={image_url} title={name} />
-        ) : (
-          <CardMedia
-            className={classes.media}
-            image={
-              "https://static.techspot.com/images2/news/bigimage/2019/12/2019-12-19-image-2.png"
-            }
-            title={name}
-          />
-        )}
-        <CardContent>
-          <Typography variant="paragraph" color="textPrimary" component="p">
-            Location: {address}
-            <br></br>
-            Rating: {rating}
-            <br></br>
-            Distance: {(distance * 0.00062137).toFixed(1)} mile
-          </Typography>
-        </CardContent>
-        <CardActions disableSpacing>
-          <IconButton
-            className={clsx(classes.expand, {
-              [classes.expandOpen]: expanded,
-            })}
-            onClick={handleExpandClick}
-            aria-expanded={expanded}
-            aria-label="show more"
-          >
-            <ExpandMoreIcon />
-          </IconButton>
-          <Button variant="contained" color="secondary" onClick={handleClick}>
-            Add
-            {/* <AddCircleSharpIcon onClick={handleClick} /> */}
-          </Button>
-          <Snackbar
-            open={open}
-            autoHideDuration={1000}
-            anchorOrigin={{ vertical: "top", horizontal: "left" }}
-            onClose={handleClose}
-          >
-            <Alert onClose={handleClose} severity="success">
-              This is a success message!
-            </Alert>
-          </Snackbar>
+        <Button
+          id="addButton"
+          variant="contained"
+          color="secondary"
+          onClick={handleClick}
+        >
+          Add
+          {/* <AddCircleSharpIcon onClick={handleClick} /> */}
+        </Button>
+      </CardContent>
+      <CardActions disableSpacing>
+        <IconButton
+          className={clsx(classes.expand, {
+            [classes.expandOpen]: expanded,
+          })}
+          onClick={handleExpandClick}
+          aria-expanded={expanded}
+          aria-label="show more"
+        >
+          <ExpandMoreIcon />
+        </IconButton>
 
-          {/* <IconButton aria-label="share">
+        <Snackbar
+          open={open}
+          autoHideDuration={1000}
+          anchorOrigin={{ vertical: "top", horizontal: "left" }}
+          onClose={handleClose}
+        >
+          <Alert onClose={handleClose} severity="success">
+            This is a success message!
+          </Alert>
+        </Snackbar>
+
+        {/* <IconButton aria-label="share">
           <ShareIcon />
         </IconButton> */}
-          {/* <IconButton
+        {/* <IconButton
           className={clsx(classes.expand, {
             [classes.expandOpen]: expanded
           })}
@@ -355,17 +387,23 @@ export default function ResultsDisplayCard({
         >
           <ExpandMoreIcon />
         </IconButton> */}
-        </CardActions>
-        <Collapse in={expanded} timeout="auto" unmountOnExit>
-          <CardContent>
-            {/* <Typography paragraph>Method:</Typography> */}
+      </CardActions>
+      <Collapse in={expanded} timeout="auto" unmountOnExit>
+        <CardContent>
+          {/* <Typography paragraph>Method:</Typography> */}
 
-            <Typography variant="body2" color="textPrimary" component="p">
-              more information
-            </Typography>
-          </CardContent>
-        </Collapse>
-      </Card>
-    </SnackbarProvider>
+          <Typography variant="body2" color="textPrimary" component="p">
+            more information
+          </Typography>
+        </CardContent>
+      </Collapse>
+      <SimpleDialog
+        open={opendia}
+        onClose={handleDiaClose}
+        setTime={setTime}
+        handleADD={handleADD}
+        time={time}
+      />
+    </Card>
   );
 }

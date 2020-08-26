@@ -1,7 +1,8 @@
 #item::before {
   padding: 1px;
 }
-li {
+#listItinItem {
   text-decoration: none;
   list-style-type: none;
+  color: black;
 }

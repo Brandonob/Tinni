@@ -18,13 +18,15 @@ import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
 import NotListedLocationRoundedIcon from "@material-ui/icons/NotListedLocationRounded";
-import CustomizedMenus from "./openclose";
+import CustomizedMenus from "./ItneraryDisplay";
 //components//
 import SearchBar from "../SearchBar/SearchBar";
 import ItneraryList from "./ItineraryList";
 import Map from "../Map/Map";
 import ItineraryDisplayPage from "../Search/SearchResultDisplayPage";
-const drawerWidth = 240;
+import ItineraryDisplay from "./ItneraryDisplay";
+
+const drawerWidth = 265;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -51,6 +53,7 @@ const useStyles = makeStyles((theme) => ({
     whiteSpace: "nowrap",
   },
   drawerOpen: {
+    background: "#508991",
     marginTop: "50px",
     width: drawerWidth,
     transition: theme.transitions.create("width", {
@@ -65,10 +68,10 @@ const useStyles = makeStyles((theme) => ({
       duration: theme.transitions.duration.leavingScreen,
     }),
     overflowX: "hidden",
-    width: "40px",
+    width: "1px",
     // width: theme.spacing(7) + 1,
     [theme.breakpoints.up("sm")]: {
-      width: "40px",
+      width: "1px",
       //   width: theme.spacing(9) + 1,
     },
   },
@@ -142,7 +145,6 @@ export default function MyItin() {
       </AppBar>
 
       <Drawer
-        style={{ background: "#172A3A" }}
         variant="permanent"
         className={clsx(classes.drawer, {
           [classes.drawerOpen]: open,
@@ -155,7 +157,29 @@ export default function MyItin() {
           }),
         }}
       >
-        <ItneraryList style={{ background: "#172A3A" }} />
+        {/* <div class="box" style={{ padding: "20px" }}>
+          <div class="mask"></div>
+          <div class="top">
+            <div class="menu but">
+              <i class="fa fa-bars" aria-hidden="true"></i>
+            </div>
+            <div class="search but">
+              <i class="fa fa-search" aria-hidden="true"></i>
+            </div>
+          </div>
+          <div class="time">
+            <span id="date">Sunday</span>
+            <br></br>
+            <span id="fulldate">September 11,2016</span>
+          </div>
+          <div class="temp">
+            29&#8451;<i class="wi wi-solar-eclipse"></i>
+          </div>
+          <div class="middle">
+            <span id="hi">My Iternary!</span>
+          </div>
+        </div> */}
+        <ItineraryDisplay />
       </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />

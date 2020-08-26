@@ -5,17 +5,17 @@ import SearchBar from "../SearchBar/SearchBar.js";
 import {
   AppBar,
   Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
+  // Card,
+  // CardActions,
+  // CardContent,
+  // CardMedia,
   CssBaseline,
   Grid,
   Toolbar,
   Container,
   Link,
 } from "@material-ui/core";
-import CameraIcon from "@material-ui/icons/PhotoCamera";
+// import CameraIcon from "@material-ui/icons/PhotoCamera";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import HomeButtonCards from "./homecomponents/homecards";
@@ -23,7 +23,7 @@ import "./home.css";
 import { addUser, logOutUser } from "../Users/usersSlice";
 import { useDispatch } from "react-redux";
 import firebase from "firebase/app";
-import { white, purple } from "@material-ui/core/colors";
+// import { white, purple } from "@material-ui/core/colors";
 
 function Copyright() {
   return (
@@ -190,8 +190,12 @@ export default function Album() {
             >
               LOGO CODE NAME IDA
             </Typography>
-            <Typography variant="h5" align="center" color="purple" paragraph>
-              Create your perfect iternary or take on an adventure made by one
+            <Typography
+              variant="h5"
+              align="center"
+              style={{ color: "white", textShadow: "2px 2px 5px black" }}
+            >
+              Create your perfect Itinerary or take on an adventure made by one
               of our users
             </Typography>
             <div className={classes.heroButtons}>
@@ -241,7 +245,7 @@ export default function Album() {
             id="section-name-Typ"
             // gutterBottom
           >
-            Trending Iternary
+            Trending Itinerary
           </Typography>
           <Grid container spacing={5}>
             <HomeButtonCards trendingTopics={trendingTopics} />
