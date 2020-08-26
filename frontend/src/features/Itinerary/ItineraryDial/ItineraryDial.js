@@ -24,15 +24,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SimpleDialog = (props) => {
-  const { onClose, selectedValue, open } = props;
+  const { onClose, selectedValue, open, handleADD, setTime, time } = props;
   const classes = useStyles();
 
-  const [selectedDate, setSelectedDate] = React.useState(
-    new Date("2020-08-18T21:11:54")
-  );
+  const [selectedDate, setSelectedDate] = React.useState(new Date("T21:11:54"));
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
+    setTime(date);
   };
 
   const handleClose = () => {
@@ -51,24 +50,30 @@ const SimpleDialog = (props) => {
         id="EnterName"
         label="Enter Name"
       /> */}
-      <form>
-        {/* <MuiPickersUtilsProvider utils={DateFnsUtils}> */}
-        {/* <Grid container justify="space-around"> */}
-        <p>PICK A DATE </p>
-        <TextField
-          id="datetime-local"
-          label="Next appointment"
-          type="datetime-local"
-          defaultValue="2017-05-24T10:30"
-          className={classes.textField}
-          InputLabelProps={{
-            shrink: true,
-          }}
-        />
+      {/* <form> */}
+      {/* <MuiPickersUtilsProvider utils={DateFnsUtils}> */}
+      {/* <Grid container justify="space-around"> */}
+      <div></div>
+      <p>PICK A Time </p>
+      <TextField
+        id="time-local"
+        label="Next appointment"
+        type="time-local"
+        defaultValue={time}
+        onChange={(e) => {
+          setTime(e.target.value);
+        }}
+        className={classes.textField}
+        InputLabelProps={{
+          shrink: true,
+        }}
+      />
 
-        {/* </Grid> */}
-        {/* </MuiPickersUtilsProvider> */}
-      </form>
+      {/* </Grid> */}
+      {/* </MuiPickersUtilsProvider> */}
+      <button onClick={handleADD}>Add</button>
+      <div />
+      {/* </form> */}
     </Dialog>
   );
 };

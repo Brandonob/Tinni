@@ -26,7 +26,7 @@ import Map from "../Map/Map";
 import ItineraryDisplayPage from "../Search/SearchResultDisplayPage";
 import ItineraryDisplay from "./ItneraryDisplay";
 
-const drawerWidth = 240;
+const drawerWidth = 265;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -68,10 +68,10 @@ const useStyles = makeStyles((theme) => ({
       duration: theme.transitions.duration.leavingScreen,
     }),
     overflowX: "hidden",
-    width: "40px",
+    width: "1px",
     // width: theme.spacing(7) + 1,
     [theme.breakpoints.up("sm")]: {
-      width: "40px",
+      width: "1px",
       //   width: theme.spacing(9) + 1,
     },
   },
@@ -157,9 +157,28 @@ export default function MyItin() {
           }),
         }}
       >
-        <p>Name</p>
-        <p>Date</p>
-        {/* <ItneraryList style={{ background: "#172A3A" }} /> */}
+        {/* <div class="box" style={{ padding: "20px" }}>
+          <div class="mask"></div>
+          <div class="top">
+            <div class="menu but">
+              <i class="fa fa-bars" aria-hidden="true"></i>
+            </div>
+            <div class="search but">
+              <i class="fa fa-search" aria-hidden="true"></i>
+            </div>
+          </div>
+          <div class="time">
+            <span id="date">Sunday</span>
+            <br></br>
+            <span id="fulldate">September 11,2016</span>
+          </div>
+          <div class="temp">
+            29&#8451;<i class="wi wi-solar-eclipse"></i>
+          </div>
+          <div class="middle">
+            <span id="hi">My Iternary!</span>
+          </div>
+        </div> */}
         <ItineraryDisplay />
       </Drawer>
       <main className={classes.content}>

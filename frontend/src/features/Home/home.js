@@ -190,8 +190,12 @@ export default function Album() {
             >
               LOGO CODE NAME IDA
             </Typography>
-            <Typography variant="h5" align="center" color="purple" paragraph>
-              Create your perfect iternary or take on an adventure made by one
+            <Typography
+              variant="h5"
+              align="center"
+              style={{ color: "white", textShadow: "2px 2px 5px black" }}
+            >
+              Create your perfect Itinerary or take on an adventure made by one
               of our users
             </Typography>
             <div className={classes.heroButtons}>
@@ -241,7 +245,7 @@ export default function Album() {
             id="section-name-Typ"
             // gutterBottom
           >
-            Trending Iternary
+            Trending Itinerary
           </Typography>
           <Grid container spacing={5}>
             <HomeButtonCards trendingTopics={trendingTopics} />

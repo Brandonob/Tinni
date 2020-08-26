@@ -258,11 +258,28 @@ export default function ResultsDisplayCard({
   const [expanded, setExpanded] = useState(false);
   const [open, setOpen] = useState(false);
   const [opendia, setOpenDia] = useState(false);
+  const [time, setTime] = useState("5:00 pm");
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
   const handleClick = () => {
+    // let num = "" + Math.random().toString(36).substr(2, 9);
+    // // let id = latitude + longitude + "" + num++;
+    // let body = {
+    //   latitude,
+    //   longitude,
+    //   address,
+    //   term,
+    //   name,
+    //   id: num,
+    // };
+    // setOpen(true);
+    setOpenDia(true);
+    // dispatch(addItemToItin(body));
+  };
+
+  const handleADD = (e) => {
     let num = "" + Math.random().toString(36).substr(2, 9);
     // let id = latitude + longitude + "" + num++;
     let body = {
@@ -272,10 +289,12 @@ export default function ResultsDisplayCard({
       term,
       name,
       id: num,
+      time: time,
     };
+
     dispatch(addItemToItin(body));
+    setOpenDia(false);
     setOpen(true);
-    setOpenDia(true);
   };
 
   const handleDiaClose = (value) => {
@@ -378,7 +397,13 @@ export default function ResultsDisplayCard({
           </Typography>
         </CardContent>
       </Collapse>
-      <SimpleDialog open={opendia} onClose={handleDiaClose} />
+      <SimpleDialog
+        open={opendia}
+        onClose={handleDiaClose}
+        setTime={setTime}
+        handleADD={handleADD}
+        time={time}
+      />
     </Card>
   );
 }
