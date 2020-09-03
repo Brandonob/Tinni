@@ -48,7 +48,6 @@ const LocationSearch = ({ setLatitude, setLongitude }) => {
     setSelect(false);
   };
   const handleClick = () => {
-    debugger;
     try {
       navigator.geolocation.getCurrentPosition(async (position) => {
         setLatitude(position.coords.latitude);

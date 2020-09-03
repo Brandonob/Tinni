@@ -240,7 +240,7 @@ const useStyles = makeStyles((theme) => ({
     transform: "rotate(180deg)",
   },
 }));
-
+let testTime = "19:00";
 export default function ResultsDisplayCard({
   image_url,
   id,
@@ -251,37 +251,29 @@ export default function ResultsDisplayCard({
   term,
   distance,
   rating,
-  cardNum,
 }) {
   const dispatch = useDispatch();
   const classes = useStyles();
   const [expanded, setExpanded] = useState(false);
   const [open, setOpen] = useState(false);
   const [opendia, setOpenDia] = useState(false);
-  const [time, setTime] = useState("5:00 pm");
+  const [hours, setHours] = useState(0);
+  const [mintues, setMintues] = useState(0);
+  const [time, setTime] = useState(0);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
   const handleClick = () => {
-    // let num = "" + Math.random().toString(36).substr(2, 9);
-    // // let id = latitude + longitude + "" + num++;
-    // let body = {
-    //   latitude,
-    //   longitude,
-    //   address,
-    //   term,
-    //   name,
-    //   id: num,
-    // };
-    // setOpen(true);
     setOpenDia(true);
-    // dispatch(addItemToItin(body));
   };
 
-  const handleADD = (e) => {
+  const handleADD = () => {
     let num = "" + Math.random().toString(36).substr(2, 9);
     // let id = latitude + longitude + "" + num++;
+    let duration = hours * 60 + mintues;
+
+    // hours * 60 + mintues
     let body = {
       latitude,
       longitude,
@@ -289,10 +281,15 @@ export default function ResultsDisplayCard({
       term,
       name,
       id: num,
-      time: time,
+      time: {
+        duration: duration,
+        travelTo: 0,
+      },
     };
 
     dispatch(addItemToItin(body));
+    setHours(0);
+    setMintues(0);
     setOpenDia(false);
     setOpen(true);
   };
@@ -312,13 +309,6 @@ export default function ResultsDisplayCard({
 
   return (
     <Card className={classes.root} id={id}>
-      {/* <CardHeader
-        // variant="h6"
-        component="paragraph"
-        // font-size="10px"
-
-        subheader="Shrimp and Chorizo Paella"
-      /> */}
       <Typography gutterBottom variant="h6" component="h2">
         {" " + name}
       </Typography>
@@ -362,7 +352,7 @@ export default function ResultsDisplayCard({
         >
           <ExpandMoreIcon />
         </IconButton>
-
+        {/* Alert */}
         <Snackbar
           open={open}
           autoHideDuration={1000}
@@ -373,36 +363,25 @@ export default function ResultsDisplayCard({
             This is a success message!
           </Alert>
         </Snackbar>
-
-        {/* <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton> */}
-        {/* <IconButton
-          className={clsx(classes.expand, {
-            [classes.expandOpen]: expanded
-          })}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-        >
-          <ExpandMoreIcon />
-        </IconButton> */}
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          {/* <Typography paragraph>Method:</Typography> */}
-
           <Typography variant="body2" color="textPrimary" component="p">
             more information
           </Typography>
         </CardContent>
       </Collapse>
+      {/* popup */}
       <SimpleDialog
+        name={name}
         open={opendia}
         onClose={handleDiaClose}
         setTime={setTime}
         handleADD={handleADD}
-        time={time}
+        mintues={mintues}
+        setMintues={setMintues}
+        hours={hours}
+        setHours={setHours}
       />
     </Card>
   );

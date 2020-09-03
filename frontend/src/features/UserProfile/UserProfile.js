@@ -134,8 +134,7 @@ export default function ItinResPage() {
             <Typography variant="h4">BIO</Typography>
             <Typography>Name:Doug</Typography>
             <Typography>Favortive Spot:Long Island City Piers </Typography>
-            <Typography>Number of Adventures:3 </Typography>
-            <Typography>DOB: January 8</Typography>
+            <Typography>Number of Adventures:2 </Typography>
           </div>
         </div>
 

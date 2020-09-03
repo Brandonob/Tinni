@@ -1,14 +1,18 @@
 import React, { useState } from "react";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Dialog from "@material-ui/core/Dialog";
-import { Typography, TextField } from "@material-ui/core/";
+import {
+  Typography,
+  TextField,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  Button,
+} from "@material-ui/core/";
 import { blue } from "@material-ui/core/colors";
 import DateFnsUtils from "@date-io/date-fns";
 import "date-fns";
-// import {
-//   MuiPickersUtilsProvider,
-//   KeyboardDatePicker,
-// } from "@material-ui/pickers";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
@@ -24,14 +28,23 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SimpleDialog = (props) => {
-  const { onClose, selectedValue, open, handleADD, setTime, time } = props;
+  const {
+    onClose,
+    selectedValue,
+    open,
+    handleADD,
+    setTime,
+    time,
+    name,
+    mintues,
+    setMintues,
+    hours,
+    setHours,
+  } = props;
   const classes = useStyles();
 
-  const [selectedDate, setSelectedDate] = React.useState(new Date("T21:11:54"));
-
-  const handleDateChange = (date) => {
-    setSelectedDate(date);
-    setTime(date);
+  const handleClick = () => {
+    handleADD();
   };
 
   const handleClose = () => {
@@ -44,36 +57,66 @@ const SimpleDialog = (props) => {
       aria-labelledby="simple-dialog-title"
       open={open}
     >
-      <DialogTitle id="simple-dialog-title">Pick a Time</DialogTitle>
-      {/* <TextField
-        placeholder="My Intinerary"
-        id="EnterName"
-        label="Enter Name"
-      /> */}
-      {/* <form> */}
-      {/* <MuiPickersUtilsProvider utils={DateFnsUtils}> */}
-      {/* <Grid container justify="space-around"> */}
-      <div></div>
-      <p>PICK A Time </p>
-      <TextField
-        id="time-local"
-        label="Next appointment"
-        type="time-local"
-        defaultValue={time}
-        onChange={(e) => {
-          setTime(e.target.value);
-        }}
-        className={classes.textField}
-        InputLabelProps={{
-          shrink: true,
-        }}
-      />
+      <DialogTitle id="simple-dialog-title">Duration</DialogTitle>
 
-      {/* </Grid> */}
-      {/* </MuiPickersUtilsProvider> */}
-      <button onClick={handleADD}>Add</button>
-      <div />
-      {/* </form> */}
+      <p style={{ padding: "10px" }}>How long will you be at {name} ? </p>
+
+      <div style={{ padding: "10px" }}>
+        <FormControl style={{ width: "100px" }} variant="outlined">
+          <InputLabel id="demo-simple-select-outlined-label">hours</InputLabel>
+          <Select
+            labelId="demo-simple-select-outlined-label"
+            id="demo-simple-select-outlined"
+            value={hours}
+            onChange={(e) => {
+              setHours(e.target.value);
+            }}
+            label="Hours"
+          >
+            <MenuItem value={0}>{0}</MenuItem>
+            <MenuItem value={1}>{1}</MenuItem>
+            <MenuItem value={2}>{2}</MenuItem>
+            <MenuItem value={3}>{3}</MenuItem>
+          </Select>
+        </FormControl>
+
+        <FormControl style={{ width: "100px" }} variant="outlined">
+          <InputLabel id="demo-simple-select-outlined-label">
+            Mintues
+          </InputLabel>
+          <Select
+            labelId="demo-simple-select-outlined-label"
+            id="demo-simple-select-outlined"
+            value={mintues}
+            onChange={(e) => {
+              setMintues(e.target.value);
+            }}
+            label="Mintues"
+          >
+            <MenuItem value={0}>{0}</MenuItem>
+            <MenuItem value={5}>{5}</MenuItem>
+            <MenuItem value={10}>{10}</MenuItem>
+            <MenuItem value={15}>{15}</MenuItem>
+            <MenuItem value={20}>{20}</MenuItem>
+            <MenuItem value={25}>{25}</MenuItem>
+            <MenuItem value={30}>{30}</MenuItem>
+            <MenuItem value={35}>{35}</MenuItem>
+            <MenuItem value={40}>{40}</MenuItem>
+            <MenuItem value={45}>{45}</MenuItem>
+            <MenuItem value={50}>{50}</MenuItem>
+            <MenuItem value={55}>{55}</MenuItem>
+          </Select>
+        </FormControl>
+      </div>
+
+      <Button
+        id="addButton"
+        variant="contained"
+        color="secondary"
+        onClick={handleClick}
+      >
+        Add
+      </Button>
     </Dialog>
   );
 };

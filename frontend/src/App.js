@@ -36,6 +36,9 @@ function App() {
         <Route exact path={"/myItin"}>
           <MyItin />
         </Route>
+        <Route exact path={"/user/itnerary"}>
+          <MyItin />
+        </Route>
       </ThemeProvider>
       <Route exact path={"/map"}>
         <MapContainer />

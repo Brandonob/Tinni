@@ -12,11 +12,9 @@ export const currentItinerarySlice = createSlice({
       },
     },
     updateItin: (state, action) => {
-      debugger;
       state.splice(action.payload, 1);
     },
     reorder: (state, action) => {
-      debugger;
       //   const result = Array.from(state);
       const [removed] = state.splice(action.payload.startIndex, 1);
       state.splice(action.payload.endIndex, 0, removed);
