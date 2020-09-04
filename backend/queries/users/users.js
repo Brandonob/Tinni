@@ -82,14 +82,21 @@ const getAllUsers = async(req, res, next)=>{
 
  const getSingleUser = async (req, res, next) => {
     try {
-        let user = await db.one(`SELECT * FROM users WHERE id = $1`, [req.params.id]);
+        // debugger
+        let user = await db.any(`SELECT * FROM users WHERE id = $1`, [req.params.id]);
+
         res.status(200).json({
             status: "success",
             message: " USER",
             payload: user
         })
     } catch (error) {
-        next(error);
+    //     res.status(555).json({
+    //     status: error,
+    //     message: "no active user",
+    //     payload: null,
+    //   });
+      next(error);
     }
 }
 

@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import SearchBar from "../SearchBar/SearchBar.js";
 import firebase from "firebase/app";
-import { selectInfo, addInfo, addUser, userID } from '../Users/usersSlice'
+import { selectInfo, addInfo, addUser, selectUserID } from '../Users/usersSlice'
+import { fetchItineraries } from '../Itinerary/itinerarySlice'
 import { useDispatch } from "react-redux";
 import { getAPI } from '../../util/utils'
 import axios from 'axios'
@@ -24,11 +25,12 @@ import {
 import CameraIcon from "@material-ui/icons/PhotoCamera";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import UserItin from "./UserItin";
-import {
-  addItemToItin,
-  selectCurrentItin,
-} from "../CurrentItinerary/currentItinerarySlice";
+// import UserItin from "./UserItin";
+import { ItinCards } from "./ItinCards"
+// import {
+//   addItemToItin,
+//   selectCurrentItin,
+// } from "../CurrentItinerary/currentItinerarySlice";
 
 // import HomeButtonCards from "./homecomponents/homecards";
 // import "./home.css";
@@ -88,11 +90,12 @@ const useStyles = makeStyles((theme) => ({
 export default function ItinResPage() {
   const classes = useStyles();
   // const itineraryResult = useSelector(selectSearchResults);
-  const currentItinerary = useSelector(selectCurrentItin);
+  // const currentItinerary = useSelector(selectCurrentItin);
   const userInformation = useSelector(selectInfo);
-  const currentUserID = useSelector(userID);
+  const currentUserID = useSelector(selectUserID);
   const [currentUser, setCurrentUser] = useState("");
-
+  const [userExists, setUserExists] = useState(false);
+// debugger
   const dispatch = useDispatch();
   
   const API = getAPI();
@@ -103,44 +106,67 @@ export default function ItinResPage() {
         console.log("User has successfully logged in!");
         setCurrentUser(user);
         getAllUsers()
-        signInAuthUser(user)
+        checkDBForUser(user)
       }
     });
   }, []);
 
-  const signInAuthUser = async (currentUser) => {
+  const checkDBForUser = async (user) => {
+    console.log("function hit");
+    
     try {
-        let {
-            displayName,
-            email,
-            phoneNumber,
-            photoURL
-        } = currentUser.providerData[0]
-
+      // debugger
+        console.log("userId being passed", user.uid);
+        let res = await axios.get(`${API}/users/${user.uid}`)
+        if(res.data.payload.length) {
+          setUserExists(true)
+        } else {
+          // debugger
+          signUserUp(user)
+        }
+        // res.data.payload.length ? setUserExists(true) : signUserUp()
         
+        } catch (error) {
+        console.log(error)
         
-        await axios.post(`${API}/users/`, {    //signup auth user
-            id: currentUserID,
-            first_name: displayName,
-            last_name: "",
-            email: email,
-            password: "",
-            phone: phoneNumber,
-            location: "",
-            profile_pic: photoURL
-        });
-    } catch (error) {
-        console.log("USER IS SIGNED UP ALREADY")
     }
-}
+  }
+
+  const signUserUp = async (user) => {
+    debugger
+    try {
+      let {
+        displayName,
+        email,
+        phoneNumber,
+        photoURL
+      } = user.providerData[0]
+
+      await axios.post(`${API}/users/`, {    //signup auth user
+        id: user.uid,
+        first_name: displayName,
+        last_name: "",
+        email: email,
+        password: "",
+        phone: phoneNumber,
+        location: "",
+        profile_pic: photoURL
+    });
+    fetchItineraries()
+
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
 
   const getAllUsers = async() => {
     try {
       let res = await axios.get(`${API}/users/`)
       console.log(res);
-      debugger
+      // debugger
       
     } catch (error) {
+      console.log(error);
       
     }
   }
@@ -153,13 +179,16 @@ export default function ItinResPage() {
   };
 
   const handleUser = () => {
-    dispatch(addUser(currentUserID));
+    dispatch(addUser(currentUser.uid));
     dispatch(addInfo(currentUser.providerData[0]))
-    //calls to save user into backend
+    
+    // calls to save user into backend
   };
 
   return (
     <>
+    {/* {currentUser ? checkDBForUser : null} */}
+    {console.log("is user in db", userExists)}
       <CssBaseline />
       <AppBar position="relative">
         <Toolbar>
@@ -208,7 +237,9 @@ export default function ItinResPage() {
         </Toolbar>
       </AppBar>
       <main style={{ display: "flex", boxSizing: "border-box" }}>
-        <div style={{ overflow: "scroll", height: "1000px" }}>
+        <div style={{ overflow: "scroll", 
+                      height: "1000px",
+                       }}>
           <Avatar
             alt="Remy Sharp"
             src={userInformation.photoURL}
@@ -217,11 +248,11 @@ export default function ItinResPage() {
             
           </Avatar>
           <div style={{ marginTop: "10px" }}>
-            <Typography variant="h4">BIO</Typography>
+            {/* <Typography variant="h4">BIO</Typography> */}
               <Typography>Name: {userInformation.displayName}</Typography>
-            <Typography>Favortive Spot:Long Island City Piers </Typography>
-            <Typography>Number of Adventures:3 </Typography>
-            <Typography>DOB: January 8</Typography>
+            {/* <Typography>Favortive Spot:Long Island City Piers </Typography> */}
+            {/* <Typography>Number of Adventures:3 </Typography> */}
+            {/* <Typography>DOB: January 8</Typography> */}
           </div>
         </div>
 
@@ -236,8 +267,8 @@ export default function ItinResPage() {
           }}
         >
           {/* {/* <CustomizedMenus /> */}
-
-          <UserItin />
+          <ItinCards/>
+          {/* <UserItin /> */}
         </div>
         {/* <Container className={classes.cardGrid} maxWidth="md"> */}
         {/* End hero unit */}

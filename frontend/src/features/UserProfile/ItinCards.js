@@ -7,28 +7,38 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import reactLogo from '../../images/reactLogo.png';
+import { useSelector } from "react-redux";
+import {
+  addItemToItin,
+  selectCurrentItin,
+} from "../CurrentItinerary/currentItinerarySlice";
 
 const useStyles = makeStyles({
-  root: {
-    maxWidth: 345,
-  },
-});
+    root: {
+      maxWidth: 250,
+    },
+    media: {
+      height: 200,
+    },
+  });
 
-export const ItinCard = (itineraryInfo) => {
+export const ItinCards = () => {
     const classes = useStyles();
+    const itineraries = useSelector(selectCurrentItin);
 
-    return (
-        <div>
-            <Card className={classes.root}>
+  return (
+    <Card className={classes.root}>
       <CardActionArea>
         <CardMedia
-          component="img"
-          alt="Contemplative Reptile"
-          height="140"
-          image="/static/images/cards/contemplative-reptile.jpg"
+          className={classes.media}
+          image={reactLogo}
           title="Contemplative Reptile"
         />
-        <CardContent>
+        <Typography gutterBottom variant="h5" component="h2">
+            React
+          </Typography>
+        {/* <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
             Lizard
           </Typography>
@@ -36,18 +46,16 @@ export const ItinCard = (itineraryInfo) => {
             Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
             across all continents except Antarctica
           </Typography>
-        </CardContent>
+        </CardContent> */}
       </CardActionArea>
       <CardActions>
         <Button size="small" color="primary">
-          Share
+          Edit
         </Button>
         <Button size="small" color="primary">
-          Learn More
+          Share
         </Button>
       </CardActions>
     </Card>
-            
-        </div>
-    )
+  );
 }

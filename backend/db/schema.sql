@@ -20,7 +20,7 @@ CREATE TABLE users
   last_name TEXT NOT NULL,
   email VARCHAR NOT NULL,
   password VARCHAR NOT NULL,
-  phone BIGINT DEFAULT 0,
+  phone BIGINT DEFAULT 9999999999,
   location VARCHAR NOT NULL DEFAULT ' ',
   profile_pic VARCHAR NOT NULL DEFAULT ' '
 );
@@ -68,22 +68,22 @@ CREATE TABLE participants
 
 -- SEED DATA
 
--- INSERT INTO users (first_name, last_name, email, password, phone, location)
--- VALUES ('Javon', 'Fowler', 'javonfowler@pursuit.org', 'abcd1234', 9143349786, 'Bronx, NY'),
+-- INSERT INTO users (id, first_name, last_name, email, password, phone, location)
+-- VALUES ('LBV0TgefmFRxpIiqhhUQvPbzdEi2', 'Javon', 'Fowler', 'javonfowler@pursuit.org', 'abcd1234', 9143349786, 'Bronx, NY');
 -- ('Dugmar', 'Morocho', 'dugmarmorocho@pursuit.org', '1234abcd', 8003934448, 'Queens, NY'),
 -- ('Brandon', 'Brown', 'brandonbrown@pursuit.org', 'password1', 8775277454, 'Brooklyn, NY'),
 -- ('Rafid', 'Hossain', 'rafidhossain@pursuit.org', '1password', 8008888888, 'Queens, NY')
 -- ;
 
--- INSERT INTO itineraries (user_id, itinerary_date, title)
+INSERT INTO itineraries (user_id, itinerary_date, title)
 -- VALUES (1, '2020-08-30', 'My One Year Anniversary'),
 -- (1, '2020-08-21', 'Mom''s Birthday Agenda'),
 -- (2, '2020=07-28', 'Date Night'),
 -- (3, '2020-09-10', 'Litty Weekend'),
 -- (4, '2020-11-11', 'Pop the Question'),
--- (107853417868722800468, '', 'brunch'),
--- (107853417868722800468, '', 'birthday dinner'),
--- (107853417868722800468, '', 'Anni');
+VALUES ('LBV0TgefmFRxpIiqhhUQvPbzdEi2', '2020-08-30', 'brunch'),
+('LBV0TgefmFRxpIiqhhUQvPbzdEi2', '2020-08-30', 'birthday dinner'),
+('LBV0TgefmFRxpIiqhhUQvPbzdEi2', '2020-08-30', 'Anni');
 
 -- INSERT INTO activities (itin_id, location, activity_name, category)
 -- VALUES (1, 'Harlem, NY', 'Harlem Hookah', 'Bars'),
