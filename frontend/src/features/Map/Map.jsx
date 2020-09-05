@@ -12,6 +12,9 @@ import {
   selectSearchResults,
 } from "../SearchBar/SearchBarSlice";
 import { useDispatch, useSelector } from "react-redux";
+import RoomIcon from "@material-ui/icons/Room"
+import MarkerIcon from "../../Default_Pics/marker.svg"
+
 
 const mapContainerStyle = {
   width: "100vw",
@@ -37,7 +40,18 @@ export default function App() {
 
   const markers = curatedSearchResults.map((location, i = 0) => {
     let {id, coordinates, name} = location
-    return <Marker key={id} position={{lat: coordinates.latitude, lng: coordinates.longitude}} label={`${i + 1}`} title={name} onClick={() => {
+    return <Marker
+    key={id}
+    position={{lat: coordinates.latitude, lng: coordinates.longitude}}
+    icon={{
+      url: MarkerIcon,
+      scaledSize: new window.google.maps.Size(55, 55),
+      origin: new window.google.maps.Point(0,0),
+      anchor: new window.google.maps.Point(27,27)
+    }}
+    label={`${i + 1}`}
+    title={name}
+    onClick={() => {
       setSelected(location)
     }}/>  
   })
@@ -48,7 +62,7 @@ export default function App() {
       lng: curatedSearchResults[0].coordinates.longitude,
     };
   };
-
+  console.log(selected)
   return (
     <div>
       {/* <h1>
@@ -64,7 +78,10 @@ export default function App() {
       >
         {markers}
         {selected ? (<InfoWindow position={{lat: selected.coordinates.latitude, lng: selected.coordinates.longitude}} onCloseClick={() => setSelected(null)}>
+          <div>
           <h2>{selected.name}</h2>
+          <p><center>{selected.location.display_address[0]}<br/>{selected.location.display_address[1]}</center></p>
+          </div>
         </InfoWindow>) : null}
       </GoogleMap>
     </div>
