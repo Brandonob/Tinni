@@ -35,35 +35,32 @@ export const ItinCards = () => {
     },[])
 
   return (
-    <Card className={classes.root}>
+    <>
       {console.log(itineraries)}
-      <CardActionArea>
-        <CardMedia
-          className={classes.media}
-          image={reactLogo}
-          title="Contemplative Reptile"
-        />
-        <Typography gutterBottom variant="h5" component="h2">
-            React
-          </Typography>
-        {/* <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-            Lizard
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-            across all continents except Antarctica
-          </Typography>
-        </CardContent> */}
-      </CardActionArea>
-      <CardActions>
-        <Button size="small" color="primary">
-          Edit
-        </Button>
-        <Button size="small" color="primary">
-          Share
-        </Button>
-      </CardActions>
-    </Card>
+      {itineraries.map(el => {
+        return (
+          <Card className={classes.root}>
+          <CardActionArea>
+            <CardMedia
+              className={classes.media}
+              image={reactLogo}
+              title="Contemplative Reptile"
+            />
+            <Typography gutterBottom variant="h5" component="h2">
+                {el.title}
+              </Typography>
+          </CardActionArea>
+          <CardActions>
+            <Button size="small" color="primary">
+              Edit
+            </Button>
+            <Button size="small" color="primary">
+              Share
+            </Button>
+          </CardActions>
+          </Card>
+        )
+      })}
+  </>
   );
 }
