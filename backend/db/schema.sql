@@ -68,8 +68,8 @@ CREATE TABLE participants
 
 -- SEED DATA
 
--- INSERT INTO users (id, first_name, last_name, email, password, phone, location)
--- VALUES ('LBV0TgefmFRxpIiqhhUQvPbzdEi2', 'Javon', 'Fowler', 'javonfowler@pursuit.org', 'abcd1234', 9143349786, 'Bronx, NY');
+INSERT INTO users (id, first_name, last_name, email, password, phone, location)
+VALUES ('LBV0TgefmFRxpIiqhhUQvPbzdEi2', 'Brandon Brown', '', 'brandonbrown@pursuit.org', '', 6466205446, 'Brooklyn, NY');
 -- ('Dugmar', 'Morocho', 'dugmarmorocho@pursuit.org', '1234abcd', 8003934448, 'Queens, NY'),
 -- ('Brandon', 'Brown', 'brandonbrown@pursuit.org', 'password1', 8775277454, 'Brooklyn, NY'),
 -- ('Rafid', 'Hossain', 'rafidhossain@pursuit.org', '1password', 8008888888, 'Queens, NY')

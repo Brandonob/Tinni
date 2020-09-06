@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from "react-redux";
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -9,10 +10,8 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import reactLogo from '../../images/reactLogo.png';
 import { useSelector } from "react-redux";
-import {
-  addItemToItin,
-  selectCurrentItin,
-} from "../CurrentItinerary/currentItinerarySlice";
+import { fetchItineraries, selectItins } from '../Itinerary/itinerarySlice'
+import { selectUserID } from '../Users/usersSlice'
 
 const useStyles = makeStyles({
     root: {
@@ -25,10 +24,19 @@ const useStyles = makeStyles({
 
 export const ItinCards = () => {
     const classes = useStyles();
-    const itineraries = useSelector(selectCurrentItin);
+
+    const itineraries = useSelector(selectItins);
+    const currentUserID = useSelector(selectUserID)
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+      dispatch(fetchItineraries(currentUserID))
+    },[])
 
   return (
     <Card className={classes.root}>
+      {console.log(itineraries)}
       <CardActionArea>
         <CardMedia
           className={classes.media}

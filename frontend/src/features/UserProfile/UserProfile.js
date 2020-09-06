@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import SearchBar from "../SearchBar/SearchBar.js";
 import firebase from "firebase/app";
 import { selectInfo, addInfo, addUser, selectUserID } from '../Users/usersSlice'
-import { fetchItineraries } from '../Itinerary/itinerarySlice'
 import { useDispatch } from "react-redux";
 import { getAPI } from '../../util/utils'
 import axios from 'axios'
@@ -152,7 +151,6 @@ export default function ItinResPage() {
         location: "",
         profile_pic: photoURL
     });
-    fetchItineraries()
 
     } catch (error) {
       console.log(error.message)
