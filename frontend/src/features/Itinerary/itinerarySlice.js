@@ -1,6 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
 import { getAPI } from '../../util/utils'
+import { useSelector } from "react-redux";
+
 
 const API = getAPI();
 
@@ -8,16 +10,28 @@ export const itinerariesSlice = createSlice({
     name: "itineraries",
     initialState: [],
     reducers: {
-        recieveAllItins: (state, action) => action.payload
+        recieveAllItins: (state, action) => action.payload,
+        addItemToItin:{
+            reducer:(state, action)=>{
+               state.push(action.payload)
+            },
+            prepare: (body) =>{
+                return({payload:{body}})
+            }
+        },
+        updateItin:(state,{payload})=>{
+            state.splice(payload.num,1)
+        }
     }
 })
 
-export const fetchAllPosts = () => async dispatch => {
+export const fetchItineraries = (currentUserID) => async dispatch => {
+    debugger
     try {
-        let res = await axios.get(`${API}/itineraries`);
-        const { itineraries } = res.data.body;
+        let res = await axios.get(`${API}/itineraries/${currentUserID}`);
+        let { payload } = res.data;
         // debugger
-        dispatch(recieveAllItins(itineraries))
+        dispatch(recieveAllItins(payload))
     } catch (error) {
         console.log(error.message);
     }
