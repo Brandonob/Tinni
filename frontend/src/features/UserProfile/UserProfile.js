@@ -246,11 +246,13 @@ export default function ItinResPage() {
             
           </Avatar>
           <div style={{ marginTop: "10px" }}>
+
             {/* <Typography variant="h4">BIO</Typography> */}
               <Typography>Name: {userInformation.displayName}</Typography>
             {/* <Typography>Favortive Spot:Long Island City Piers </Typography> */}
             {/* <Typography>Number of Adventures:3 </Typography> */}
             {/* <Typography>DOB: January 8</Typography> */}
+
           </div>
         </div>
 

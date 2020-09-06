@@ -8,19 +8,22 @@ const images = [
     url: "",
     title: "Create a new Itin",
     width: "40%",
-    margin: "1px",
+    margin: "10px",
+    padding: "5px",
   },
   {
     url: "/static/images/grid-list/burgers.jpg",
     title: "Salsa and sunsets",
     width: "30%",
     margin: "10px",
+    padding: "5px",
   },
   {
     url: "/static/images/grid-list/camera.jpg",
     title: "Bike Ride in Brooklyn & beers",
     width: "30%",
     margin: "10px",
+    padding: "5px",
   },
 ];
 
@@ -106,7 +109,7 @@ export default function ButtonBases() {
     <div className={classes.root}>
       {images.map((image) => (
         <ButtonBase
-          href={"/ItinResPage"}
+          href={"/myItin"}
           focusRipple
           key={image.title}
           className={classes.image}

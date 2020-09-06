@@ -84,14 +84,6 @@ export default function ItinResPage() {
       <CssBaseline />
       <AppBar position="relative">
         <Toolbar>
-          {/* <CameraIcon className={classes.icon} /> */}
-          {/* <Typography variant="h6" color="inherit" noWrap>
-                                                CodeName IDA
-                                            </Typography> */}
-          {/* <Typography variant="h6" color="pink">
-            <Link href="/home">codenameIDA</Link>
-          </Typography> */}
-
           <Grid container spacing={2} justify="flex-end">
             <Grid item>
               <SearchBar />
@@ -117,9 +109,10 @@ export default function ItinResPage() {
       <main style={{ display: "flex", boxSizing: "border-box" }}>
         <div style={{ overflow: "scroll", height: "1000px" }}>
           <ItineraryDisplayPage />
+
+          <p>review</p>
         </div>
-        {/* <CustomizedMenus /> */}
-        {/* <Map /> */}
+
         <div
           id="mapDiv"
           style={{
