@@ -12,8 +12,15 @@ import {
   selectSearchResults,
 } from "../SearchBar/SearchBarSlice";
 import { useDispatch, useSelector } from "react-redux";
-import RoomIcon from "@material-ui/icons/Room"
 import MarkerIcon from "../../Default_Pics/marker.svg"
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
+import SimpleDialog from "../Itinerary/ItineraryDial/ItineraryDial";
+import { addItemToItin} from "../CurrentItinerary/currentItinerarySlice";
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 
 const mapContainerStyle = {
@@ -32,14 +39,60 @@ const options = {
   streetViewControl: true,
 };
 
+
+
 export default function App() {
   const searchResults = useSelector(selectSearchResults);
   const curatedSearchResults = searchResults.filter(location => location.rating > 3.5)
   const [selected, setSelected] = useState(null)
+  const [opendia, setOpenDia] = useState(false);
+  const [hours, setHours] = useState(0);
+  const [minutes, setMinutes] = useState(0);
+  const [open, setOpen] = useState(false)
+  const dispatch = useDispatch()
+  const handleDiaClose = (value) => {
+    setOpenDia(false);
+    // setSelectedValue(value);
+  };
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+  };
+  
+  //opens dialogue box 
+ const handleClick = () => {
+  setOpenDia(true);
+};
+//add to itinerary and closes dialogue box 
+const handleADD = () => {
+  let num = "" + Math.random().toString(36).substr(2, 9);
+  // let id = latitude + longitude + "" + num++;
+  let duration = hours * 60 + minutes;
+  // hours * 60 + minutes
+  let body = {
+    latitude: selected.coordinates.latitude,
+    longitude: selected.coordinates.longitude,
+    address: `${selected.location.display_address[0]} ${selected.location.display_address[1]}` ,
+    name: selected.name,
+    id: num,
+    time: {
+      duration: duration,
+      travelTo: 0,
+    },
+  };
+  dispatch(addItemToItin(body));
+  setHours(0);
+  setMinutes(0);
+  setOpenDia(false);
+  setOpen(true);
+};
+  
+  const markers = curatedSearchResults.map((loc, i = 0) => {
+    let {id, coordinates, name} = loc
 
 
-  const markers = curatedSearchResults.map((location, i = 0) => {
-    let {id, coordinates, name} = location
     return <Marker
     key={id}
     position={{lat: coordinates.latitude, lng: coordinates.longitude}}
@@ -52,7 +105,7 @@ export default function App() {
     label={`${i + 1}`}
     title={name}
     onClick={() => {
-      setSelected(location)
+      setSelected(loc)
     }}/>  
   })
 
@@ -62,7 +115,7 @@ export default function App() {
       lng: curatedSearchResults[0].coordinates.longitude,
     };
   };
-  console.log(selected)
+
   return (
     <div>
       {/* <h1>
@@ -81,6 +134,27 @@ export default function App() {
           <div>
           <h2>{selected.name}</h2>
           <p><center>{selected.location.display_address[0]}<br/>{selected.location.display_address[1]}</center></p>
+          <button onClick={handleClick}>Add</button>
+          <Snackbar
+          open={open}
+          autoHideDuration={1000}
+          anchorOrigin={{ vertical: "top", horizontal: "left" }}
+          onClose={handleClose}
+        >
+          <Alert onClose={handleClose} severity="success">
+            This is a success message!
+          </Alert>
+          </Snackbar>
+          <SimpleDialog
+        name={selected.name}
+        open={opendia}
+        onClose={handleDiaClose}
+        handleADD={handleADD}
+        minutes={minutes}
+        setMinutes={setMinutes}
+        hours={hours}
+        setHours={setHours}
+      />
           </div>
         </InfoWindow>) : null}
       </GoogleMap>

@@ -7,7 +7,7 @@
 
 # testing
 /coverage
-/src/features/Sandbox.jsx
+
 
 # production
 /build
