@@ -10,30 +10,36 @@ const ItineraryDisplayPage = () => {
   const history = useHistory();
 
   const displayResults = () => {
-    return itineraryResult.map((result) => {
+    return itineraryResult.map((result, i) => {
       if (result.rating > 3.5) {
         return (
-          <ResultsDisplayCard
-            key={result.id}
-            image_url={result.image_url}
-            id={result.id}
-            name={result.name}
-            address={result.location.display_address.join(" ")}
-            latitude={result.coordinates.latitude}
-            longitude={result.coordinates.longitude}
-            rating={result.rating}
-            distance={result.distance}
-          />
+          <>
+            <ResultsDisplayCard
+              cardNum={i}
+              key={result.id}
+              image_url={result.image_url}
+              id={result.id}
+              name={result.name}
+              address={result.location.display_address.join(" ")}
+              latitude={result.coordinates.latitude}
+              longitude={result.coordinates.longitude}
+              rating={result.rating}
+              distance={result.distance}
+            />
+            <p>Direction {i}</p>
+          </>
         );
       }
     });
   };
 
-  debugger;
   return (
     <>
       {/* <Search/> */}
-      <div className={"resultIndex"}>
+      <div
+        className={"resultIndex"}
+        style={{ width: "205px", height: "500px", overflow: "scroll" }}
+      >
         <div className={"topHeader"}>
           <h2 id={"heading"}>Search Results</h2>
         </div>

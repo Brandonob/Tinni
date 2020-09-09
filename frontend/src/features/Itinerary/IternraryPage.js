@@ -17,7 +17,7 @@ import {
 import CameraIcon from "@material-ui/icons/PhotoCamera";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import CustomizedMenus from "./openclose";
+// import CustomizedMenus from "./openclose";
 import Map from "../Map/Map";
 
 import ItineraryDisplayPage from "../Search/SearchResultDisplayPage";
@@ -84,15 +84,6 @@ export default function ItinResPage() {
       <CssBaseline />
       <AppBar position="relative">
         <Toolbar>
-          {/* <CameraIcon className={classes.icon} /> */}
-          {/* <Typography variant="h6" color="inherit" noWrap>
-                                                CodeName IDA
-                                            </Typography> */}
-          <Typography variant="h6" color="inherit">
-            <Link href="/home">codenameIDA</Link>
-            <Link href="/home">codenameIDA</Link>
-          </Typography>
-
           <Grid container spacing={2} justify="flex-end">
             <Grid item>
               <SearchBar />
@@ -118,10 +109,12 @@ export default function ItinResPage() {
       <main style={{ display: "flex", boxSizing: "border-box" }}>
         <div style={{ overflow: "scroll", height: "1000px" }}>
           <ItineraryDisplayPage />
+
+          <p>review</p>
         </div>
-        <CustomizedMenus />
-        {/* <Map /> */}
+
         <div
+          id="mapDiv"
           style={{
             width: "500px",
             height: "500px",
@@ -130,8 +123,10 @@ export default function ItinResPage() {
           }}
         >
           {/* {/* <CustomizedMenus /> */}
+          <div style={{ position: "absolute" }}>
+            <CustomizedMenus />
+          </div>
           <Map />
-          <div></div>
         </div>
         {/* <Container className={classes.cardGrid} maxWidth="md"> */}
         {/* End hero unit */}

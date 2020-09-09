@@ -20,7 +20,6 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-
 const Copyright = () => {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -33,7 +32,6 @@ const Copyright = () => {
     </Typography>
   );
 }
-
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -53,7 +51,6 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(3, 0, 2),
   },
 }));
-
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -73,12 +70,10 @@ const Login = () => {
             dispatch(addUser(res.user.uid));
             debugger
             history.push("/home")
-
         } catch (error) {
             setErrMessage(error.message)
         }
     }
-
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -149,5 +144,4 @@ const Login = () => {
     </Container>
   );
 }
-
 export default Login;

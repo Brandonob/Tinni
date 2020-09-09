@@ -17,10 +17,10 @@ import {
 import CameraIcon from "@material-ui/icons/PhotoCamera";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import CustomizedMenus from "./openclose";
+// import CustomizedMenus from "./openclose";
 import Map from "../Map/Map";
 
-import ItineraryDisplayPage from "../Search/SearchResultDisplayPage"
+import ItineraryDisplayPage from "../Search/SearchResultDisplayPage";
 
 import ResultsDisplayCard from "../ResultsDisplay/ResultsDisplayCard";
 
@@ -88,9 +88,8 @@ export default function ItinResPage() {
           {/* <Typography variant="h6" color="inherit" noWrap>
                                                 CodeName IDA
                                             </Typography> */}
-          <Typography variant="h6" color="inherit">
-            <Link href="/home">codenameIDA</Link>
-            <Link href="/home">codenameIDA</Link>
+          <Typography variant="h6" color="secondary'">
+            <a href="./home">codenameIDA</a>
           </Typography>
 
           <Grid container spacing={2} justify="flex-end">
@@ -119,7 +118,7 @@ export default function ItinResPage() {
         <div style={{ overflow: "scroll", height: "1000px" }}>
           <ItineraryDisplayPage />
         </div>
-        <CustomizedMenus />
+        {/* <CustomizedMenus /> */}
         {/* <Map /> */}
         <div
           style={{

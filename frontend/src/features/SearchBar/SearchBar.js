@@ -5,9 +5,18 @@ import { useDispatch, useSelector } from "react-redux";
 import LocationSearch from "./locationSearch";
 import { receiveSearch } from "../SearchBar/SearchBarSlice";
 import "./searchbar.css";
-import Typography from "@material-ui/core/Typography";
+// import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import { Paper, InputBase, Divider, IconButton } from "@material-ui/core";
+import {
+  Paper,
+  InputBase,
+  Divider,
+  // IconButton,
+  Button,
+  MenuItem,
+  Select,
+  // InputLabel,
+} from "@material-ui/core";
 
 import SearchIcon from "@material-ui/icons/Search";
 
@@ -24,6 +33,7 @@ const useStyles = makeStyles((theme) => ({
   },
   iconButton: {
     padding: 10,
+    color: "secondary",
   },
   divider: {
     height: 28,
@@ -33,8 +43,8 @@ const useStyles = makeStyles((theme) => ({
 
 // const API_KEY = process.env.REACT_APP_API_KEY;
 const API_KEY =
-  "8qnMAZ-CZ90tKgmGIL0GXzVK-teEHMAmfu0f-NlSKYgA-dSxs5WzkUz5DEu293l2ccgEUx9VMFEB3rMRMGXh0d7uU2cuybWSC91zVpq7-1l7Zq8LXBzoMVe9L8XvXnYx";
-
+  // "8qnMAZ-CZ90tKgmGIL0GXzVK-teEHMAmfu0f-NlSKYgA-dSxs5WzkUz5DEu293l2ccgEUx9VMFEB3rMRMGXh0d7uU2cuybWSC91zVpq7-1l7Zq8LXBzoMVe9L8XvXnYx";
+  "LFdo6C7hC-lOv9bETblPGtrgq3v7mv58fZYWAv9gQCSrfAWsFjfaB2zHEthT1WHpTcdJUaxGk7tBUyReInvmM672_yo2V2uQNS_fW5gKzzE7mOwKtUR21zESo14LX3Yx";
 const SearchBar = () => {
   const classes = useStyles();
   const [location, setLocation] = useState("");
@@ -43,6 +53,8 @@ const SearchBar = () => {
   const [longitude, setLongitude] = useState("");
   const dispatch = useDispatch();
   const history = useHistory();
+  const [searchType, setSearchType] = useState("Places");
+  const [loading, SetLoading] = useState(false);
 
   const locationURL = () => {
     if (location) {
@@ -52,7 +64,8 @@ const SearchBar = () => {
     }
   };
 
-  const handleSubmit = async (e) => {
+  const searchPlaces = async (e) => {
+    SetLoading(true);
     e.preventDefault();
     const url = locationURL();
     const config = {
@@ -65,18 +78,45 @@ const SearchBar = () => {
 
     try {
       let res = await axios(config);
-      debugger;
+
       dispatch(receiveSearch(res.data.businesses));
-      debugger;
-      history.push("/ItinResPage");
+
+      // history.push("/ItinResPage");
+      //new page
+      SetLoading(false);
+      history.push("/myitin");
     } catch (error) {
+      SetLoading(true);
       console.log(error);
     }
   };
 
+  const handleSubmit = async (e) => {
+    if (searchType === "Places") {
+      searchPlaces(e);
+    } else if (searchType === "Events") {
+    } else if (searchType === "Itineraries") {
+    }
+  };
+
+  const handleChange = (e) => {
+    setSearchType(e.target.value);
+  };
   return (
     <>
       <Paper component="form" className={classes.root} onSubmit={handleSubmit}>
+        {/* <InputLabel id="demo-simple-select-filled-label">Age</InputLabel> */}
+        <Select
+          labelId="demo-simple-select-filled-label"
+          id="demo-simple-select-filled"
+          value={searchType}
+          onChange={handleChange}
+        >
+          <MenuItem value="Places">Places</MenuItem>
+          <MenuItem value="Events">Events</MenuItem>
+          <MenuItem value="Itineraries">Itineraries </MenuItem>
+        </Select>
+        <Divider className={classes.divider} orientation="vertical" />
         <InputBase
           onChange={(e) => setTerm(e.currentTarget.value)}
           value={term}
@@ -87,26 +127,45 @@ const SearchBar = () => {
           autoFocus="true"
         />
         <Divider className={classes.divider} orientation="vertical" />
-        <LocationSearch setLatitude={setLatitude} setLongitude={setLongitude} />
+        <LocationSearch
+          color="secondary"
+          setLatitude={setLatitude}
+          setLongitude={setLongitude}
+        />
         <Divider className={classes.divider} orientation="vertical" />
 
-        <IconButton
-          color="primary"
+        {/* <IconButton
+          // color="primary"
           className={classes.iconButton}
-          aria-label="directions"
+          aria-label="search"
           onClick={handleSubmit}
+          // variant="contained"
+          color="secondary"
         >
           <SearchIcon />
           <Typography
             component="small"
             variant="small"
             align="baseline"
-            color="primary"
+            // color="primary"
+            // backgroundColor="secondary"
             margin="none"
           >
             Search
           </Typography>
-        </IconButton>
+        </IconButton> */}
+        <Button
+          variant="contained"
+          color="secondary"
+          className={classes.iconButton}
+          // fontColor="white"
+          // outlined
+          onClick={handleSubmit}
+          endIcon={<SearchIcon />}
+          align="baseline"
+        >
+          Send
+        </Button>
       </Paper>
     </>
   );

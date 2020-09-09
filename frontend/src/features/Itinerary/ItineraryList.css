@@ -1,0 +1,8 @@
+#item::before {
+  padding: 1px;
+}
+#listItinItem {
+  text-decoration: none;
+  list-style-type: none;
+  color: black;
+}

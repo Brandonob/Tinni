@@ -1,93 +1,95 @@
+/////////////////////////////////////////////////////////////////////
+
 import React, { Component, useState } from "react";
-import ReactDOM from "react-dom";
+
 import { useSelector, useDispatch } from "react-redux";
 import { updateItin } from "../CurrentItinerary/currentItinerarySlice";
+import FastfoodIcon from "@material-ui/icons/Fastfood";
+import TimelineDot from "@material-ui/lab/TimelineDot";
 import {
-  List,
   ListItem,
   ListItemText,
-  ListItemIcon,
   IconButton,
   ListItemSecondaryAction,
 } from "@material-ui/core";
-import RootRef from "@material-ui/core/RootRef";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import InboxIcon from "@material-ui/icons/Inbox";
 
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+
+import SubwayTwoToneIcon from "@material-ui/icons/SubwayTwoTone";
+import LocalTaxiTwoToneIcon from "@material-ui/icons/LocalTaxiTwoTone";
+import DirectionsWalkTwoToneIcon from "@material-ui/icons/DirectionsWalkTwoTone";
 import {
+  reorder,
   addItemToItin,
   selectCurrentItin,
 } from "../CurrentItinerary/currentItinerarySlice";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
-// data generator
-// const getItems = (count) =>
-//   Array.from({ length: count }, (v, k) => k).map((k) => ({
-//     id: `item-${k}`,
-//     primary: `Stop ${k}`,
-//     secondary: k % 2 === 0 ? `Whatever for ${k}` : undefined,
-//   }));
-
-// a little function to help us with reordering the result
-const reorder = (list, startIndex, endIndex) => {
-  const result = Array.from(list);
-  const [removed] = result.splice(startIndex, 1);
-  result.splice(endIndex, 0, removed);
-
-  return result;
-};
-
+import TimeDisplay from "./ItineraryTime/ItineraryTimeDisplay";
+let addednum = 0;
 const getItemStyle = (isDragging, draggableStyle) => ({
+  paddingLeft: "1px",
   // styles we need to apply on draggables
   ...draggableStyle,
 
-  ...(isDragging && {
-    background: "rgb(235,235,235)",
-  }),
+  // ...(isDragging && {
+  //   background: "rgb(235,235,235)",
+  // }),
+
+  background: isDragging ? "#E6F0EE" : "#172A3A",
 });
 
-const getListStyle = (isDraggingOver) => ({
-  //background: isDraggingOver ? 'lightblue' : 'lightgrey',
-});
+const functios = () => {
+  console.log("hi");
+  // background: isDraggingOver ? "lightblue" : "lightgrey",
+};
 
-const ItneraryList = () => {
-  // dispatch = useDispatch();
+const ItneraryList = ({ time }) => {
+  const dispatch = useDispatch();
   const currentItinerary = useSelector(selectCurrentItin);
+  const [show, setShow] = useState("block");
+  const [hours, setHours] = useState(0);
+  const [endTime, setEndTime] = useState(0);
 
-  // const [items, setItems] = useState([...currentItinerary]);
-  //   const onDragEnd = onDragEnd.bind();
+  // delete item from currentItinerary
+  const deleteItin = (e) => {
+    dispatch(updateItin(e.currentTarget.id));
+  };
 
-  const onDragEnd = async (result) => {
+  // const stopTime = (min, time) => {
+  //   // target.setHours(Number(time[0] + time[1]), Number(time[2] + time[3]));
+
+  //   target.setMinutes(target.getMinutes() + min);
+
+  //   return (
+  //     <p>{time + " - " + target.getHours() + ":" + target.getMinutes()}</p>
+  //   );
+  //   // console.log("time is " + target.getHours() + ":" + target.getMinutes());
+  // };
+
+  const onDragEnd = (result) => {
     // dropped outside the list
+    setShow("none");
     if (!result.destination) {
       return;
     }
-    const items = reorder(
-      currentItinerary,
-      result.source.index,
-      result.destination.index
-    );
-    dispatch(updateItin(items));
-    // setItems(reorder(items, result.source.index, result.destination.index));
+    let startIndex = result.source.index;
+    let endIndex = result.destination.index;
 
-    // await setItems(items);
-  };
-
-  const dispatch = useDispatch();
-  const deleteItin = (e) => {
-    debugger;
-    // let updatedItinerary = currentItinerary.splice(e.currentTarget.id,1)
-    dispatch(updateItin(currentItinerary, e.currentTarget.id));
+    dispatch(reorder({ startIndex, endIndex }));
+    setShow("block");
   };
 
   // Normally you would want to split things out into separate components.
   // But in this example everything is just done in one place for simplicity
+
+  debugger;
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId="droppable">
         {(provided, snapshot) => (
-          <RootRef rootRef={provided.innerRef}>
-            <List style={getListStyle(snapshot.isDraggingOver)}>
-              {currentItinerary.map((item, index) => (
+          <div ref={provided.innerRef}>
+            {currentItinerary.map((item, index) => (
+              <>
                 <Draggable
                   key={item.body.id}
                   draggableId={item.body.id}
@@ -95,7 +97,8 @@ const ItneraryList = () => {
                 >
                   {(provided, snapshot) => (
                     <ListItem
-                      ContainerComponent="li"
+                      id="listItinItem"
+                      // ContainerComponent="li"
                       ContainerProps={{ ref: provided.innerRef }}
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
@@ -104,30 +107,47 @@ const ItneraryList = () => {
                         provided.draggableProps.style
                       )}
                     >
-                      <p> {index + 1}</p>
-                      <ListItemText
-                        style={{ margin: "5px" }}
-                        primary={item.body.name}
-                        // secondary={item.secondary}
-                      />
+                      <TimelineDot>
+                        <FastfoodIcon />
+                      </TimelineDot>
+                      <ListItemText />
 
+                      {/* {stopTime((addedMin += item.body.time), time)} */}
+                      {/* <TimeDisplay
+                        min={(addednum += item.body.time.duration)}
+                        time={time}
+                        endTime={endTime}
+                        setEndTime={setEndTime}
+                      /> */}
+                      <p>{item.body.time.duration}</p>
+
+                      <p> {item.body.name}</p>
+                      <br></br>
+                      <IconButton onClick={deleteItin} id={index}>
+                        <HighlightOffIcon />
+                      </IconButton>
                       <ListItemSecondaryAction>
-                        <IconButton onClick={deleteItin} id={index}>
-                          <HighlightOffIcon />
-                        </IconButton>
+                        {/* <DirectionsWalkTwoToneIcon /> 10 min
+                      <SubwayTwoToneIcon /> 10 min
+                      <LocalTaxiTwoToneIcon /> 9 min */}
                       </ListItemSecondaryAction>
                     </ListItem>
                   )}
                 </Draggable>
-              ))}
-              {provided.placeholder}
-            </List>
-          </RootRef>
+                <DirectionsWalkTwoToneIcon />
+                10 min
+                <SubwayTwoToneIcon /> 10 min
+                <LocalTaxiTwoToneIcon /> 9 min
+              </>
+            ))}
+
+            {provided.placeholder}
+          </div>
         )}
       </Droppable>
     </DragDropContext>
   );
 };
-
-// Put the thing into the DOM!
 export default ItneraryList;
+
+////////////////////////////////////////////////////

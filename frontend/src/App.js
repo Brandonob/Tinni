@@ -10,6 +10,8 @@ import Signup from "./features/Login/Signup";
 import UserProfile from "./features/UserProfile/UserProfile";
 // import ItineraryDisplayPage from "./features/Itinerary/SearchResultDisplayPage";
 import MapContainer from "./features/Map/Map";
+import MyItin from "./features/Itinerary/NewitinDisplayPage";
+
 function App() {
   return (
     <div className="App">
@@ -31,6 +33,12 @@ function App() {
         </Route>
         <Route exact path={"/userprofile"}>
           <UserProfile />
+        </Route>
+        <Route exact path={"/myItin"}>
+          <MyItin />
+        </Route>
+        <Route exact path={"/user/itnerary"}>
+          <MyItin />
         </Route>
       </ThemeProvider>
       <Route exact path={"/map"}>
