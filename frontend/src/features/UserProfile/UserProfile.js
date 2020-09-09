@@ -273,8 +273,8 @@ export default function ItinResPage() {
           <div style={{ marginTop: "30px",
                         height: "50px" }}>
             {/* <Typography variant="h4">BIO</Typography> */}
-              {/* <Typography variant="h1">{userInformation.displayName}</Typography> */}
-              <Typography variant="h4">Brandon Brown</Typography>
+              <Typography variant="h1">{userInformation.displayName}</Typography>
+              {/* <Typography variant="h4">Brandon Brown</Typography> */}
             {/* <Typography>Favortive Spot:Long Island City Piers </Typography> */}
             {/* <Typography>Number of Adventures:3 </Typography> */}
             {/* <Typography>DOB: January 8</Typography> */}
