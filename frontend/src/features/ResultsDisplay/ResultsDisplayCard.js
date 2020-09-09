@@ -260,7 +260,7 @@ export default function ResultsDisplayCard({
   const [open, setOpen] = useState(false);
   const [opendia, setOpenDia] = useState(false);
   const [hours, setHours] = useState(0);
-  const [mintues, setMintues] = useState(0);
+  const [minutes, setMinutes] = useState(0);
   const [time, setTime] = useState(0);
 
   const handleExpandClick = () => {
@@ -273,9 +273,9 @@ export default function ResultsDisplayCard({
   const handleADD = () => {
     let num = "" + Math.random().toString(36).substr(2, 9);
     // let id = latitude + longitude + "" + num++;
-    let duration = hours * 60 + mintues;
+    let duration = hours * 60 + minutes;
 
-    // hours * 60 + mintues
+    // hours * 60 + minutes
     let body = {
       latitude,
       longitude,
@@ -291,7 +291,7 @@ export default function ResultsDisplayCard({
 
     dispatch(addItemToItin(body));
     setHours(0);
-    setMintues(0);
+    setMinutes(0);
     setOpenDia(false);
     setOpen(true);
   };
@@ -382,8 +382,8 @@ export default function ResultsDisplayCard({
         onClose={handleDiaClose}
         setTime={setTime}
         handleADD={handleADD}
-        mintues={mintues}
-        setMintues={setMintues}
+        minutes={minutes}
+        setMinutes={setMinutes}
         hours={hours}
         setHours={setHours}
       />
