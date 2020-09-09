@@ -26,11 +26,9 @@ export const itinerariesSlice = createSlice({
 })
 
 export const fetchItineraries = (currentUserID) => async dispatch => {
-    debugger
     try {
         let res = await axios.get(`${API}/itineraries/${currentUserID}`);
         let { payload } = res.data;
-        // debugger
         dispatch(recieveAllItins(payload))
     } catch (error) {
         console.log(error.message);
