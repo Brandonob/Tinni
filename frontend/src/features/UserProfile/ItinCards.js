@@ -8,7 +8,8 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import reactLogo from '../../images/reactLogo.png';
+import Grid from '@material-ui/core/Grid';
+import  itinpic from '../../images/itinpic.png';
 import { useSelector } from "react-redux";
 import { fetchItineraries, selectItins } from '../Itinerary/itinerarySlice'
 import { selectUserID } from '../Users/usersSlice'
@@ -36,31 +37,35 @@ export const ItinCards = () => {
 
   return (
     <>
+    <Grid container spacing={3}></Grid>
       {console.log(itineraries)}
       {itineraries.map(el => {
         return (
-          <Card className={classes.root}>
-          <CardActionArea>
-            <CardMedia
-              className={classes.media}
-              image={reactLogo}
-              title="Contemplative Reptile"
-            />
-            <Typography gutterBottom variant="h5" component="h2">
-                {el.title}
-              </Typography>
-          </CardActionArea>
-          <CardActions>
-            <Button size="small" color="primary">
-              Edit
-            </Button>
-            <Button size="small" color="primary">
-              Share
-            </Button>
-          </CardActions>
-          </Card>
+          <Grid item xs={3}>
+            <Card className={classes.root}>
+            <CardActionArea>
+              <CardMedia
+                className={classes.media}
+                image={itinpic}
+                title="Contemplative Reptile"
+              />
+              <Typography gutterBottom variant="h5" component="h2">
+                  {el.title}
+                </Typography>
+            </CardActionArea>
+            <CardActions>
+              <Button size="small" color="primary">
+                Edit
+              </Button>
+              <Button size="small" color="primary">
+                Share
+              </Button>
+            </CardActions>
+            </Card>
+          </Grid>
         )
       })}
-  </>
+    <Grid/>
+    </>
   );
 }

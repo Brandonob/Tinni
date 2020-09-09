@@ -52,24 +52,27 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [errMessage, setErrMessage] = useState("");
 
-  const history = useHistory();
-  const dispatch = useDispatch();
-  const API = getAPI();
-  const classes = useStyles();
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      let res = await login(email, password);
-      console.log("you have succesfully logged in");
-      dispatch(addUser(res.user.uid));
-      debugger;
-      history.push("/home");
-    } catch (error) {
-      setErrMessage(error.message);
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [errMessage, setErrMessage] = useState("")
+    
+    const history = useHistory();
+    const dispatch = useDispatch();
+    const API = getAPI()
+    const classes = useStyles();
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            let res = await login(email, password)
+            console.log("you have succesfully logged in");
+            dispatch(addUser(res.user.uid));
+            debugger
+            history.push("/home")
+        } catch (error) {
+            setErrMessage(error.message)
+        }
     }
   };
   return (
