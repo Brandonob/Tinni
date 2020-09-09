@@ -53,9 +53,17 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(1),
     },
   },
-  orange: {
-    color: theme.palette.getContrastText(deepOrange[500]),
-    backgroundColor: deepOrange[500],
+  root2: {
+    flexGrow: 1,
+    padding: theme.spacing(2),
+    display: "flex",
+    flex: "column",
+    justifyContent: "center",
+    
+  },
+  large: {
+    width: theme.spacing(20),
+    height: theme.spacing(20),
   },
   icon: {
     marginRight: theme.spacing(2),
@@ -234,62 +242,79 @@ export default function ItinResPage() {
           </Grid>
         </Toolbar>
       </AppBar>
-      <main style={{ display: "flex", boxSizing: "border-box" }}>
-        <div style={{ overflow: "scroll", 
-                      height: "1000px",
+      {/* <main style={{ display: "flex", boxSizing: "border-box" }}> */}
+        {/* <Map /> */}
+        <div
+          style={{
+            maxwidth: "100%",
+            height: "300px",
+            display: "flex",
+            justifyContent: "center",
+            // position: "relative",
+            // paddingBottom: "20px",
+            // marginLeft: "45%",
+          }}
+        >
+          <div style={{ display: "flex",
+                        justifyContent: "center", 
+                        height: "250px",
+                        flexDirection: "column",
+                        // position: "absolute",
+                        // left: "55%"
                        }}>
           <Avatar
             alt="Remy Sharp"
             src={userInformation.photoURL}
-            className={classes.orange}
+            className={classes.large}
+            style={{ marginTop: "50px" }}
           >
             
           </Avatar>
-          <div style={{ marginTop: "10px" }}>
+          <div style={{ marginTop: "30px",
+                        height: "50px" }}>
             {/* <Typography variant="h4">BIO</Typography> */}
-              <Typography>Name: {userInformation.displayName}</Typography>
+              {/* <Typography variant="h1">{userInformation.displayName}</Typography> */}
+              <Typography variant="h4">Brandon Brown</Typography>
             {/* <Typography>Favortive Spot:Long Island City Piers </Typography> */}
             {/* <Typography>Number of Adventures:3 </Typography> */}
             {/* <Typography>DOB: January 8</Typography> */}
           </div>
         </div>
-
-        {/* <Map /> */}
-        <div
-          style={{
-            width: "550px",
-            height: "500px",
-            position: "relative",
-            paddingBottom: "20px",
-            marginLeft: "150px",
-          }}
-        >
-          {/* {/* <CustomizedMenus /> */}
-          <ItinCards/>
-          {/* <UserItin /> */}
         </div>
+        <div style={{ display: "flex" }}>
+          <Grid container className={classes.root2} spacing={2}>
+            <ItinCards/>
+          </Grid>
+
+        </div>
+
+          {/* {/* <CustomizedMenus /> */}
+          {/* <UserItin /> */}
         {/* <Container className={classes.cardGrid} maxWidth="md"> */}
         {/* End hero unit */}
         {/* </Container> */}
-      </main>
+      {/* </main> */}
       {/* Footer */}
-      <hr />
+      {/* <hr /> */}
       {/* <ItineraryDisplayPage /> */}
-      <Typography variant="h6" align="center" gutterBottom>
-        Footer
-      </Typography>
-      <Typography
-        variant="subtitle1"
-        align="center"
-        color="textSecondary"
-        component="p"
-      >
-        Something here to give the footer a purpose!
-      </Typography>
-      <Copyright />
-      End footer
+      {/* <div>
+
+        <Typography variant="h6" align="center" gutterBottom>
+          Footer
+        </Typography>
+        <Typography
+          variant="subtitle1"
+          align="center"
+          color="textSecondary"
+          component="p"
+        >
+          Something here to give the footer a purpose!
+        </Typography>
+        <Copyright />
+        End footer
+        {console.log(userInformation)}
+      </div> */}
       {currentUser ? handleUser() : null}
-      {console.log(userInformation)}
     </>
   );
 }
