@@ -1,10 +1,9 @@
 import React from "react";
-import helper from "./helper"
+import helper from "./helper";
 
 const days = ["Mon", "Tues", "Wed", "Thurs", "Fri", "Sat", "Sun"];
 
 const format = (str) => {
-  debugger
   let chars = str.split("");
   if (chars.length === 4) {
     return `${chars[0]}${chars[1]}:${chars[2]}${chars[3]}`;
@@ -22,7 +21,7 @@ const BusinessInfo = ({ hours }) => {
         </div>
         <div style={{ marginLeft: "15px" }}>
           <div>
-            <span>{format(day.start)}am</span> - {" "}
+            <span>{format(day.start)}am</span> -{" "}
             <span>{format((parseInt(day.end) - 1200).toString())}pm</span>;
           </div>
         </div>

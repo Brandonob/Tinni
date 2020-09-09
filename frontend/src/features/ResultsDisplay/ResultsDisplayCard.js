@@ -22,8 +22,8 @@ import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import SimpleDialog from "../Itinerary/ItineraryDial/ItineraryDial";
 import "./ResultsDisplayCard.css";
-import BusinessDisplay from "../BusinessInfo/BusinessInfo"
-import BusinessInfoDisplay from "../BusinessInfo/BusinessInfoDisplay"
+import BusinessDisplay from "../BusinessInfo/BusinessInfo";
+import BusinessInfoDisplay from "../BusinessInfo/BusinessInfoDisplay";
 import {
   addItemToItin,
   selectCurrentItin,
@@ -215,10 +215,9 @@ export default function ResultsDisplayCard({
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-
           {/* <Typography paragraph>Method:</Typography> */}
 
-          <BusinessInfoDisplay id={id}/> 
+          <BusinessInfoDisplay id={id} />
           {/* if line 396 doesn't work use busineessinfodisplay */}
         </CardContent>
       </Collapse>

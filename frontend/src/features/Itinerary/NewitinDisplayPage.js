@@ -192,7 +192,7 @@ export default function MyItin() {
               width: mapWidth,
             }}
           >
-            <Map />
+            <Map setSelected={setSelected} selected={selected} />
           </div>
         </div>
       </main>

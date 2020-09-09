@@ -48,6 +48,7 @@ export default function App({ selected, setSelected }) {
   const [minutes, setMinutes] = useState(0);
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
+
   const handleDiaClose = (value) => {
     setOpenDia(false);
     // setSelectedValue(value);
