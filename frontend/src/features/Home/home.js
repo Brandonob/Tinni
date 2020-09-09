@@ -20,9 +20,16 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import HomeButtonCards from "./homecomponents/homecards";
 import "./home.css";
+<<<<<<< HEAD
+import { addUser, logOutUser } from "../Users/usersSlice";
+import Howto from "./HowTo/HowTo";
+=======
 import { addUser, logOutUser, addInfo } from "../Users/usersSlice";
+>>>>>>> 9cef3f025907410cdc4d615b64fb6100eb16828b
 import { useDispatch } from "react-redux";
 import firebase from "firebase/app";
+import logoImg from "../../logoImg4.png";
+import logoText from "../../logoText.png";
 // import { white, purple } from "@material-ui/core/colors";
 
 function Copyright() {
@@ -30,7 +37,7 @@ function Copyright() {
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
       <Link color="inherit" href="https://material-ui.com/">
-        CodeName IDA
+        Tinni
       </Link>{" "}
       {new Date().getFullYear()}
     </Typography>
@@ -48,7 +55,7 @@ const trendingTopics = [
     url:
       "https://upload.wikimedia.org/wikipedia/commons/7/72/Unisfera_Flushing.jpg",
     title: "Parks",
-    width: "30%",
+
     margin: "1px",
     width: "30%",
   },
@@ -92,8 +99,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-const cards = [1, 2, 3];
+// const cards = [1, 2, 3];
 
 export default function Album() {
   const classes = useStyles();
@@ -119,14 +125,8 @@ export default function Album() {
       <CssBaseline />
       <AppBar position="relative">
         <Toolbar>
-          {/* <CameraIcon className={classes.icon} /> */}
-          {/* <Typography variant="h6" color="inherit" noWrap>
-                                                CodeName IDA
-                                            </Typography> */}
-          <Typography variant="h6" color="inherit">
-            codenameIDA
-          </Typography>
-
+          {/* logo */}
+          <img src={logoText} style={{ height: "75px" }} alt="logo text"></img>
           <Grid container spacing={2} justify="flex-end">
             <Grid item>
               {/* <Typography variant="h6" color="inherit" noWrap>
@@ -169,27 +169,16 @@ export default function Album() {
         <div
           className={classes.heroContent}
           style={{
-            backgroundImage: `url("https://images.unsplash.com/photo-1584967918940-a7d51b064268?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1000&q=80")`,
+            backgroundImage: `url("https://images.unsplash.com/photo-1488628278511-2177a435414d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1150&q=80")`,
           }}
         >
           <Container maxWidth="sm">
-            <Typography
-              component="h4"
-              variant="h4"
-              align="center"
-              color="secondary"
-              gutterBottom
-            >
-              LOGO CODE NAME IDA
-            </Typography>
-            <Typography
-              variant="h5"
-              align="center"
-              style={{ color: "white", textShadow: "2px 2px 5px black" }}
-            >
-              Create your perfect Itinerary or take on an adventure made by one
-              of our users
-            </Typography>
+            <img
+              src={logoImg}
+              style={{ paddingLeft: "150px" }}
+              alt="Logo with Astro"
+            ></img>
+
             <div className={classes.heroButtons}>
               <Grid container spacing={2} justify="center">
                 {/* <Grid item>
@@ -212,7 +201,8 @@ export default function Album() {
         </div>
         <Container className={classes.cardGrid} maxWidth="md">
           {/* End hero unit */}
-          <Typography
+          <Howto />
+          {/* <Typography
             component="h2"
             variant="h4"
             align="center"
@@ -224,7 +214,7 @@ export default function Album() {
           </Typography>
           <Grid container spacing={5}>
             <HomeButtonCards trendingTopics={trendingTopics} />
-          </Grid>
+          </Grid> */}
         </Container>
 
         <Container className={classes.cardGrid} maxWidth="md">
@@ -234,30 +224,29 @@ export default function Album() {
             variant="h4"
             align="center"
             color="Primary"
+            gutterBottom
             id="section-name-Typ"
-            // gutterBottom
           >
-            Trending Itinerary
+            Trending Topics In NYC
           </Typography>
           <Grid container spacing={5}>
             <HomeButtonCards trendingTopics={trendingTopics} />
           </Grid>
+          {/* <Howto /> */}
         </Container>
       </main>
       {/* Footer */}
       <hr />
       <footer className={classes.footer}>
         <Typography variant="h6" align="center" gutterBottom>
-          Footer
+          Run your day dont let your day run you!
         </Typography>
         <Typography
           variant="subtitle1"
           align="center"
           color="textSecondary"
           component="p"
-        >
-          Something here to give the footer a purpose!
-        </Typography>
+        ></Typography>
         <Copyright />
       </footer>
       {/* End footer */}

@@ -83,6 +83,7 @@ const LocationSearch = ({ setLatitude, setLongitude }) => {
               placeholder="location"
               {...getInputProps({ placeholder: "Type address" })}
               onFocus={handleFocus}
+              required
             />
 
             <div id="searchResultsDiv">
