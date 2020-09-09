@@ -41,10 +41,9 @@ const options = {
 
 
 
-export default function App() {
+export default function App({selected, setSelected}) {
   const searchResults = useSelector(selectSearchResults);
   const curatedSearchResults = searchResults.filter(location => location.rating > 3.5)
-  const [selected, setSelected] = useState(null)
   const [opendia, setOpenDia] = useState(false);
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(0);

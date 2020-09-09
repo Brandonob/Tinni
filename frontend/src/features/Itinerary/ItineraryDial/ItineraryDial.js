@@ -36,8 +36,8 @@ const SimpleDialog = (props) => {
     setTime,
     time,
     name,
-    mintues,
-    setMintues,
+    minutes,
+    setMinutes,
     hours,
     setHours,
   } = props;
@@ -63,7 +63,7 @@ const SimpleDialog = (props) => {
 
       <div style={{ padding: "10px" }}>
         <FormControl style={{ width: "100px" }} variant="outlined">
-          <InputLabel id="demo-simple-select-outlined-label">hours</InputLabel>
+          <InputLabel id="demo-simple-select-outlined-label">Hours</InputLabel>
           <Select
             labelId="demo-simple-select-outlined-label"
             id="demo-simple-select-outlined"
@@ -82,16 +82,16 @@ const SimpleDialog = (props) => {
 
         <FormControl style={{ width: "100px" }} variant="outlined">
           <InputLabel id="demo-simple-select-outlined-label">
-            Mintues
+            Minutes
           </InputLabel>
           <Select
             labelId="demo-simple-select-outlined-label"
             id="demo-simple-select-outlined"
-            value={mintues}
+            value={minutes}
             onChange={(e) => {
-              setMintues(e.target.value);
+              setMinutes(e.target.value);
             }}
-            label="Mintues"
+            label="Minutes"
           >
             <MenuItem value={0}>{0}</MenuItem>
             <MenuItem value={5}>{5}</MenuItem>
