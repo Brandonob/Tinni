@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import clsx from "clsx";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
@@ -97,6 +98,7 @@ export default function MyItin() {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
   const [mapWidth, setmapWidth] = useState("600px");
+  const [selected, setSelected] = useState(null);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -107,6 +109,8 @@ export default function MyItin() {
     setOpen(false);
     setmapWidth("600px");
   };
+
+  const openPin = () => {};
 
   return (
     <div className={classes.root}>

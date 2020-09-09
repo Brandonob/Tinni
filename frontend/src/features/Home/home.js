@@ -20,8 +20,12 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import HomeButtonCards from "./homecomponents/homecards";
 import "./home.css";
+<<<<<<< HEAD
 import { addUser, logOutUser } from "../Users/usersSlice";
 import Howto from "./HowTo/HowTo";
+=======
+import { addUser, logOutUser, addInfo } from "../Users/usersSlice";
+>>>>>>> 9cef3f025907410cdc4d615b64fb6100eb16828b
 import { useDispatch } from "react-redux";
 import firebase from "firebase/app";
 import logoImg from "../../logoImg4.png";
@@ -103,24 +107,16 @@ export default function Album() {
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        console.log("User has successfullylogged in!");
-        setCurrentUser(user);
-      }
-    });
-  }, []);
-
   const handleClick = (e) => {
     e.preventDefault();
     firebase.auth().signOut();
     setCurrentUser("");
     //call other actions to clear react state
   };
-
+   
   const handleUser = () => {
-    dispatch(addUser(currentUser.uid));
+    // dispatch(addUser(currentUser.uid));
+    dispatch(addInfo(currentUser.providerData[0]))
     //calls to save user into backend
   };
 

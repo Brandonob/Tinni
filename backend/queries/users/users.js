@@ -6,7 +6,7 @@ const createUser = async(req, res, next)=>{
         let user = await db.one(
             "INSERT INTO users(id, first_name, last_name, email, password, phone, location, profile_pic) VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *",
             [id, first_name, last_name, email, password, phone, location, profile_pic ]
-        )
+        );
         res.status(200).json({
             status:"success",
             message: "user created",
@@ -14,12 +14,12 @@ const createUser = async(req, res, next)=>{
 
         })
 
-    }catch(err){
+    }catch(error){
         res.json({
             status:"error",
             message: "User Already Exists"
         })
-        next(error)
+        next(error);
     }
 }
 
@@ -30,7 +30,7 @@ const getAllUsers = async(req, res, next)=>{
             payload: users,
             message:"Retrieved All Users"
         })
-    }catch(err){
+    }catch(error){
         res.json({
             status:"error",
             message:"couldn't get all users"
@@ -70,26 +70,33 @@ const getAllUsers = async(req, res, next)=>{
              message:"user deleted"
          })
          
-     }catch(err){
+     }catch(error){
          res.json({
              status: "error",
              message: "Could not delete user",
              payload:err
          })
-         next(err)
+         next(error)
      }
  }
 
  const getSingleUser = async (req, res, next) => {
     try {
-        let user = await db.one(`SELECT * FROM users WHERE id = $1`, [req.params.id]);
+        // debugger
+        let user = await db.any(`SELECT * FROM users WHERE id = $1`, [req.params.id]);
+
         res.status(200).json({
             status: "success",
             message: " USER",
             payload: user
         })
-    } catch (err) {
-        next(err);
+    } catch (error) {
+    //     res.status(555).json({
+    //     status: error,
+    //     message: "no active user",
+    //     payload: null,
+    //   });
+      next(error);
     }
 }
 

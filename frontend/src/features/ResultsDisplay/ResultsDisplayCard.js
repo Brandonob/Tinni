@@ -22,6 +22,8 @@ import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import SimpleDialog from "../Itinerary/ItineraryDial/ItineraryDial";
 import "./ResultsDisplayCard.css";
+import BusinessDisplay from "../BusinessInfo/BusinessInfo"
+import BusinessInfoDisplay from "../BusinessInfo/BusinessInfoDisplay"
 import {
   addItemToItin,
   selectCurrentItin,
@@ -74,7 +76,7 @@ export default function ResultsDisplayCard({
   const [open, setOpen] = useState(false);
   const [opendia, setOpenDia] = useState(false);
   const [hours, setHours] = useState(0);
-  const [mintues, setMintues] = useState(0);
+  const [minutes, setMinutes] = useState(0);
   const [time, setTime] = useState(0);
   const currentItinerary = useSelector(selectCurrentItin);
 
@@ -114,9 +116,9 @@ export default function ResultsDisplayCard({
   const handleTime = (value) => {
     let num = "" + Math.random().toString(36).substr(2, 9);
     // let id = latitude + longitude + "" + num++;
-    let duration = hours * 60 + mintues;
+    let duration = hours * 60 + minutes;
 
-    // hours * 60 + mintues
+    // hours * 60 + minutes
     let body = {
       latitude,
       longitude,
@@ -134,7 +136,7 @@ export default function ResultsDisplayCard({
 
     dispatch(addItemToItin(body));
     setHours(0);
-    setMintues(0);
+    setMinutes(0);
     setOpenDia(false);
     setOpen(true);
     return currentItinerary;
@@ -213,9 +215,11 @@ export default function ResultsDisplayCard({
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <Typography variant="body2" color="textPrimary" component="p">
-            more information
-          </Typography>
+
+          {/* <Typography paragraph>Method:</Typography> */}
+
+          <BusinessInfoDisplay id={id}/> 
+          {/* if line 396 doesn't work use busineessinfodisplay */}
         </CardContent>
       </Collapse>
       {/* popup */}
@@ -225,8 +229,8 @@ export default function ResultsDisplayCard({
         onClose={handleDiaClose}
         setTime={setTime}
         handleADD={handleADD}
-        mintues={mintues}
-        setMintues={setMintues}
+        minutes={minutes}
+        setMinutes={setMinutes}
         hours={hours}
         setHours={setHours}
       />
