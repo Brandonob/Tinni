@@ -25,9 +25,11 @@ import {
 } from "../CurrentItinerary/currentItinerarySlice";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import TimeDisplay from "./ItineraryTime/ItineraryTimeDisplay";
+import "./ItineraryList.css";
+
 let addednum = 0;
 const getItemStyle = (isDragging, draggableStyle) => ({
-  paddingLeft: "1px",
+  paddingLeft: "0px",
   // styles we need to apply on draggables
   ...draggableStyle,
 
@@ -35,7 +37,7 @@ const getItemStyle = (isDragging, draggableStyle) => ({
   //   background: "rgb(235,235,235)",
   // }),
 
-  background: isDragging ? "#E6F0EE" : "#172A3A",
+  background: isDragging ? "#E6F0EE" : "#3ac9a1",
 });
 
 const functios = () => {
@@ -82,63 +84,67 @@ const ItneraryList = ({ time }) => {
   // Normally you would want to split things out into separate components.
   // But in this example everything is just done in one place for simplicity
 
-  debugger;
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId="droppable">
         {(provided, snapshot) => (
-          <div ref={provided.innerRef}>
+          <div id="listDiv" ref={provided.innerRef}>
             {currentItinerary.map((item, index) => (
-              <>
-                <Draggable
-                  key={item.body.id}
-                  draggableId={item.body.id}
-                  index={index}
-                >
-                  {(provided, snapshot) => (
-                    <ListItem
-                      id="listItinItem"
-                      // ContainerComponent="li"
-                      ContainerProps={{ ref: provided.innerRef }}
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                      style={getItemStyle(
-                        snapshot.isDragging,
-                        provided.draggableProps.style
-                      )}
-                    >
-                      <TimelineDot>
-                        <FastfoodIcon />
-                      </TimelineDot>
-                      <ListItemText />
-
-                      {/* {stopTime((addedMin += item.body.time), time)} */}
-                      {/* <TimeDisplay
+              <Draggable
+                key={item.body.id}
+                draggableId={item.body.id}
+                index={index}
+                id="listItem"
+              >
+                {(provided, snapshot) => (
+                  <ListItem
+                    id="listItinItem"
+                    style={{ marginBottom: "10px" }}
+                    // ContainerComponent="li"
+                    ContainerProps={{ ref: provided.innerRef }}
+                    {...provided.draggableProps}
+                    {...provided.dragHandleProps}
+                    style={getItemStyle(
+                      snapshot.isDragging,
+                      provided.draggableProps.style
+                    )}
+                  >
+                    <p style={{ color: "white" }}>
+                      {/* {`${index + 1}start:${item.body.time.duration} - End:${
+                        item.body.time.duration
+                      }  :`} */}
+                      {` Duration: ${index + 1}start:${
+                        item.body.time.duration
+                      }`}
+                    </p>
+                    {/* <p
+                      style={{ color: "white" }}
+                    >{` End:${item.body.time.duration}`}</p> */}
+                    <ListItemText />
+                    <p style={{ color: "white" }}> {`  ${item.body.name}`}</p>
+                    {/* {stopTime((addedMin += item.body.time), time)} */}
+                    {/* <TimeDisplay
                         min={(addednum += item.body.time.duration)}
                         time={time}
                         endTime={endTime}
                         setEndTime={setEndTime}
                       /> */}
-                      <p>{item.body.time.duration}</p>
-
-                      <p> {item.body.name}</p>
-                      <br></br>
-                      <IconButton onClick={deleteItin} id={index}>
-                        <HighlightOffIcon />
-                      </IconButton>
-                      <ListItemSecondaryAction>
-                        {/* <DirectionsWalkTwoToneIcon /> 10 min
+                    <br></br>
+                    <IconButton onClick={deleteItin} id={index}>
+                      <HighlightOffIcon />
+                    </IconButton>
+                    <ListItemSecondaryAction>
+                      {/* <DirectionsWalkTwoToneIcon /> 10 min
                       <SubwayTwoToneIcon /> 10 min
                       <LocalTaxiTwoToneIcon /> 9 min */}
-                      </ListItemSecondaryAction>
-                    </ListItem>
-                  )}
-                </Draggable>
-                <DirectionsWalkTwoToneIcon />
+                    </ListItemSecondaryAction>
+                  </ListItem>
+                )}
+              </Draggable>
+              /* <DirectionsWalkTwoToneIcon />
                 10 min
                 <SubwayTwoToneIcon /> 10 min
-                <LocalTaxiTwoToneIcon /> 9 min
-              </>
+                <LocalTaxiTwoToneIcon /> 9 min */
             ))}
 
             {provided.placeholder}

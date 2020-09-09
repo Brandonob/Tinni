@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import LocationSearch from "./locationSearch";
 import { receiveSearch } from "../SearchBar/SearchBarSlice";
 import "./searchbar.css";
@@ -13,12 +13,9 @@ import {
   Divider,
   // IconButton,
   Button,
-  MenuItem,
-  Select,
+
   // InputLabel,
 } from "@material-ui/core";
-
-import SearchIcon from "@material-ui/icons/Search";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -106,7 +103,7 @@ const SearchBar = () => {
     <>
       <Paper component="form" className={classes.root} onSubmit={handleSubmit}>
         {/* <InputLabel id="demo-simple-select-filled-label">Age</InputLabel> */}
-        <Select
+        {/* <Select
           labelId="demo-simple-select-filled-label"
           id="demo-simple-select-filled"
           value={searchType}
@@ -116,7 +113,7 @@ const SearchBar = () => {
           <MenuItem value="Events">Events</MenuItem>
           <MenuItem value="Itineraries">Itineraries </MenuItem>
         </Select>
-        <Divider className={classes.divider} orientation="vertical" />
+        <Divider className={classes.divider} orientation="vertical" /> */}
         <InputBase
           onChange={(e) => setTerm(e.currentTarget.value)}
           value={term}
@@ -134,26 +131,6 @@ const SearchBar = () => {
         />
         <Divider className={classes.divider} orientation="vertical" />
 
-        {/* <IconButton
-          // color="primary"
-          className={classes.iconButton}
-          aria-label="search"
-          onClick={handleSubmit}
-          // variant="contained"
-          color="secondary"
-        >
-          <SearchIcon />
-          <Typography
-            component="small"
-            variant="small"
-            align="baseline"
-            // color="primary"
-            // backgroundColor="secondary"
-            margin="none"
-          >
-            Search
-          </Typography>
-        </IconButton> */}
         <Button
           variant="contained"
           color="secondary"
@@ -161,10 +138,10 @@ const SearchBar = () => {
           // fontColor="white"
           // outlined
           onClick={handleSubmit}
-          endIcon={<SearchIcon />}
+          // endIcon={<SearchIcon />}
           align="baseline"
         >
-          Send
+          Search
         </Button>
       </Paper>
     </>

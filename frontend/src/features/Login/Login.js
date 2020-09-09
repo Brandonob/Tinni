@@ -177,7 +177,7 @@ const Login = () => {
       let res = await login(email, password);
       console.log("you have succesfully logged in");
       dispatch(addUser(res.user.uid));
-      debugger;
+
       history.push("/userprofile");
     } catch (error) {
       setErrMessage(error.message);

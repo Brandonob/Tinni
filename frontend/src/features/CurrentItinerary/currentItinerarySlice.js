@@ -21,6 +21,11 @@ export const currentItinerarySlice = createSlice({
 
       return state;
     },
+    updateTime: (state, action) => {
+      debugger;
+      state[action.payload.index].body.time.endTime = action.payload.timeEnd;
+      return state;
+    },
   },
 });
 
@@ -29,5 +34,6 @@ export const {
   addItemToItin,
   updateItin,
   reorder,
+  updateTime,
 } = currentItinerarySlice.actions;
 export default currentItinerarySlice.reducer;

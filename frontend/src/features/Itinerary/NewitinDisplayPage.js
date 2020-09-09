@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import clsx from "clsx";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
@@ -25,8 +25,9 @@ import ItneraryList from "./ItineraryList";
 import Map from "../Map/Map";
 import ItineraryDisplayPage from "../Search/SearchResultDisplayPage";
 import ItineraryDisplay from "./ItneraryDisplay";
+import logoText from "../../logoText.png";
 
-const drawerWidth = 265;
+const drawerWidth = 300;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -94,14 +95,17 @@ const useStyles = makeStyles((theme) => ({
 export default function MyItin() {
   const classes = useStyles();
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [mapWidth, setmapWidth] = useState("600px");
 
   const handleDrawerOpen = () => {
     setOpen(true);
+    setmapWidth("320px");
   };
 
   const handleDrawerClose = () => {
     setOpen(false);
+    setmapWidth("600px");
   };
 
   return (
@@ -114,6 +118,12 @@ export default function MyItin() {
         })}
       >
         <Toolbar>
+          <img
+            src={logoText}
+            style={{ height: "75px", paddingBottom: "10px" }}
+            alt="logo text"
+          ></img>
+
           {open === true ? (
             <div className={classes.toolbar}>
               <IconButton onClick={handleDrawerClose}>
@@ -135,7 +145,7 @@ export default function MyItin() {
                   [classes.hide]: open,
                 })}
               >
-                <p>View My Itinerary</p>
+                <p>View Itinerary</p>
                 <MenuIcon />
               </Button>
             </div>
@@ -157,28 +167,6 @@ export default function MyItin() {
           }),
         }}
       >
-        {/* <div class="box" style={{ padding: "20px" }}>
-          <div class="mask"></div>
-          <div class="top">
-            <div class="menu but">
-              <i class="fa fa-bars" aria-hidden="true"></i>
-            </div>
-            <div class="search but">
-              <i class="fa fa-search" aria-hidden="true"></i>
-            </div>
-          </div>
-          <div class="time">
-            <span id="date">Sunday</span>
-            <br></br>
-            <span id="fulldate">September 11,2016</span>
-          </div>
-          <div class="temp">
-            29&#8451;<i class="wi wi-solar-eclipse"></i>
-          </div>
-          <div class="middle">
-            <span id="hi">My Iternary!</span>
-          </div>
-        </div> */}
         <ItineraryDisplay />
       </Drawer>
       <main className={classes.content}>
@@ -186,12 +174,22 @@ export default function MyItin() {
         <div style={{ display: "flex", flexDirection: "row" }}>
           <ItineraryDisplayPage
             style={{
-              padding: " 0 5px 0px 0",
+              padding: " 0px 0px 0px 0px",
+              // margin: " 0px 0px 0px 0px",
+              marginTop: "10px",
               overflow: "scroll",
-              height: "1000px",
+              height: "100vh",
             }}
           />
-          <Map />
+          <div
+            id="mapDiv"
+            style={{
+              height: "80vh",
+              width: mapWidth,
+            }}
+          >
+            <Map />
+          </div>
         </div>
       </main>
     </div>

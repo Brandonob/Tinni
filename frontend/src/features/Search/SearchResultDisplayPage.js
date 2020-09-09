@@ -38,7 +38,12 @@ const ItineraryDisplayPage = () => {
       {/* <Search/> */}
       <div
         className={"resultIndex"}
-        style={{ width: "205px", height: "500px", overflow: "scroll" }}
+        style={{
+          // paddingLeft: "20px",
+          width: "500px",
+          height: "500px",
+          overflow: "scroll",
+        }}
       >
         <div className={"topHeader"}>
           <h2 id={"heading"}>Search Results</h2>
