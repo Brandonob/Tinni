@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import {
   GoogleMap,
-  useLoadScript,
   Marker,
   InfoWindow,
 } from "@react-google-maps/api";
-import { formatRelative } from "date-fns";
 import mapStyles from "./mapStyles";
 import {
   receiveSearch,
@@ -38,6 +36,7 @@ const options = {
   disableDefaultUI: true,
   zoomControl: true,
   streetViewControl: true,
+  clickableIcons: false
 };
 
 export default function App({ selected, setSelected }) {
@@ -53,7 +52,6 @@ export default function App({ selected, setSelected }) {
 
   const handleDiaClose = (value) => {
     setOpenDia(false);
-    // setSelectedValue(value);
   };
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -69,9 +67,7 @@ export default function App({ selected, setSelected }) {
   //add to itinerary and closes dialogue box
   const handleADD = () => {
     let num = "" + Math.random().toString(36).substr(2, 9);
-    // let id = latitude + longitude + "" + num++;
     let duration = hours * 60 + minutes;
-    // hours * 60 + minutes
     let body = {
       latitude: selected.coordinates.latitude,
       longitude: selected.coordinates.longitude,
@@ -121,9 +117,6 @@ export default function App({ selected, setSelected }) {
 
   return (
     <div>
-      {/* <h1>
-    Codename Ida {" "} <span role="img" aria-label="world map">🗺</span>
-  </h1> */}
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
         zoom={16}
