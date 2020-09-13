@@ -2,7 +2,7 @@
   background-image: url(https://s-media-cache-ak0.pinimg.com/736x/80/91/f9/8091f9dceb2ea55fa7b57bb7295e1824.jpg);
   background-size: cover;
   width: 300px;
-  height: 600px;
+  height: 500px;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -78,4 +78,7 @@
 }
 #navItin {
   margin-top: 10px;
+}
+#middle {
+  margin-left: 0;
 }

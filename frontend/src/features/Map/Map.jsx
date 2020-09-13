@@ -13,6 +13,7 @@ import {
 } from "../SearchBar/SearchBarSlice";
 import { useDispatch, useSelector } from "react-redux";
 import MarkerIcon from "../../Default_Pics/marker.svg";
+import MarkerIcon1 from "../../Default_Pics/marker1.svg";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import SimpleDialog from "../Itinerary/ItineraryDial/ItineraryDial";
@@ -87,16 +88,24 @@ export default function App({ selected, setSelected }) {
     setOpenDia(false);
     setOpen(true);
   };
+  const hoverSelected = (coordinates) => {
+    debugger;
+    if (coordinates.latitude === 0 && coordinates.longitude === 0) {
+      return MarkerIcon;
+    } else {
+      return MarkerIcon1;
+    }
+  };
 
   const markers = curatedSearchResults.map((loc, i = 0) => {
     let { id, coordinates, name } = loc;
-
+    let mark = hoverSelected(loc);
     return (
       <Marker
         key={id}
         position={{ lat: coordinates.latitude, lng: coordinates.longitude }}
         icon={{
-          url: MarkerIcon,
+          url: { mark },
           scaledSize: new window.google.maps.Size(55, 55),
           origin: new window.google.maps.Point(0, 0),
           anchor: new window.google.maps.Point(27, 27),

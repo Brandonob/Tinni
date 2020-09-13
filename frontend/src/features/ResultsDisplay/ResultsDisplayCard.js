@@ -36,9 +36,8 @@ function Alert(props) {
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: "400px",
-    // height: "300px",
-    // fontSize: "10px",
     marginBottom: "10px",
+    marginLeft: "50px",
     backgroundColor: "#E6F0EE",
   },
 
@@ -88,29 +87,6 @@ export default function ResultsDisplayCard({
   };
 
   const handleADD = async () => {
-    // let num = "" + Math.random().toString(36).substr(2, 9);
-    // // let id = latitude + longitude + "" + num++;
-    // let duration = hours * 60 + mintues;
-
-    // // hours * 60 + mintues
-    // let body = {
-    //   latitude,
-    //   longitude,
-    //   address,
-    //   term,
-    //   name,
-    //   id: num,
-    //   time: {
-    //     duration: duration,
-    //     travelTo: 0,
-    //   },
-    // };
-
-    // dispatch(addItemToItin(body));
-    // setHours(0);
-    // setMintues(0);
-    // setOpenDia(false);
-    // setOpen(true);
     handleTime();
   };
   const handleTime = (value) => {
@@ -142,10 +118,15 @@ export default function ResultsDisplayCard({
     return currentItinerary;
   };
 
-  //needed to add)
+  //needed to add
   const handleDiaClose = (value) => {
     setOpenDia(false);
     // setSelectedValue(value);
+  };
+
+  const handleHover = (e, latitude, longitude) => {
+    debugger;
+    let select = {};
   };
 
   const handleClose = (event, reason) => {
@@ -157,7 +138,12 @@ export default function ResultsDisplayCard({
   };
 
   return (
-    <Card className={classes.root} id={id}>
+    <Card
+      className={classes.root}
+      name={id}
+      onmouseover="bigImg(this)"
+      onmouseout="normalImg(this)"
+    >
       <Typography gutterBottom variant="h6" component="h2">
         {" " + name}
       </Typography>
@@ -205,7 +191,7 @@ export default function ResultsDisplayCard({
         <Snackbar
           open={open}
           autoHideDuration={1000}
-          anchorOrigin={{ vertical: "top", horizontal: "left" }}
+          anchorOrigin={{ vertical: "top", horizontal: "right" }}
           onClose={handleClose}
         >
           <Alert onClose={handleClose} severity="success">

@@ -15,6 +15,8 @@ import SaveIcon from "@material-ui/icons/Save";
 import ShareIcon from "@material-ui/icons/Share";
 import LoginDialog from "../LoginDia/LoginDial";
 import ShareDialog from "../ShareForm/ShareFormDial";
+import SendSmsDialog from "../SendSMS/send_sms";
+import TextsmsTwoToneIcon from "@material-ui/icons/TextsmsTwoTone";
 import {
   addItemToItin,
   selectCurrentItin,
@@ -62,6 +64,7 @@ export default function ItineraryDisplay() {
   const [currUser, setcurrUser] = useState(false);
   const [opendia, setOpenDia] = useState(false);
   const [opendiaEmail, setOpenDiaEmail] = useState(false);
+  const [opendiaText, setOpenDiaText] = useState(false);
 
   useEffect(() => {
     var now = new Date();
@@ -73,46 +76,16 @@ export default function ItineraryDisplay() {
     setItinerarydate(today);
   }, []);
 
-  useEffect(() => {
-    if (currentItinerary.length) {
-      debugger;
-      handleTime();
-    }
-  }, []);
-
-  const handleTime = () => {
-    let target = new Date("2020-02-20 " + ItineraryTime);
-
-    // target.setMinutes(target.getMinutes() + min);
-    // setEndTime(target.getHours() + ":" + target.getMinutes());
-
-    // target.setHours(Number(time[0] + time[1]), Number(time[2] + time[3]));
-    // target.setMinutes(target.getMinutes() + min);
-
-    currentItinerary.forEach((el, i) => {
-      debugger;
-      target.setMinutes(target.getMinutes() + [el][0].body.time.duration);
-
-      dispatch(
-        updateTime({
-          Time: target.getHours() + ":" + target.getMinutes(),
-          index: i,
-        })
-      );
-      // [i][0].body.time.endTime = target.getHours() + ":" + target.getMinutes();
-
-      debugger;
-      console.log(currentItinerary);
-    });
-    // useDispatch()
-  };
-
   const handleDiaClose = (value) => {
     setOpenDia(false);
     // setSelectedValue(value);
   };
   const handleEmailDiaClose = (value) => {
     setOpenDiaEmail(false);
+    //  setSelectedValue(value);
+  };
+  const handleTextItin = (value) => {
+    setOpenDiaText(false);
     //  setSelectedValue(value);
   };
   const handleChange = (event) => {
@@ -142,6 +115,15 @@ export default function ItineraryDisplay() {
       setOpenDiaEmail(true);
     }
   };
+  const handleText = () => {
+    // history.push("/user/itnerary");
+    if (currUser) {
+      setOpenDia(true);
+    } else {
+      setOpenDiaText(true);
+    }
+  };
+
   const navButton = () => {
     return (
       <div id="navItin">
@@ -159,6 +141,9 @@ export default function ItineraryDisplay() {
         >
           <ShareIcon />
         </IconButton>
+        {/* <IconButton onClick={handleText} style={{ backgroundColor: "#09BC8A" }}>
+          <TextsmsTwoToneIcon />
+        </IconButton> */}
       </div>
     );
   };
@@ -166,88 +151,7 @@ export default function ItineraryDisplay() {
   return (
     <div className={classes.root}>
       <div class="top" style={{ marginTop: "25px", padding: "0px" }}>
-        <div class="menu" style={{ margin: "0px", padding: "0px" }}>
-          {/* <TextField
-            name="ItineraryName"
-            id="ItineraryName"
-            // defaultValue={value}
-            value={ItineraryName}
-            margin="none"
-            style={{ margin: "0px", padding: "0px" }}
-            onChange={(e) => setItineraryName(e.target.value)}
-            disabled={!editMode}
-            className={classes.textField}
-            InputProps={{
-              classes: {
-                disabled: classes.disabled,
-              },
-            }}
-          /> */}
-
-          {/* <div
-            class="time"
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              margin: "0px",
-              padding: "0px",
-            }}
-          >
-            <TextField
-              name="ItineraryName"
-              id="ItineraryName"
-              // defaultValue={value}
-              value={ItineraryName}
-              margin="none"
-              style={{ margin: "0px", padding: "0px" }}
-              onChange={(e) => setItineraryName(e.target.value)}
-              disabled={!editMode}
-              className={classes.textField}
-              InputProps={{
-                classes: {
-                  disabled: classes.disabled,
-                },
-              }}
-            />
-            <TextField
-              name="ItineraryDate"
-              id="ItineraryDate"
-              type="date"
-              style={{ margin: "0px", padding: "0px" }}
-              value={ItineraryDate}
-              margin="none"
-              onChange={(e) => {
-                setItinerarydate(e.target.value);
-              }}
-              disabled={!editMode}
-              className={classes.textField}
-              InputProps={{
-                classes: {
-                  disabled: classes.disabled,
-                },
-              }}
-            />
-            <TextField
-              name="ItineraryDate"
-              id="ItineraryDate"
-              type="time"
-              margin="none"
-              style={{ margin: "0px", padding: "0px" }}
-              value={ItineraryTime}
-              onChange={(e) => {
-                setItineraryTime(e.target.value);
-              }}
-              margin="normal"
-              disabled={!editMode}
-              className={classes.textField}
-              InputProps={{
-                classes: {
-                  disabled: classes.disabled,
-                },
-              }}
-            />
-          </div> */}
-        </div>
+        <div class="menu" style={{ margin: "0px", padding: "0px" }}></div>
       </div>
       <div
         class="time"
@@ -313,10 +217,7 @@ export default function ItineraryDisplay() {
         />
       </div>
 
-      {/* <div class="temp">
-          79F<i class="wi wi-solar-eclipse"></i>
-        </div> */}
-      <div class="middle">
+      <div className="middle">
         {editMode ? (
           <InputAdornment position="end">
             <IconButton
@@ -336,7 +237,15 @@ export default function ItineraryDisplay() {
             </IconButton>
           </InputAdornment>
         )}
-        <div style={{ marginTop: "35px", marginLeft: "10px" }}>
+        <div
+          style={{
+            marginTop: "35px",
+            marginLeft: "10px",
+            height: "350px",
+            marginRight: "0px",
+            overflow: "scroll",
+          }}
+        >
           <ItneraryList time={ItineraryTime} />
           {currentItinerary.length ? (
             navButton()
@@ -349,6 +258,7 @@ export default function ItineraryDisplay() {
           )}
           <LoginDialog open={opendia} onClose={handleDiaClose} />
           <ShareDialog open={opendiaEmail} onClose={handleEmailDiaClose} />
+          <SendSmsDialog open={opendiaText} onClose={handleTextItin} />
         </div>
       </div>
     </div>

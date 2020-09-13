@@ -1,23 +1,22 @@
 /////////////////////////////////////////////////////////////////////
 
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
 import { updateItin } from "../CurrentItinerary/currentItinerarySlice";
-import FastfoodIcon from "@material-ui/icons/Fastfood";
-import TimelineDot from "@material-ui/lab/TimelineDot";
+
 import {
   ListItem,
   ListItemText,
-  IconButton,
   ListItemSecondaryAction,
+  Typography,
 } from "@material-ui/core";
 
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
-import SubwayTwoToneIcon from "@material-ui/icons/SubwayTwoTone";
-import LocalTaxiTwoToneIcon from "@material-ui/icons/LocalTaxiTwoTone";
-import DirectionsWalkTwoToneIcon from "@material-ui/icons/DirectionsWalkTwoTone";
+// import SubwayTwoToneIcon from "@material-ui/icons/SubwayTwoTone";
+// import LocalTaxiTwoToneIcon from "@material-ui/icons/LocalTaxiTwoTone";
+// import DirectionsWalkTwoToneIcon from "@material-ui/icons/DirectionsWalkTwoTone";
 import {
   reorder,
   addItemToItin,
@@ -26,10 +25,11 @@ import {
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import TimeDisplay from "./ItineraryTime/ItineraryTimeDisplay";
 import "./ItineraryList.css";
+import { makeStyles } from "@material-ui/core/styles";
 
-let addednum = 0;
 const getItemStyle = (isDragging, draggableStyle) => ({
-  paddingLeft: "0px",
+  paddingLeft: "px",
+
   // styles we need to apply on draggables
   ...draggableStyle,
 
@@ -37,13 +37,18 @@ const getItemStyle = (isDragging, draggableStyle) => ({
   //   background: "rgb(235,235,235)",
   // }),
 
-  background: isDragging ? "#E6F0EE" : "#3ac9a1",
+  background: isDragging ? "#E6F0EE" : "#66ccaf",
 });
-
-const functios = () => {
-  console.log("hi");
-  // background: isDraggingOver ? "lightblue" : "lightgrey",
-};
+const useStyles = makeStyles((theme) => ({
+  root: {
+    // width: "100%",
+    maxWidth: "400px",
+    marginBottom: "20px",
+  },
+  inline: {
+    display: "inline",
+  },
+}));
 
 const ItneraryList = ({ time }) => {
   const dispatch = useDispatch();
@@ -51,22 +56,12 @@ const ItneraryList = ({ time }) => {
   const [show, setShow] = useState("block");
   const [hours, setHours] = useState(0);
   const [endTime, setEndTime] = useState(0);
+  const classes = useStyles();
 
   // delete item from currentItinerary
   const deleteItin = (e) => {
     dispatch(updateItin(e.currentTarget.id));
   };
-
-  // const stopTime = (min, time) => {
-  //   // target.setHours(Number(time[0] + time[1]), Number(time[2] + time[3]));
-
-  //   target.setMinutes(target.getMinutes() + min);
-
-  //   return (
-  //     <p>{time + " - " + target.getHours() + ":" + target.getMinutes()}</p>
-  //   );
-  //   // console.log("time is " + target.getHours() + ":" + target.getMinutes());
-  // };
 
   const onDragEnd = (result) => {
     // dropped outside the list
@@ -74,11 +69,28 @@ const ItneraryList = ({ time }) => {
     if (!result.destination) {
       return;
     }
+    //dropped inside
     let startIndex = result.source.index;
     let endIndex = result.destination.index;
 
     dispatch(reorder({ startIndex, endIndex }));
     setShow("block");
+  };
+
+  //time display
+  const convertTimeDisplay = (time) => {
+    let timeRes = time.split(":");
+
+    if (parseInt(timeRes[0]) > 12) {
+      timeRes[0] = parseInt(timeRes[0]) - 12;
+      timeRes[2] = "pm";
+    } else {
+      timeRes[2] = "am";
+    }
+    if (parseInt(timeRes[1]) === 0) {
+      parseInt((timeRes[1] = "00"));
+    }
+    return timeRes[0] + ":" + timeRes[1] + timeRes[2];
   };
 
   // Normally you would want to split things out into separate components.
@@ -99,52 +111,75 @@ const ItneraryList = ({ time }) => {
                 {(provided, snapshot) => (
                   <ListItem
                     id="listItinItem"
-                    style={{ marginBottom: "10px" }}
                     // ContainerComponent="li"
                     ContainerProps={{ ref: provided.innerRef }}
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
-                    style={getItemStyle(
-                      snapshot.isDragging,
-                      provided.draggableProps.style
-                    )}
+                    style={
+                      ({ color: "white" },
+                      getItemStyle(
+                        snapshot.isDragging,
+                        provided.draggableProps.style
+                      ))
+                    }
                   >
-                    <p style={{ color: "white" }}>
-                      {/* {`${index + 1}start:${item.body.time.duration} - End:${
-                        item.body.time.duration
-                      }  :`} */}
-                      {` Duration: ${index + 1}start:${
-                        item.body.time.duration
-                      }`}
-                    </p>
-                    {/* <p
-                      style={{ color: "white" }}
-                    >{` End:${item.body.time.duration}`}</p> */}
-                    <ListItemText />
-                    <p style={{ color: "white" }}> {`  ${item.body.name}`}</p>
-                    {/* {stopTime((addedMin += item.body.time), time)} */}
-                    {/* <TimeDisplay
-                        min={(addednum += item.body.time.duration)}
-                        time={time}
-                        endTime={endTime}
-                        setEndTime={setEndTime}
-                      /> */}
-                    <br></br>
-                    <IconButton onClick={deleteItin} id={index}>
-                      <HighlightOffIcon />
-                    </IconButton>
-                    <ListItemSecondaryAction>
-                      {/* <DirectionsWalkTwoToneIcon /> 10 min
-                      <SubwayTwoToneIcon /> 10 min
-                      <LocalTaxiTwoToneIcon /> 9 min */}
+                    <img
+                      alt="Remy Sharp"
+                      style={{
+                        paddingTop: "20px",
+                        paddingRight: "5px",
+                        height: "50px",
+                        width: "50px",
+                      }}
+                      src="https://upload.wikimedia.org/wikipedia/commons/c/cf/Radio_City_Music_Hall_Panorama.jpg"
+                    />
+
+                    <ListItemText
+                      primary={item.body.name}
+                      secondary={
+                        <div>
+                          <Typography
+                            component="span"
+                            variant="paragraph"
+                            className={classes.inline}
+                            color="textPrimary"
+                          >
+                            From: {convertTimeDisplay(item.body.time.startTime)}{" "}
+                            - To {convertTimeDisplay(item.body.time.endTime)}
+                          </Typography>
+
+                          <div>
+                            <Typography
+                              component="span"
+                              variant="paragraph"
+                              className={classes.inline}
+                              color="textPrimary"
+                            >
+                              Duration: {item.body.time.duration} min.
+                            </Typography>
+
+                            {/* {" I'll be in your neighborhood doing errands this…"} */}
+                          </div>
+
+                          <div>
+                            <Typography
+                              component="span"
+                              variant="paragraph"
+                              className={classes.inline}
+                              color="textPrimary"
+                            >
+                              {item.body.address}
+                            </Typography>
+                          </div>
+                        </div>
+                      }
+                    />
+                    <ListItemSecondaryAction onClick={deleteItin} id={index}>
+                      <HighlightOffIcon edge="end" />
                     </ListItemSecondaryAction>
                   </ListItem>
                 )}
               </Draggable>
-              /* <DirectionsWalkTwoToneIcon />
-                10 min
-                <SubwayTwoToneIcon /> 10 min
-                <LocalTaxiTwoToneIcon /> 9 min */
             ))}
 
             {provided.placeholder}
@@ -157,3 +192,40 @@ const ItneraryList = ({ time }) => {
 export default ItneraryList;
 
 ////////////////////////////////////////////////////
+
+{
+  /* <div>
+                      <p className="timeTag">
+                        Start:{item.body.time.startTime}
+                      </p>
+                      <p className="timeTag">{`End:${item.body.time.endTime}`}</p>
+                      <p className="timeTag">{`Duration:${item.body.time.duration}`}</p>
+                    </div>
+
+                    <div
+                      id="infoDiv"
+                      style={{ display: "flex", flexDirection: "column" }}
+                    >
+                      <p className="infoTag"> {`${item.body.name}`}</p>
+                      <p className="infoTag" id="addressTag">
+                        {" "}
+                        {`${item.body.address}`}
+                      </p>
+                    </div> */
+}
+
+{
+  /* <ListItemSecondaryAction> */
+}
+{
+  /* <IconButton
+                      style={{ backgroundColor: "#e33d3d", color: "white" }}
+                      onClick={deleteItin}
+                      id={index}
+                    >
+                      <HighlightOffIcon />
+                    </IconButton> */
+}
+{
+  /* </ListItemSecondaryAction> */
+}

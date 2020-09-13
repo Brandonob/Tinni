@@ -10,4 +10,25 @@
 #listDiv {
   list-style-type: none;
   list-style: none;
+  padding-bottom: 5px;
+}
+.MuiListItem-root MuiListItem-gutters MuiListItem-secondaryAction {
+  padding-bottom: 5px;
+}
+.timeTag {
+  margin: 0;
+}
+.infoTag {
+  margin: 0;
+}
+#addressTag {
+  word-wrap: break-word;
+}
+.infoDiv {
+  width: 150px;
+}
+
+#listItinItem {
+  margin-bottom: 5px;
+  border-radius: 5px;
 }

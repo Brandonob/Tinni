@@ -24,11 +24,11 @@ import CustomizedMenus from "./ItneraryDisplay";
 import SearchBar from "../SearchBar/SearchBar";
 import ItneraryList from "./ItineraryList";
 import Map from "../Map/Map";
-import ItineraryDisplayPage from "../Search/SearchResultDisplayPage";
+import SearchResultDisplayPage from "../Search/SearchResultDisplayPage";
 import ItineraryDisplay from "./ItneraryDisplay";
 import logoText from "../../logoText.png";
 
-const drawerWidth = 300;
+const drawerWidth = 375;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -99,6 +99,7 @@ export default function MyItin() {
   const [open, setOpen] = useState(false);
   const [mapWidth, setmapWidth] = useState("600px");
   const [selected, setSelected] = useState(null);
+  const [pinColor, setpinColor] = useState(null);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -176,19 +177,21 @@ export default function MyItin() {
       <main className={classes.content}>
         <div className={classes.toolbar} />
         <div style={{ display: "flex", flexDirection: "row" }}>
-          <ItineraryDisplayPage
+          <SearchResultDisplayPage
             style={{
               padding: " 0px 0px 0px 0px",
               // margin: " 0px 0px 0px 0px",
               marginTop: "10px",
               overflow: "scroll",
-              height: "100vh",
+              height: "500px",
             }}
+            setSelected={setSelected}
+            selected={selected}
           />
           <div
             id="mapDiv"
             style={{
-              height: "80vh",
+              height: "200px",
               width: mapWidth,
             }}
           >
