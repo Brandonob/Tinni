@@ -5,37 +5,32 @@ import SearchBar from "../SearchBar/SearchBar.js";
 import {
   AppBar,
   Button,
-  // Card,
-  // CardActions,
-  // CardContent,
-  // CardMedia,
   CssBaseline,
   Grid,
   Toolbar,
   Container,
   Link,
 } from "@material-ui/core";
-// import CameraIcon from "@material-ui/icons/PhotoCamera";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import HomeButtonCards from "./homecomponents/homecards";
 import "./home.css";
-// import { addUser, logOutUser } from "../Users/usersSlice";
 import Howto from "./HowTo/HowTo";
 import { addUser, logOutUser, addInfo } from "../Users/usersSlice";
 import { useDispatch } from "react-redux";
 import firebase from "firebase/app";
 import logoImg from "../../logoImg4.png";
 import logoText from "../../logoText.png";
-// import { white, purple } from "@material-ui/core/colors";
+ import {NavLink} from "react-router-dom"
+
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
-      <Link color="inherit" href="https://material-ui.com/">
+      {/* <Link color="inherit" href="https://material-ui.com/">
         Tinni
-      </Link>{" "}
+      </Link>{" "} */}
       {new Date().getFullYear()}
     </Typography>
   );
@@ -132,23 +127,31 @@ export default function Album() {
             </Grid>
             <Grid item>
               {currentUser ? null : (
+                <NavLink to={"/login"}>
                 <Button
                   id="navbarButton"
                   variant="contained"
                   color="secondary"
-                  href="./login"
+                  
                 >
                   login
                 </Button>
+                </NavLink>
+
+                
               )}
             </Grid>
             <Grid item>
               {currentUser ? null : (
-                <Button variant="outlined" color="secondary" href="./login">
+                <NavLink to={"signup"}>
+                <Button variant="outlined" color="secondary" >
                   signup
                 </Button>
+                </NavLink>
+                
               )}
               {currentUser ? (
+                <NavLink>
                 <Button
                   onClick={handleClick}
                   variant="outlined"
@@ -156,6 +159,8 @@ export default function Album() {
                 >
                   logout
                 </Button>
+                </NavLink>
+              
               ) : null}
             </Grid>
           </Grid>

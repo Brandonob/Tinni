@@ -79,6 +79,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import {NavLink} from "react-router-dom"
 
 function Copyright() {
   return (
@@ -241,9 +242,12 @@ const Signup = () => {
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <Link href="/login" variant="body2">
+            <NavLink to={"/login"}>
+            <Link href="/login" variant="body2">
                 Already have an account? Sign in
               </Link>
+            </NavLink>
+              
             </Grid>
           </Grid>
         </form>
