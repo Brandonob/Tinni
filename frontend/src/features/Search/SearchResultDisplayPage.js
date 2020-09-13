@@ -26,7 +26,6 @@ const ItineraryDisplayPage = () => {
               rating={result.rating}
               distance={result.distance}
             />
-            <p>Direction {i}</p>
           </>
         );
       }
@@ -46,7 +45,9 @@ const ItineraryDisplayPage = () => {
         }}
       >
         <div className={"topHeader"}>
-          <h2 id={"heading"}>Search Results</h2>
+          {/* <h2 style={{ marginLeft: "60px" }} id={"heading"}>
+            Search Results
+          </h2> */}
         </div>
         {!itineraryResult.length ? <p>No Results Found</p> : displayResults()}
       </div>
