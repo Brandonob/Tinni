@@ -29,8 +29,8 @@ const SimpleTextDialog = (props) => {
     sendSMS();
   };
 
-  const accountSid = "ACef15e13e76e634306bf8b098274b3f45";
-  const authToken = "5b8009cc37e808b80bbb07396aa9efda";
+  const accountSid = "";
+  const authToken = "";
 
   const client = require("twilio")(accountSid, authToken);
   const sendSMS = () => {
