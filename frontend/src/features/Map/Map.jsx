@@ -18,6 +18,8 @@ import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import SimpleDialog from "../Itinerary/ItineraryDial/ItineraryDial";
 import { addItemToItin } from "../CurrentItinerary/currentItinerarySlice";
+import IconButton from '@material-ui/core/IconButton';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -157,7 +159,11 @@ export default function App({ selected, setSelected }) {
                   {selected.location.display_address[1]}
                 </center>
               </p>
-              <button onClick={handleClick}>Add</button>
+              <center>
+              <IconButton color="secondary" onClick={handleClick}>
+                <AddCircleIcon fontSize="large"/>
+              </IconButton>
+              </center>
               <Snackbar
                 open={open}
                 autoHideDuration={1000}
