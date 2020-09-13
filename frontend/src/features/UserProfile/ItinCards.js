@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from "react-redux";
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -12,7 +12,7 @@ import  itinpic from '../../images/itinpic.png';
 import { useSelector } from "react-redux";
 import { fetchItineraries, selectItins } from '../Itinerary/itinerarySlice'
 import { selectUserID } from '../Users/usersSlice'
-import { ShareItinForm } from '../ShareItin/ShareItinForm'
+import ShareItinForm from '../ShareItin/ShareItinForm'
 
 const useStyles = makeStyles({
     root: {

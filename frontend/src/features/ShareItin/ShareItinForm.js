@@ -44,11 +44,11 @@ export default function ShareItinForm() {
     e.preventDefault();
 
     emailjs.send("gmail","template_7yqqy6l",{
-    from_name: `${fromName}`,
-    to_name: `${replyName}`,
-    message: `${message}`,
-    reply_to: `${replyEmail}`,
-    }, "user_a2eO6xZSmNLBjX2Day31P");
+      from_name: `${fromName}`,
+      to_name: `${replyName}`,
+      message: `${message}`,
+      to_email: `${replyEmail}`,
+      }, "user_a2eO6xZSmNLBjX2Day31P");
 
 
   }
@@ -86,7 +86,7 @@ export default function ShareItinForm() {
                 required
                 fullWidth
                 id="senderName"
-                label="Sender Name"
+                label="Reciever Name"
                 onChange={(e) => setReplyName(e.target.value)}
                 autoFocus
               />
@@ -98,7 +98,7 @@ export default function ShareItinForm() {
                 required
                 fullWidth
                 id="email"
-                label="Sender Email"
+                label="Reciever Email"
                 name="email"
                 autoComplete="email"
                 onChange={(e) => setReplyEmail(e.target.value)}
