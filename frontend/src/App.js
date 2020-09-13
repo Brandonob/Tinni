@@ -16,7 +16,7 @@ function App() {
   return (
     <div className="App">
       <ThemeProvider theme={theme}>
-        <Route exact path={"/home"}>
+        <Route exact path={"/"}>
           <Homepage />
         </Route>
         {/* <Route exact path={"/search"}>
