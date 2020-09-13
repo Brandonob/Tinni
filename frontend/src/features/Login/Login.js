@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { login, config, uiConfig } from "../../util/firebaseFunction";
-import { addUser, addInfo } from "../Users/usersSlice";
+import { addUser } from "../Users/usersSlice";
 import firebase from "firebase/app";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import { getAPI } from "../../util/utils";
@@ -126,11 +126,6 @@ const Login = () => {
             Sign In
           </Button>
           <Grid container>
-            {/* <Grid item xs>
-              <Link href="#" variant="body2">
-                Forgot password?
-              </Link>
-            </Grid> */}
             <Grid item>
               <Link href="/signup" variant="body2">
                 {"Don't have an account? Sign Up"}
