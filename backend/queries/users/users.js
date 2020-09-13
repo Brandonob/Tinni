@@ -91,11 +91,6 @@ const getAllUsers = async(req, res, next)=>{
             payload: user
         })
     } catch (error) {
-    //     res.status(555).json({
-    //     status: error,
-    //     message: "no active user",
-    //     payload: null,
-    //   });
       next(error);
     }
 }

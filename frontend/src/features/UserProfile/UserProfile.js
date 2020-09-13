@@ -7,32 +7,17 @@ import { useDispatch } from "react-redux";
 import { getAPI } from '../../util/utils'
 import axios from 'axios'
 import Avatar from "@material-ui/core/Avatar";
-import { deepOrange } from "@material-ui/core/colors";
 import {
   AppBar,
   Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
   CssBaseline,
   Grid,
   Toolbar,
-  Container,
   Link,
 } from "@material-ui/core";
-import CameraIcon from "@material-ui/icons/PhotoCamera";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-// import UserItin from "./UserItin";
 import { ItinCards } from "./ItinCards"
-// import {
-//   addItemToItin,
-//   selectCurrentItin,
-// } from "../CurrentItinerary/currentItinerarySlice";
-
-// import HomeButtonCards from "./homecomponents/homecards";
-// import "./home.css";
 
 function Copyright() {
   return (
@@ -131,7 +116,6 @@ export default function ItinResPage() {
           // debugger
           signUserUp(user)
         }
-        // res.data.payload.length ? setUserExists(true) : signUserUp()
         
         } catch (error) {
         console.log(error)
@@ -187,21 +171,15 @@ export default function ItinResPage() {
   const handleUser = () => {
     dispatch(addUser(currentUser.uid));
     dispatch(addInfo(currentUser.providerData[0]))
-    
-    // calls to save user into backend
   };
 
   return (
     <>
     {/* {currentUser ? checkDBForUser : null} */}
-    {console.log("is user in db", userExists)}
+    {/* {console.log("is user in db", userExists)} */}
       <CssBaseline />
       <AppBar position="relative">
         <Toolbar>
-          {/* <CameraIcon className={classes.icon} /> */}
-          {/* <Typography variant="h6" color="inherit" noWrap>
-                                                CodeName IDA
-                                            </Typography> */}
           <Typography variant="h6" color="inherit">
             <Link href="/home">codenameIDA</Link>
             <Link href="/home">codenameIDA</Link>
@@ -242,25 +220,18 @@ export default function ItinResPage() {
           </Grid>
         </Toolbar>
       </AppBar>
-      {/* <main style={{ display: "flex", boxSizing: "border-box" }}> */}
-        {/* <Map /> */}
         <div
           style={{
             maxwidth: "100%",
             height: "300px",
             display: "flex",
             justifyContent: "center",
-            // position: "relative",
-            // paddingBottom: "20px",
-            // marginLeft: "45%",
           }}
         >
           <div style={{ display: "flex",
                         justifyContent: "center", 
                         height: "250px",
                         flexDirection: "column",
-                        // position: "absolute",
-                        // left: "55%"
                        }}>
           <Avatar
             alt="Remy Sharp"
@@ -273,14 +244,7 @@ export default function ItinResPage() {
 
           <div style={{ marginTop: "30px",
                         height: "50px" }}>
-
-            {/* <Typography variant="h4">BIO</Typography> */}
-              <Typography variant="h1">{userInformation.displayName}</Typography>
-              {/* <Typography variant="h4">Brandon Brown</Typography> */}
-            {/* <Typography>Favortive Spot:Long Island City Piers </Typography> */}
-            {/* <Typography>Number of Adventures:3 </Typography> */}
-            {/* <Typography>DOB: January 8</Typography> */}
-
+              <Typography variant="h4">{userInformation.displayName}</Typography>
           </div>
         </div>
         </div>
@@ -290,18 +254,7 @@ export default function ItinResPage() {
           </Grid>
 
         </div>
-
-          {/* {/* <CustomizedMenus /> */}
-          {/* <UserItin /> */}
-        {/* <Container className={classes.cardGrid} maxWidth="md"> */}
-        {/* End hero unit */}
-        {/* </Container> */}
-      {/* </main> */}
-      {/* Footer */}
-      {/* <hr /> */}
-      {/* <ItineraryDisplayPage /> */}
       {/* <div>
-
         <Typography variant="h6" align="center" gutterBottom>
           Footer
         </Typography>
