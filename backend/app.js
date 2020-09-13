@@ -2,7 +2,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const app = express();
-const port = 3001;
+const dotenv = require("dotenv").config()
+const port = process.env.PORT || 3001
 
 //import routes
 const itinerariesRouter = require("./routes/itineraries.js")
