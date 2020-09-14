@@ -1,13 +1,9 @@
 import React, { useState } from "react";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Dialog from "@material-ui/core/Dialog";
-import {} from "@material-ui/core/";
-import Login from "../Login/Login";
-import { blue } from "@material-ui/core/colors";
-import DateFnsUtils from "@date-io/date-fns";
-import "date-fns";
-import { makeStyles } from "@material-ui/core/styles";
 
+import { makeStyles } from "@material-ui/core/styles";
+import Emailform from "../ShareItin/ShareItinForm";
 const useStyles = makeStyles((theme) => ({
   container: {
     display: "flex",
@@ -36,12 +32,12 @@ const SimpleDialog = (props) => {
     <Dialog
       onClose={handleCloseEmail}
       aria-labelledby="simple-dialog-title"
-      openEmail={open}
+      open={open}
     >
       <DialogTitle id="simple-dialog-title">login</DialogTitle>
       {/* <Login />
        */}
-      email: <input type="email" placeholder email></input>
+      <Emailform />
     </Dialog>
   );
 };

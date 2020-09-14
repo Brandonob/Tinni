@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { businessState } from "../BusinessInfo/BusinessInfoSlice";
+
 import axios from "axios";
 import BusinessInfo from "../BusinessInfo/BusinessInfo";
 import Reviews from "../BusinessInfo/BusinessReview";

@@ -6,7 +6,7 @@ import PlacesAutocomplete, {
 import { makeStyles } from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
 import PersonPinCircleOutlinedIcon from "@material-ui/icons/PersonPinCircleOutlined";
-import { Typography, ListItem } from "@material-ui/core";
+import { ListItem } from "@material-ui/core";
 import InputBase from "@material-ui/core/InputBase";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 
@@ -36,17 +36,10 @@ const LocationSearch = ({ setLatitude, setLongitude }) => {
   const [address, setAddress] = useState("");
   const [select, setSelect] = useState(false);
 
-  const [coordinates, setCoordinates] = useState({
-    lat: null,
-    lng: null,
-  });
-
   const handleFocus = () => {
     setSelect(true);
   };
-  const handleBlur = () => {
-    setSelect(false);
-  };
+
   const handleClick = () => {
     try {
       navigator.geolocation.getCurrentPosition(async (position) => {

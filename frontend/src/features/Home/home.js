@@ -1,6 +1,6 @@
 //NEEWW
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import SearchBar from "../SearchBar/SearchBar.js";
 import {
   AppBar,
@@ -9,28 +9,24 @@ import {
   Grid,
   Toolbar,
   Container,
-  Link,
 } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import HomeButtonCards from "./homecomponents/homecards";
 import "./home.css";
 import Howto from "./HowTo/HowTo";
-import { addUser, logOutUser, addInfo } from "../Users/usersSlice";
+import { logOutUser, addInfo } from "../Users/usersSlice";
 import { useDispatch } from "react-redux";
 import firebase from "firebase/app";
 import logoImg from "../../logoImg4.png";
 import logoText from "../../logoText.png";
- import {NavLink} from "react-router-dom"
-
+import { NavLink } from "react-router-dom";
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
-      {/* <Link color="inherit" href="https://material-ui.com/">
-        Tinni
-      </Link>{" "} */}
+
       {new Date().getFullYear()}
     </Typography>
   );
@@ -128,39 +124,34 @@ export default function Album() {
             <Grid item>
               {currentUser ? null : (
                 <NavLink to={"/login"}>
-                <Button
-                  id="navbarButton"
-                  variant="contained"
-                  color="secondary"
-                  
-                >
-                  login
-                </Button>
+                  <Button
+                    id="navbarButton"
+                    variant="contained"
+                    color="secondary"
+                  >
+                    login
+                  </Button>
                 </NavLink>
-
-                
               )}
             </Grid>
             <Grid item>
               {currentUser ? null : (
                 <NavLink to={"signup"}>
-                <Button variant="outlined" color="secondary" >
-                  signup
-                </Button>
+                  <Button variant="outlined" color="secondary">
+                    signup
+                  </Button>
                 </NavLink>
-                
               )}
               {currentUser ? (
                 <NavLink>
-                <Button
-                  onClick={handleClick}
-                  variant="outlined"
-                  color="secondary"
-                >
-                  logout
-                </Button>
+                  <Button
+                    onClick={handleClick}
+                    variant="outlined"
+                    color="secondary"
+                  >
+                    logout
+                  </Button>
                 </NavLink>
-              
               ) : null}
             </Grid>
           </Grid>
@@ -183,17 +174,6 @@ export default function Album() {
 
             <div className={classes.heroButtons}>
               <Grid container spacing={2} justify="center">
-                {/* <Grid item>
-                  <Button variant="contained" color="primary">
-                    Main call to action
-                  </Button>
-                </Grid>
-                <Grid item>
-                  <Button variant="outlined" color="primary">
-                    Secondary action
-                  </Button>
-                </Grid> */}
-                {/* option 2 */}
                 <div style={{ backgroundColor: "#004346", height: "5em" }}>
                   <SearchBar />
                 </div>
@@ -204,19 +184,6 @@ export default function Album() {
         <Container className={classes.cardGrid} maxWidth="md">
           {/* End hero unit */}
           <Howto />
-          {/* <Typography
-            component="h2"
-            variant="h4"
-            align="center"
-            color="Primary"
-            gutterBottom
-            id="section-name-Typ"
-          >
-            Trending Topics
-          </Typography>
-          <Grid container spacing={5}>
-            <HomeButtonCards trendingTopics={trendingTopics} />
-          </Grid> */}
         </Container>
 
         <Container className={classes.cardGrid} maxWidth="md">
@@ -251,9 +218,8 @@ export default function Album() {
         ></Typography>
         <Copyright />
       </footer>
-      {/* End footer */}
-      {/* {console.log(firebase.auth().currentUser)} */}
-      {currentUser ? handleUser() : null}
+
+      {/* {currentUser ? handleUser() : null} */}
     </>
   );
 }

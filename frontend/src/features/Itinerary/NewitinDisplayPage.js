@@ -5,27 +5,20 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import List from "@material-ui/core/List";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import Typography from "@material-ui/core/Typography";
-import Divider from "@material-ui/core/Divider";
+
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import { ListItem, Button } from "@material-ui/core";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
-import NotListedLocationRoundedIcon from "@material-ui/icons/NotListedLocationRounded";
-import CustomizedMenus from "./ItneraryDisplay";
+import { Button } from "@material-ui/core";
+
 //components//
 import SearchBar from "../SearchBar/SearchBar";
 import ItneraryList from "./ItineraryList";
 import Map from "../Map/Map";
 import SearchResultDisplayPage from "../Search/SearchResultDisplayPage";
-import ItineraryDisplay from "./ItneraryDisplay";
+import ItineraryDisplay from "./ItineraryDisplay";
 import logoText from "../../logoText.png";
 
 const drawerWidth = 375;
@@ -99,7 +92,6 @@ export default function MyItin() {
   const [open, setOpen] = useState(false);
   const [mapWidth, setmapWidth] = useState("600px");
   const [selected, setSelected] = useState(null);
-  const [pinColor, setpinColor] = useState(null);
 
   const handleDrawerOpen = () => {
     setOpen(true);
