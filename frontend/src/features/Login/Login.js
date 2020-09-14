@@ -69,6 +69,7 @@ const Login = () => {
     try {
       let res = await login(email, password);
       console.log("you have succesfully logged in");
+      let user = res.user.uid;
       dispatch(addUser(res.user.uid));
       debugger;
       history.push("/home");

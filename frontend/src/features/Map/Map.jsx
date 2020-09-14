@@ -152,7 +152,7 @@ export default function App({ selected, setSelected }) {
                 onClose={handleClose}
               >
                 <Alert onClose={handleClose} severity="success">
-                  This is a success message!
+                  Success!
                 </Alert>
               </Snackbar>
               <SimpleDialog

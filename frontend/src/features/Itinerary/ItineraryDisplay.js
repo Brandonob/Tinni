@@ -219,7 +219,7 @@ export default function ItineraryDisplay() {
           style={{
             marginTop: "35px",
             marginLeft: "10px",
-            height: "350px",
+            height: "270px",
             marginRight: "0px",
             overflow: "scroll",
           }}

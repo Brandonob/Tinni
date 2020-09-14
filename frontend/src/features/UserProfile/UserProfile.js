@@ -28,7 +28,7 @@ function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
-      <Link color="inherit" href="/home">
+      <Link color="inherit" href="/">
         CodeName IDA
       </Link>
       {new Date().getFullYear()}
@@ -232,7 +232,7 @@ export default function ItinResPage() {
           }}
         >
           <Avatar
-            alt="Remy Sharp"
+            alt="avatar"
             src={userInformation.photoURL}
             className={classes.large}
             style={{ marginTop: "50px" }}

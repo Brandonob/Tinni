@@ -34,7 +34,7 @@ const SimpleDialog = (props) => {
       aria-labelledby="simple-dialog-title"
       open={open}
     >
-      <DialogTitle id="simple-dialog-title">login</DialogTitle>
+      <DialogTitle id="simple-dialog-title">Share</DialogTitle>
       {/* <Login />
        */}
       <Emailform />
