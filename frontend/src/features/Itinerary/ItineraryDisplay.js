@@ -1,7 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { withStyles } from "@material-ui/core/styles";
-import { Button, Badge } from "@material-ui/core";
-import Menu from "@material-ui/core/Menu";
 import { TextField } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import ItneraryList from "./ItineraryList";
@@ -10,18 +7,19 @@ import IconButton from "@material-ui/core/IconButton";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import DoneIcon from "@material-ui/icons/Done";
 import { useSelector, useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
 import SaveIcon from "@material-ui/icons/Save";
 import ShareIcon from "@material-ui/icons/Share";
 import LoginDialog from "../LoginDia/LoginDial";
 import ShareDialog from "../ShareForm/ShareFormDial";
-import SendSmsDialog from "../SendSMS/send_sms";
-import TextsmsTwoToneIcon from "@material-ui/icons/TextsmsTwoTone";
+import { selectCurrentItin } from "../CurrentItinerary/currentItinerarySlice";
+
 import {
-  addItemToItin,
-  selectCurrentItin,
   updateTime,
-} from "../CurrentItinerary/currentItinerarySlice";
+  updateTitle,
+  updateDate,
+  createID,
+  selectCurrentItinInfo,
+} from "./CurrentItinInfoSlice";
 import "./ItineraryDisplay.css";
 
 const useStyles = makeStyles((theme) => ({
@@ -31,8 +29,6 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   textField: {
-    // marginLeft: theme.spacing.unit,
-    // marginRight: theme.spacing.unit,
     width: 200,
     color: "black",
     fontSize: 20,
@@ -56,15 +52,14 @@ export default function ItineraryDisplay() {
   const currentItinerary = useSelector(selectCurrentItin);
   const [ItineraryName, setItineraryName] = useState("My Itinerary");
   const [ItineraryDate, setItinerarydate] = useState("");
-  const [ItineraryTime, setItineraryTime] = useState("19:00");
+  const [ItineraryTime, setItineraryTime] = useState("12:00");
   const [editMode, setEditMode] = useState(false);
-  const dispatch = useDispatch();
-  const history = useHistory();
   const user = useSelector(selectCurrentItin);
   const [currUser, setcurrUser] = useState(false);
   const [opendia, setOpenDia] = useState(false);
   const [opendiaEmail, setOpenDiaEmail] = useState(false);
-  const [opendiaText, setOpenDiaText] = useState(false);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     var now = new Date();
@@ -74,6 +69,8 @@ export default function ItineraryDisplay() {
 
     var today = now.getFullYear() + "-" + month + "-" + day;
     setItinerarydate(today);
+
+    dispatch(updateDate(today));
   }, []);
 
   const handleDiaClose = (value) => {
@@ -84,23 +81,18 @@ export default function ItineraryDisplay() {
     setOpenDiaEmail(false);
     //  setSelectedValue(value);
   };
-  const handleTextItin = (value) => {
-    setOpenDiaText(false);
-    //  setSelectedValue(value);
-  };
-  const handleChange = (event) => {
-    `set${event.target.name}`(event.target.value);
-  };
 
   const handleClick = () => {
     setEditMode(true);
   };
   const handleDone = () => {
     setEditMode(false);
+    dispatch(updateTime(ItineraryTime));
+    dispatch(updateTitle(ItineraryName));
+    dispatch(updateDate(ItineraryDate));
   };
 
   const handleClickReview = () => {
-    // history.push("/user/itnerary");
     if (!currUser) {
       setOpenDia(true);
     } else {
@@ -108,27 +100,16 @@ export default function ItineraryDisplay() {
     }
   };
   const handleClickShare = () => {
-    // history.push("/user/itnerary");
-    if (!currUser) {
-      setOpenDia(true);
-    } else {
-      setOpenDiaEmail(true);
-    }
-  };
-  const handleText = () => {
-    // history.push("/user/itnerary");
-    if (currUser) {
-      setOpenDia(true);
-    } else {
-      setOpenDiaText(true);
-    }
+    // if (!currUser) {
+    //   setOpenDia(true);
+    // } else {
+    setOpenDiaEmail(true);
+    // }
   };
 
   const navButton = () => {
     return (
       <div id="navItin">
-        {/* <button onClick={handleClickReview}>Review</button> */}
-        {/* <button>Save itnerary</button> */}
         <IconButton
           onClick={handleClickReview}
           style={{ backgroundColor: "#09BC8A" }}
@@ -141,9 +122,6 @@ export default function ItineraryDisplay() {
         >
           <ShareIcon />
         </IconButton>
-        {/* <IconButton onClick={handleText} style={{ backgroundColor: "#09BC8A" }}>
-          <TextsmsTwoToneIcon />
-        </IconButton> */}
       </div>
     );
   };
@@ -258,7 +236,7 @@ export default function ItineraryDisplay() {
           )}
           <LoginDialog open={opendia} onClose={handleDiaClose} />
           <ShareDialog open={opendiaEmail} onClose={handleEmailDiaClose} />
-          <SendSmsDialog open={opendiaText} onClose={handleTextItin} />
+          {/* <SendSmsDialog open={opendiaText} onClose={handleTextItin} /> */}
         </div>
       </div>
     </div>

@@ -4,7 +4,6 @@ import React, { useState } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
 import { updateItin } from "../CurrentItinerary/currentItinerarySlice";
-
 import {
   ListItem,
   ListItemText,
@@ -19,11 +18,9 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 // import DirectionsWalkTwoToneIcon from "@material-ui/icons/DirectionsWalkTwoTone";
 import {
   reorder,
-  addItemToItin,
   selectCurrentItin,
 } from "../CurrentItinerary/currentItinerarySlice";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
-import TimeDisplay from "./ItineraryTime/ItineraryTimeDisplay";
 import "./ItineraryList.css";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -32,11 +29,6 @@ const getItemStyle = (isDragging, draggableStyle) => ({
 
   // styles we need to apply on draggables
   ...draggableStyle,
-
-  // ...(isDragging && {
-  //   background: "rgb(235,235,235)",
-  // }),
-
   background: isDragging ? "#E6F0EE" : "#66ccaf",
 });
 const useStyles = makeStyles((theme) => ({
@@ -54,8 +46,8 @@ const ItneraryList = ({ time }) => {
   const dispatch = useDispatch();
   const currentItinerary = useSelector(selectCurrentItin);
   const [show, setShow] = useState("block");
-  const [hours, setHours] = useState(0);
-  const [endTime, setEndTime] = useState(0);
+  // const [hours, setHours] = useState(0);
+  // const [endTime, setEndTime] = useState(0);
   const classes = useStyles();
 
   // delete item from currentItinerary
@@ -190,42 +182,3 @@ const ItneraryList = ({ time }) => {
   );
 };
 export default ItneraryList;
-
-////////////////////////////////////////////////////
-
-{
-  /* <div>
-                      <p className="timeTag">
-                        Start:{item.body.time.startTime}
-                      </p>
-                      <p className="timeTag">{`End:${item.body.time.endTime}`}</p>
-                      <p className="timeTag">{`Duration:${item.body.time.duration}`}</p>
-                    </div>
-
-                    <div
-                      id="infoDiv"
-                      style={{ display: "flex", flexDirection: "column" }}
-                    >
-                      <p className="infoTag"> {`${item.body.name}`}</p>
-                      <p className="infoTag" id="addressTag">
-                        {" "}
-                        {`${item.body.address}`}
-                      </p>
-                    </div> */
-}
-
-{
-  /* <ListItemSecondaryAction> */
-}
-{
-  /* <IconButton
-                      style={{ backgroundColor: "#e33d3d", color: "white" }}
-                      onClick={deleteItin}
-                      id={index}
-                    >
-                      <HighlightOffIcon />
-                    </IconButton> */
-}
-{
-  /* </ListItemSecondaryAction> */
-}

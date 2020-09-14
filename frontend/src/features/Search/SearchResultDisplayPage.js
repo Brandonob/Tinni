@@ -1,13 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import { selectSearchResults } from "../SearchBar/SearchBarSlice";
-import { useHistory } from "react-router-dom";
 // import SearchResult from "../Search/SearchResultsCard"
 import ResultsDisplayCard from "../ResultsDisplay/ResultsDisplayCard";
 
 const ItineraryDisplayPage = () => {
   const itineraryResult = useSelector(selectSearchResults);
-  const history = useHistory();
 
   const displayResults = () => {
     return itineraryResult.map((result, i) => {

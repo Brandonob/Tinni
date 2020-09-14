@@ -1,17 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Dialog from "@material-ui/core/Dialog";
 import {
-  Typography,
-  TextField,
   FormControl,
   InputLabel,
   Select,
   MenuItem,
   Button,
 } from "@material-ui/core/";
-import { blue } from "@material-ui/core/colors";
-import DateFnsUtils from "@date-io/date-fns";
 import "date-fns";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -33,8 +29,6 @@ const SimpleDialog = (props) => {
     selectedValue,
     open,
     handleADD,
-    setTime,
-    time,
     name,
     minutes,
     setMinutes,

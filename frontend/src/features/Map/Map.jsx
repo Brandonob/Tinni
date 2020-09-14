@@ -1,9 +1,5 @@
 import React, { useState } from "react";
-import {
-  GoogleMap,
-  Marker,
-  InfoWindow,
-} from "@react-google-maps/api";
+import { GoogleMap, Marker, InfoWindow } from "@react-google-maps/api";
 import mapStyles from "./mapStyles";
 import {
   receiveSearch,
@@ -16,8 +12,8 @@ import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import SimpleDialog from "../Itinerary/ItineraryDial/ItineraryDial";
 import { addItemToItin } from "../CurrentItinerary/currentItinerarySlice";
-import IconButton from '@material-ui/core/IconButton';
-import AddCircleIcon from '@material-ui/icons/AddCircle';
+import IconButton from "@material-ui/core/IconButton";
+import AddCircleIcon from "@material-ui/icons/AddCircle";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -37,7 +33,7 @@ const options = {
   disableDefaultUI: true,
   zoomControl: true,
   streetViewControl: true,
-  clickableIcons: false
+  clickableIcons: false,
 };
 
 export default function App({ selected, setSelected }) {
@@ -86,24 +82,16 @@ export default function App({ selected, setSelected }) {
     setOpenDia(false);
     setOpen(true);
   };
-  const hoverSelected = (coordinates) => {
-    debugger;
-    if (coordinates.latitude === 0 && coordinates.longitude === 0) {
-      return MarkerIcon;
-    } else {
-      return MarkerIcon1;
-    }
-  };
 
   const markers = curatedSearchResults.map((loc, i = 0) => {
     let { id, coordinates, name } = loc;
-    let mark = hoverSelected(loc);
+
     return (
       <Marker
         key={id}
         position={{ lat: coordinates.latitude, lng: coordinates.longitude }}
         icon={{
-          url: { mark },
+          url: MarkerIcon,
           scaledSize: new window.google.maps.Size(55, 55),
           origin: new window.google.maps.Point(0, 0),
           anchor: new window.google.maps.Point(27, 27),
@@ -153,9 +141,9 @@ export default function App({ selected, setSelected }) {
                 </center>
               </p>
               <center>
-              <IconButton color="secondary" onClick={handleClick}>
-                <AddCircleIcon fontSize="large"/>
-              </IconButton>
+                <IconButton color="secondary" onClick={handleClick}>
+                  <AddCircleIcon fontSize="large" />
+                </IconButton>
               </center>
               <Snackbar
                 open={open}

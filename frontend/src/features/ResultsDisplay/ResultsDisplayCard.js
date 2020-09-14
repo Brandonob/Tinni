@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
 import Card from "@material-ui/core/Card";
-import CardHeader from "@material-ui/core/CardHeader";
+
 import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
@@ -10,19 +10,14 @@ import { Collapse, Button } from "@material-ui/core/";
 import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
-import { red } from "@material-ui/core/colors";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import ShareIcon from "@material-ui/icons/Share";
+
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
-import AddCircleSharpIcon from "@material-ui/icons/AddCircleSharp";
-import { SnackbarProvider, useSnackbar } from "notistack";
+
 import { useDispatch, useSelector } from "react-redux";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import SimpleDialog from "../Itinerary/ItineraryDial/ItineraryDial";
 import "./ResultsDisplayCard.css";
-import BusinessDisplay from "../BusinessInfo/BusinessInfo";
 import BusinessInfoDisplay from "../BusinessInfo/BusinessInfoDisplay";
 import {
   addItemToItin,
@@ -57,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
     transform: "rotate(180deg)",
   },
 }));
-let testTime = "19:00";
+
 export default function ResultsDisplayCard({
   image_url,
   id,
@@ -76,7 +71,7 @@ export default function ResultsDisplayCard({
   const [opendia, setOpenDia] = useState(false);
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(0);
-  const [time, setTime] = useState(0);
+
   const currentItinerary = useSelector(selectCurrentItin);
 
   const handleExpandClick = () => {
@@ -122,11 +117,6 @@ export default function ResultsDisplayCard({
   const handleDiaClose = (value) => {
     setOpenDia(false);
     // setSelectedValue(value);
-  };
-
-  const handleHover = (e, latitude, longitude) => {
-    debugger;
-    let select = {};
   };
 
   const handleClose = (event, reason) => {
@@ -212,7 +202,6 @@ export default function ResultsDisplayCard({
         name={name}
         open={opendia}
         onClose={handleDiaClose}
-        setTime={setTime}
         handleADD={handleADD}
         minutes={minutes}
         setMinutes={setMinutes}

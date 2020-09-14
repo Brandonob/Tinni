@@ -78,7 +78,6 @@ const SearchBar = () => {
 
       dispatch(receiveSearch(res.data.businesses));
 
-      // history.push("/ItinResPage");
       //new page
       SetLoading(false);
       history.push("/myitin");
