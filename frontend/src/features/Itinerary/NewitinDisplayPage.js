@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import { NavLink } from "react-router-dom";
 import clsx from "clsx";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
@@ -12,7 +12,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import { Button } from "@material-ui/core";
-
+import Avatar from "@material-ui/core/Avatar";
 //components//
 import SearchBar from "../SearchBar/SearchBar";
 import ItneraryList from "./ItineraryList";
@@ -20,6 +20,9 @@ import Map from "../Map/Map";
 import SearchResultDisplayPage from "../Search/SearchResultDisplayPage";
 import ItineraryDisplay from "./ItineraryDisplay";
 import logoText from "../../logoText.png";
+import { selectInfo, logOutUser } from "../Users/usersSlice";
+import { useSelector, useDispatch } from "react-redux";
+import firebase from "firebase/app";
 
 const drawerWidth = 375;
 
@@ -92,6 +95,8 @@ export default function MyItin() {
   const [open, setOpen] = useState(false);
   const [mapWidth, setmapWidth] = useState("600px");
   const [selected, setSelected] = useState(null);
+  const dispatch = useDispatch();
+  const userInformation = useSelector(selectInfo);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -101,6 +106,13 @@ export default function MyItin() {
   const handleDrawerClose = () => {
     setOpen(false);
     setmapWidth("600px");
+  };
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    firebase.auth().signOut();
+    dispatch(logOutUser());
+    //call other actions to clear react state
   };
 
   const openPin = () => {};
@@ -115,12 +127,13 @@ export default function MyItin() {
         })}
       >
         <Toolbar>
-          <img
-            src={logoText}
-            style={{ height: "75px", paddingBottom: "10px" }}
-            alt="logo text"
-          ></img>
-
+          <NavLink to={"/"}>
+            <img
+              src={logoText}
+              style={{ height: "75px", paddingBottom: "10px" }}
+              alt="logo text"
+            ></img>
+          </NavLink>
           {open === true ? (
             <div className={classes.toolbar}>
               <IconButton onClick={handleDrawerClose}>
@@ -148,6 +161,42 @@ export default function MyItin() {
             </div>
           )}
           <SearchBar />
+          {userInformation.length ? (
+            <div>
+              <Button
+                id="navbarButton"
+                variant="contained"
+                color="secondary"
+                href="./login"
+              >
+                login
+              </Button>
+
+              <Button variant="outlined" color="secondary" href="./login">
+                signup
+              </Button>
+            </div>
+          ) : (
+            <div style={{ display: "flex", flexDirection: "row" }}>
+              <NavLink to={"/userprofile"}>
+                <Avatar
+                  style={{ margin: 5, marginLeft: 50 }}
+                  alt="avatar"
+                  src={userInformation.photoURL}
+                >
+                  {" "}
+                </Avatar>
+              </NavLink>
+              <Button
+                onClick={handleClick}
+                variant="outlined"
+                color="secondary"
+                style={{ margin: 5 }}
+              >
+                logout
+              </Button>
+            </div>
+          )}
         </Toolbar>
       </AppBar>
 

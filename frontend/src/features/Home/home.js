@@ -114,7 +114,13 @@ export default function Album() {
       <AppBar position="relative">
         <Toolbar>
           {/* logo */}
-          <img src={logoText} style={{ height: "75px" }} alt="logo text"></img>
+          <NavLink to={"/"}>
+            <img
+              src={logoText}
+              style={{ height: "75px" }}
+              alt="logo text"
+            ></img>
+          </NavLink>
           <Grid container spacing={2} justify="flex-end">
             <Grid item>
               {/* <Typography variant="h6" color="inherit" noWrap>

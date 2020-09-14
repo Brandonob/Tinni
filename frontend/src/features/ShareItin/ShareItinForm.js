@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ShareItinForm() {
+export default function ShareItinForm({ handleCloseEmail }) {
   const classes = useStyles();
 
   const [replyEmail, setReplyEmail] = useState("");
@@ -126,7 +126,7 @@ export default function ShareItinForm() {
                 required
                 fullWidth
                 id="senderName"
-                label="Reciever Name"
+                label="Receiver Name"
                 onChange={(e) => setReplyName(e.target.value)}
                 autoFocus
               />
