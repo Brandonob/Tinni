@@ -136,7 +136,6 @@ export default function ItineraryDisplay() {
   };
 
   const saveItems = async (id) => {
-    debugger;
     currentItinerary.forEach(async (item) => {
       try {
         let activity = {
