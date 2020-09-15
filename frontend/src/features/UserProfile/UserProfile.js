@@ -202,32 +202,6 @@ export default function ItinResPage() {
               alt="logo text"
             ></img>
           </NavLink>
-          {open === true ? (
-            <div className={classes.toolbar}>
-              <IconButton onClick={handleDrawerClose}>
-                {theme.direction === "rtl" ? (
-                  <ChevronRightIcon />
-                ) : (
-                  <ChevronLeftIcon />
-                )}
-              </IconButton>
-            </div>
-          ) : (
-            <div>
-              <Button
-                color="inherit"
-                aria-label="open drawer"
-                onClick={handleDrawerOpen}
-                edge="start"
-                className={clsx(classes.menuButton, {
-                  [classes.hide]: open,
-                })}
-              >
-                <p>View Itinerary</p>
-                <MenuIcon />
-              </Button>
-            </div>
-          )}
           <SearchBar />
           {userInformation.length ? (
             <div>
@@ -271,7 +245,9 @@ export default function ItinResPage() {
           maxwidth: "100%",
           height: "300px",
           display: "flex",
+          // flexDirection: "column",
           justifyContent: "center",
+          marginBottom: "20px"
         }}
       >
         <div
@@ -286,7 +262,8 @@ export default function ItinResPage() {
             alt="Remy Sharp"
             src={userInformation.photoURL}
             className={classes.large}
-            style={{ marginTop: "50px" }}
+            style={{ marginTop: "50px",
+                      marginLeft: "40px"}}
           ></Avatar>
 
           <div style={{ marginTop: "30px", height: "50px" }}>
@@ -294,15 +271,21 @@ export default function ItinResPage() {
           </div>
         </div>
       </div>
+
       <div style={{ display: "flex",
-                    backgroundcolor: "grey",
-                    opacity: "0.5",
-                    border: "2px grey",
+                    justifyContent: "center" }}>
+      <div style={{ display: "flex",
+                    justifyContent: "center",
+                    backgroundColor: "rgba(0,67,70,0.9)",
+                    width: "1000px",
+                    border: "2px solid grey",
                     borderRadius: "8px" }}>
-        <Grid container className={classes.root2} spacing={2}>
+        <Grid container className={classes.root2} spacing={2} >
           <ItinCards />
         </Grid>
       </div>
+      </div>
+
       <div>
         <Typography variant="h6" align="center" gutterBottom>
           Footer
