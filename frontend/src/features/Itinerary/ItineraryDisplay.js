@@ -298,6 +298,10 @@ export default function ItineraryDisplay() {
           <p style={{ color: "green", display: openMessage }}>Success saved </p>
           <LoginDialog open={opendia} onClose={handleDiaClose} />
 
+          <ShareDialog open={opendiaEmail} onClose={handleEmailDiaClose} setOpenDiaEmail={setOpenDiaEmail}/>
+
+
+
           {/* <SendSmsDialog open={opendiaText} onClose={handleTextItin} /> */}
         </div>
       </div>

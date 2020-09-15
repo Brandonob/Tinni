@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ShareItinForm({ handleCloseEmail }) {
+export default function ShareItinForm({ handleCloseEmail, setOpenDiaEmail }) {
   const classes = useStyles();
 
   const [replyEmail, setReplyEmail] = useState("");
@@ -96,6 +96,7 @@ export default function ShareItinForm({ handleCloseEmail }) {
       },
       "user_a2eO6xZSmNLBjX2Day31P"
     );
+    setOpenDiaEmail(false)
   };
 
   return (
