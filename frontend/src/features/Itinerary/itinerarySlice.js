@@ -26,7 +26,7 @@ export const itinerariesSlice = createSlice({
 
 export const fetchItineraries = (currentUserID) => async (dispatch) => {
   try {
-    let res = await axios.get(`${API}/itineraries/${currentUserID}`);
+    let res = await axios.get(`${API}/users/${currentUserID}/itineraries`);
     let { payload } = res.data;
     dispatch(recieveAllItins(payload));
   } catch (error) {
