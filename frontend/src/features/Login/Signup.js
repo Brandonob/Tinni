@@ -38,7 +38,7 @@
 //             setErrMessage("Thank you for signing up. Redirecting!");
 //             dispatch(addUser(res.user.uid));
 //             history.push("/home")
-            
+
 //         } catch (error) {
 //             setErrMessage(error.message)
 //         }
@@ -59,37 +59,37 @@
 //     )
 // }
 
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom'
-import axios from 'axios'
-import { useDispatch } from 'react-redux'
-import { signUp } from '../../util/firebaseFunction'
-import { getAPI } from '../../util/utils'
-import { addUser } from '../Users/usersSlice'
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import {NavLink} from "react-router-dom"
-
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { signUp } from "../../util/firebaseFunction";
+import { getAPI } from "../../util/utils";
+import { addUser } from "../Users/usersSlice";
+import Avatar from "@material-ui/core/Avatar";
+import Button from "@material-ui/core/Button";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import TextField from "@material-ui/core/TextField";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
+import Link from "@material-ui/core/Link";
+import Grid from "@material-ui/core/Grid";
+import Box from "@material-ui/core/Box";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
+import Container from "@material-ui/core/Container";
+import { NavLink } from "react-router-dom";
+import MenuBar from "../Nav";
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
+      {"Copyright © "}
       <Link color="inherit" href="https://material-ui.com/">
         Your Website
-      </Link>{' '}
+      </Link>{" "}
       {new Date().getFullYear()}
-      {'.'}
+      {"."}
     </Typography>
   );
 }
@@ -97,16 +97,16 @@ function Copyright() {
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
   },
   avatar: {
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
-    width: '100%', // Fix IE 11 issue.
+    width: "100%", // Fix IE 11 issue.
     marginTop: theme.spacing(3),
   },
   submit: {
@@ -115,47 +115,47 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Signup = () => {
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [phone, setPhone] = useState("");
-    const [errMessage, setErrMessage] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [phone, setPhone] = useState("");
+  const [errMessage, setErrMessage] = useState("");
 
-    const history = useHistory();
-    const dispatch = useDispatch();
-    const API = getAPI();
-    const classes = useStyles();
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const API = getAPI();
+  const classes = useStyles();
 
-    const handleSubmit = async (e) => {
-        try {
-            e.preventDefault();
-            // debugger
-            let res = await signUp(email, password)
-            await axios.post(`${API}/users/`, {
-                id: res.user.uid,
-                first_name: firstName,
-                last_name: lastName,
-                email: email,
-                password: password,
-                phone: phone,
-                location: "",
-                profile_pic:""
-            });
-            setErrMessage("Thank you for signing up. Redirecting!");
-            dispatch(addUser(res.user.uid));
-            history.push("/home")
-            
-        } catch (error) {
-            setErrMessage(error.message)
-        }
+  const handleSubmit = async (e) => {
+    try {
+      e.preventDefault();
+      // debugger
+      let res = await signUp(email, password);
+      await axios.post(`${API}/users/`, {
+        id: res.user.uid,
+        first_name: firstName,
+        last_name: lastName,
+        email: email,
+        password: password,
+        phone: phone,
+        location: "",
+        profile_pic: "",
+      });
+      setErrMessage("Thank you for signing up. Redirecting!");
+      dispatch(addUser(res.user.uid));
+      history.push("/home");
+    } catch (error) {
+      setErrMessage(error.message);
     }
+  };
 
   return (
     <Container component="main" maxWidth="xs">
+      <MenuBar />
       <CssBaseline />
       <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
+        <Avatar style={{ margin: 50 }} className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
@@ -173,7 +173,7 @@ const Signup = () => {
                 fullWidth
                 id="firstName"
                 label="First Name"
-                onChange={(e)=> setFirstName(e.target.value)}
+                onChange={(e) => setFirstName(e.target.value)}
                 autoFocus
               />
             </Grid>
@@ -186,7 +186,7 @@ const Signup = () => {
                 id="lastName"
                 label="Last Name"
                 name="lastName"
-                onChange={(e)=> setLastName(e.target.value)}
+                onChange={(e) => setLastName(e.target.value)}
                 autoComplete="lname"
               />
             </Grid>
@@ -199,7 +199,7 @@ const Signup = () => {
                 id="email"
                 label="Email Address"
                 name="email"
-                onChange={(e)=> setEmail(e.target.value)}
+                onChange={(e) => setEmail(e.target.value)}
                 autoComplete="email"
               />
             </Grid>
@@ -213,22 +213,22 @@ const Signup = () => {
                 label="Password"
                 type="password"
                 id="password"
-                onChange={(e)=> setPassword(e.target.value)}
+                onChange={(e) => setPassword(e.target.value)}
                 autoComplete="current-password"
               />
             </Grid>
             <Grid item xs={12}>
-                <TextField
-                    value={phone}
-                    variant="outlined"
-                    required
-                    fullWidth
-                    name="phone"
-                    label="Phone number"
-                    id="phone"
-                    onChange={(e)=> setPhone(e.target.value)}
-                    autoComplete="phone"
-                />
+              <TextField
+                value={phone}
+                variant="outlined"
+                required
+                fullWidth
+                name="phone"
+                label="Phone number"
+                id="phone"
+                onChange={(e) => setPhone(e.target.value)}
+                autoComplete="phone"
+              />
             </Grid>
           </Grid>
           <Button
@@ -242,12 +242,11 @@ const Signup = () => {
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-            <NavLink to={"/login"}>
-            <Link href="/login" variant="body2">
-                Already have an account? Sign in
-              </Link>
-            </NavLink>
-              
+              <NavLink to={"/login"}>
+                <Link href="/login" variant="body2">
+                  Already have an account? Sign in
+                </Link>
+              </NavLink>
             </Grid>
           </Grid>
         </form>
@@ -257,6 +256,6 @@ const Signup = () => {
       </Box>
     </Container>
   );
-}
+};
 
-export default Signup
+export default Signup;

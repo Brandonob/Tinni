@@ -42,6 +42,7 @@ const useStyles = makeStyles((theme) => ({
 const API_KEY =
   // "8qnMAZ-CZ90tKgmGIL0GXzVK-teEHMAmfu0f-NlSKYgA-dSxs5WzkUz5DEu293l2ccgEUx9VMFEB3rMRMGXh0d7uU2cuybWSC91zVpq7-1l7Zq8LXBzoMVe9L8XvXnYx";
   "LFdo6C7hC-lOv9bETblPGtrgq3v7mv58fZYWAv9gQCSrfAWsFjfaB2zHEthT1WHpTcdJUaxGk7tBUyReInvmM672_yo2V2uQNS_fW5gKzzE7mOwKtUR21zESo14LX3Yx";
+
 const SearchBar = () => {
   const classes = useStyles();
   const [location, setLocation] = useState("");

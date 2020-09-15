@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import clsx from "clsx";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import CssBaseline from "@material-ui/core/CssBaseline";
-
+import MenuDropDown from "../MenuDropDown";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
@@ -97,6 +97,7 @@ export default function MyItin() {
   const [selected, setSelected] = useState(null);
   const dispatch = useDispatch();
   const userInformation = useSelector(selectInfo);
+  const history = useHistory();
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -112,11 +113,10 @@ export default function MyItin() {
     e.preventDefault();
     firebase.auth().signOut();
     dispatch(logOutUser());
+    history.push("/");
     //call other actions to clear react state
   };
 
-  const openPin = () => {};
-  debugger;
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -163,7 +163,7 @@ export default function MyItin() {
           <SearchBar />
           {userInformation ? (
             <div style={{ display: "flex", flexDirection: "row" }}>
-              <NavLink to={"/userprofile"}>
+              {/* <NavLink to={"/userprofile"}>
                 <Avatar
                   style={{ margin: 5, marginLeft: 50 }}
                   alt="avatar"
@@ -171,7 +171,8 @@ export default function MyItin() {
                 >
                   {" "}
                 </Avatar>
-              </NavLink>
+              </NavLink> */}
+              <MenuDropDown />
               <Button
                 onClick={handleClick}
                 variant="outlined"

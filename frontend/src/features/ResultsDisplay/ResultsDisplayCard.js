@@ -63,6 +63,7 @@ export default function ResultsDisplayCard({
   term,
   distance,
   rating,
+  cardNum,
 }) {
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -88,7 +89,10 @@ export default function ResultsDisplayCard({
     let num = "" + Math.random().toString(36).substr(2, 9);
     // let id = latitude + longitude + "" + num++;
     let duration = hours * 60 + minutes;
-
+    if (image_url === "") {
+      image_url =
+        "https://upload.wikimedia.org/wikipedia/commons/c/cf/Radio_City_Music_Hall_Panorama.jpg";
+    }
     // hours * 60 + minutes
     let body = {
       latitude,
@@ -97,6 +101,7 @@ export default function ResultsDisplayCard({
       term,
       name,
       id: num,
+      image_url,
       time: {
         duration: duration,
         travelTo: 0,
@@ -135,7 +140,7 @@ export default function ResultsDisplayCard({
       onmouseout="normalImg(this)"
     >
       <Typography gutterBottom variant="h6" component="h2">
-        {" " + name}
+        {cardNum} {name}
       </Typography>
       {image_url ? (
         <CardMedia className={classes.media} image={image_url} title={name} />
@@ -181,7 +186,7 @@ export default function ResultsDisplayCard({
         <Snackbar
           open={open}
           autoHideDuration={1000}
-          anchorOrigin={{ vertical: "top", horizontal: "right" }}
+          anchorOrigin={{ vertical: "top", horizontal: "left" }}
           onClose={handleClose}
         >
           <Alert onClose={handleClose} severity="success">
