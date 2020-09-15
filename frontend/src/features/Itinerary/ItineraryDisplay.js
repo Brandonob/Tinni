@@ -285,7 +285,7 @@ export default function ItineraryDisplay() {
             </p>
           )}
           <LoginDialog open={opendia} onClose={handleDiaClose} />
-          <ShareDialog open={opendiaEmail} onClose={handleEmailDiaClose} />
+          <ShareDialog open={opendiaEmail} onClose={handleEmailDiaClose} setOpenDiaEmail={setOpenDiaEmail}/>
           {/* <SendSmsDialog open={opendiaText} onClose={handleTextItin} /> */}
         </div>
       </div>
