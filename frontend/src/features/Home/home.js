@@ -18,16 +18,25 @@ import Howto from "./HowTo/HowTo";
 import { logOutUser, addInfo } from "../Users/usersSlice";
 import { useDispatch } from "react-redux";
 import firebase from "firebase/app";
-import logoImg from "../../logoImg4.png";
+import logoImg from "../../logoImg.png";
 import logoText from "../../logoText.png";
 import { NavLink } from "react-router-dom";
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
+      <NavLink to={"/"}>
+        <img
+          src={logoImg}
+          style={{ marginTop: 5, height: "50px" }}
+          alt="logo text"
+        ></img>
+      </NavLink>
 
-      {new Date().getFullYear()}
+      <div>
+        {" Tinni © "}
+        {new Date().getFullYear()}
+      </div>
     </Typography>
   );
 }
@@ -114,7 +123,13 @@ export default function Album() {
       <AppBar position="relative">
         <Toolbar>
           {/* logo */}
-          <img src={logoText} style={{ height: "75px" }} alt="logo text"></img>
+          <NavLink to={"/"}>
+            <img
+              src={logoText}
+              style={{ height: "75px" }}
+              alt="logo text"
+            ></img>
+          </NavLink>
           <Grid container spacing={2} justify="flex-end">
             <Grid item>
               {/* <Typography variant="h6" color="inherit" noWrap>
@@ -208,7 +223,7 @@ export default function Album() {
       <hr />
       <footer className={classes.footer}>
         <Typography variant="h6" align="center" gutterBottom>
-          Run your day dont let your day run you!
+          Run your day, dont let your day run you!
         </Typography>
         <Typography
           variant="subtitle1"

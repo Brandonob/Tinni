@@ -72,12 +72,17 @@ const ItneraryList = ({ time }) => {
   //time display
   const convertTimeDisplay = (time) => {
     let timeRes = time.split(":");
-
-    if (parseInt(timeRes[0]) > 12) {
+    if (parseInt(timeRes[0]) === 12) {
+      timeRes[2] = "pm";
+    } else if (parseInt(timeRes[0]) > 12) {
       timeRes[0] = parseInt(timeRes[0]) - 12;
       timeRes[2] = "pm";
     } else {
       timeRes[2] = "am";
+    }
+    if (timeRes[1].length === 1) {
+      let min = `0${timeRes[1]}`;
+      timeRes[1] = min;
     }
     if (parseInt(timeRes[1]) === 0) {
       parseInt((timeRes[1] = "00"));
@@ -123,7 +128,7 @@ const ItneraryList = ({ time }) => {
                         height: "50px",
                         width: "50px",
                       }}
-                      src="https://upload.wikimedia.org/wikipedia/commons/c/cf/Radio_City_Music_Hall_Panorama.jpg"
+                      src={item.body.image_url}
                     />
 
                     <ListItemText
@@ -136,7 +141,7 @@ const ItneraryList = ({ time }) => {
                             className={classes.inline}
                             color="textPrimary"
                           >
-                            From: {convertTimeDisplay(item.body.time.startTime)}{" "}
+                            From: {convertTimeDisplay(item.body.time.startTime)}
                             - To {convertTimeDisplay(item.body.time.endTime)}
                           </Typography>
 

@@ -1,18 +1,18 @@
 import React, { useState } from "react";
-
+import { NavLink, useHistory } from "react-router-dom";
 import clsx from "clsx";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import CssBaseline from "@material-ui/core/CssBaseline";
-
+import MenuDropDown from "../MenuDropDown";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import { Button } from "@material-ui/core";
-
+import Avatar from "@material-ui/core/Avatar";
 //components//
 import SearchBar from "../SearchBar/SearchBar";
 import ItneraryList from "./ItineraryList";
@@ -20,6 +20,9 @@ import Map from "../Map/Map";
 import SearchResultDisplayPage from "../Search/SearchResultDisplayPage";
 import ItineraryDisplay from "./ItineraryDisplay";
 import logoText from "../../logoText.png";
+import { selectInfo, logOutUser } from "../Users/usersSlice";
+import { useSelector, useDispatch } from "react-redux";
+import firebase from "firebase/app";
 
 const drawerWidth = 375;
 
@@ -92,6 +95,9 @@ export default function MyItin() {
   const [open, setOpen] = useState(false);
   const [mapWidth, setmapWidth] = useState("600px");
   const [selected, setSelected] = useState(null);
+  const dispatch = useDispatch();
+  const userInformation = useSelector(selectInfo);
+  const history = useHistory();
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -103,7 +109,13 @@ export default function MyItin() {
     setmapWidth("600px");
   };
 
-  const openPin = () => {};
+  const handleClick = (e) => {
+    e.preventDefault();
+    firebase.auth().signOut();
+    dispatch(logOutUser());
+    history.push("/");
+    //call other actions to clear react state
+  };
 
   return (
     <div className={classes.root}>
@@ -115,12 +127,13 @@ export default function MyItin() {
         })}
       >
         <Toolbar>
-          <img
-            src={logoText}
-            style={{ height: "75px", paddingBottom: "10px" }}
-            alt="logo text"
-          ></img>
-
+          <NavLink to={"/"}>
+            <img
+              src={logoText}
+              style={{ height: "75px", paddingBottom: "10px" }}
+              alt="logo text"
+            ></img>
+          </NavLink>
           {open === true ? (
             <div className={classes.toolbar}>
               <IconButton onClick={handleDrawerClose}>
@@ -148,6 +161,49 @@ export default function MyItin() {
             </div>
           )}
           <SearchBar />
+          {userInformation ? (
+            <div style={{ display: "flex", flexDirection: "row" }}>
+              {/* <NavLink to={"/userprofile"}>
+                <Avatar
+                  style={{ margin: 5, marginLeft: 50 }}
+                  alt="avatar"
+                  src={userInformation.photoURL}
+                >
+                  {" "}
+                </Avatar>
+              </NavLink> */}
+              <MenuDropDown />
+              <Button
+                onClick={handleClick}
+                variant="outlined"
+                color="secondary"
+                style={{ margin: 5 }}
+              >
+                logout
+              </Button>
+            </div>
+          ) : (
+            <div>
+              <Button
+                id="navbarButton"
+                variant="contained"
+                color="secondary"
+                href="./login"
+                style={{ marginLeft: 5 }}
+              >
+                login
+              </Button>
+
+              <Button
+                variant="outlined"
+                color="secondary"
+                href="./login"
+                style={{ marginLeft: 5 }}
+              >
+                signup
+              </Button>
+            </div>
+          )}
         </Toolbar>
       </AppBar>
 

@@ -83,7 +83,7 @@ function ProductHowItWorks(props) {
                   className={classes.image}
                 />
                 <Typography variant="h5" align="center">
-                  Search for destinations to add to your itnerary.
+                  Search for destinations to add to your itinerary.
                 </Typography>
               </div>
             </Grid>
@@ -98,7 +98,7 @@ function ProductHowItWorks(props) {
                   className={classes.image}
                 />
                 <Typography variant="h5" align="center">
-                  Costumize your time, date and name your Itinerary!
+                  Customize your time, date and name your Itinerary!
                 </Typography>
               </div>
             </Grid>

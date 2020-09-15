@@ -17,16 +17,24 @@ import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-import Typography from "@material-ui/core/Typography";
+import { Typography, AppBar, Toolbar } from "@material-ui/core";
+import clsx from "clsx";
+import { NavLink } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
+import logoText from "../../logoText.png";
+import logoImg from "../../logoImg4.png";
+import SearchBar from "../SearchBar/SearchBar.js";
+import { selectInfo, logOutUser } from "../Users/usersSlice";
+import { useSelector } from "react-redux";
+import MenuDropDown from "../MenuDropDown";
 import Container from "@material-ui/core/Container";
-
+import MenuBar from "../Nav";
 const Copyright = () => {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
       <Link color="inherit" href="https://material-ui.com/">
-        Your Website
+        Tinni
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -58,17 +66,27 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errMessage, setErrMessage] = useState("");
-
+  const userInformation = useSelector(selectInfo);
   const history = useHistory();
   const dispatch = useDispatch();
   const API = getAPI();
   const classes = useStyles();
+  const [open, setOpen] = useState(false);
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    firebase.auth().signOut();
+    dispatch(logOutUser());
+    history.push("/");
+    //call other actions to clear react state
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       let res = await login(email, password);
       console.log("you have succesfully logged in");
+      let user = res.user.uid;
       dispatch(addUser(res.user.uid));
       debugger;
       history.push("/home");
@@ -79,9 +97,70 @@ const Login = () => {
 
   return (
     <Container component="main" maxWidth="xs">
+      <AppBar
+        position="fixed"
+        className={clsx(classes.appBar, {
+          [classes.appBarShift]: open,
+        })}
+      >
+        <Toolbar>
+          <NavLink to={"/"}>
+            <img
+              src={logoText}
+              style={{ height: "75px", paddingBottom: "10px" }}
+              alt="logo text"
+            ></img>
+          </NavLink>
+
+          <SearchBar />
+          {userInformation ? (
+            <div style={{ display: "flex", flexDirection: "row" }}>
+              {/* <NavLink to={"/userprofile"}>
+                <Avatar
+                  style={{ margin: 5, marginLeft: 50 }}
+                  alt="avatar"
+                  src={userInformation.photoURL}
+                >
+                  {" "}
+                </Avatar>
+              </NavLink> */}
+              <MenuDropDown />
+              <Button
+                onClick={handleClick}
+                variant="outlined"
+                color="secondary"
+                style={{ margin: 5 }}
+              >
+                logout
+              </Button>
+            </div>
+          ) : (
+            <div>
+              <Button
+                id="navbarButton"
+                variant="contained"
+                color="secondary"
+                href="./login"
+                style={{ marginLeft: 5 }}
+              >
+                login
+              </Button>
+
+              <Button
+                variant="outlined"
+                color="secondary"
+                href="./login"
+                style={{ marginLeft: 5 }}
+              >
+                signup
+              </Button>
+            </div>
+          )}
+        </Toolbar>
+      </AppBar>
       <CssBaseline />
       <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
+        <Avatar style={{ margin: 25 }} className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">

@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ShareItinForm() {
+export default function ShareItinForm({ handleCloseEmail }) {
   const classes = useStyles();
 
   const [replyEmail, setReplyEmail] = useState("");
@@ -47,12 +47,17 @@ export default function ShareItinForm() {
 
   const convertTimeDisplay = (time) => {
     let timeRes = time.split(":");
-
-    if (parseInt(timeRes[0]) > 12) {
+    if (parseInt(timeRes[0]) === 12) {
+      timeRes[2] = "pm";
+    } else if (parseInt(timeRes[0]) > 12) {
       timeRes[0] = parseInt(timeRes[0]) - 12;
       timeRes[2] = "pm";
     } else {
       timeRes[2] = "am";
+    }
+    if (timeRes[1].length === 1) {
+      let min = `0${timeRes[1]}`;
+      timeRes[1] = min;
     }
     if (parseInt(timeRes[1]) === 0) {
       parseInt((timeRes[1] = "00"));
@@ -126,7 +131,7 @@ export default function ShareItinForm() {
                 required
                 fullWidth
                 id="senderName"
-                label="Reciever Name"
+                label="Receiver Name"
                 onChange={(e) => setReplyName(e.target.value)}
                 autoFocus
               />

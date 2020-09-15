@@ -4,36 +4,87 @@ import { createSlice } from "@reduxjs/toolkit";
 // const currentItineraryInfo = useSelector(selectCurrentItinInfo);
 export const currentItinerarySlice = createSlice({
   name: "currentItinerary",
-  initialState: [],
+  initialState: {
+    id: null,
+    Title: "My Itinerary",
+    Date: "",
+    Time: "12:00 ",
+    list: [],
+  },
   reducers: {
     addItemToItin: {
       reducer: (state, action) => {
-        state.push(action.payload);
-        return handleTime(state);
+        state.list.push(action.payload);
+        handleTime(state.list, state.Time);
+        return state;
       },
       prepare: (body) => {
         return { payload: { body } };
       },
     },
     updateItin: (state, action) => {
-      state.splice(action.payload, 1);
-      return handleTime(state);
+      state.list.splice(action.payload, 1);
+      handleTime(state.list, state.Time);
+      return state;
     },
     reorder: (state, action) => {
-      const [removed] = state.splice(action.payload.startIndex, 1);
-      state.splice(action.payload.endIndex, 0, removed);
-      return handleTime(state);
+      const [removed] = state.list.splice(action.payload.startIndex, 1);
+      state.list.splice(action.payload.endIndex, 0, removed);
+      handleTime(state.list, state.Time);
+      return state;
     },
     updateTime: (state, action) => {
-      debugger;
-      state[action.payload.index].body.time.endTime = action.payload.timeEnd;
+      state.list[action.payload.index].body.time.endTime =
+        action.payload.timeEnd;
       return state;
+    },
+    updateTitle: (state, action) => {
+      state.Title = action.payload;
+      return state;
+    },
+    updateDate: (state, action) => {
+      state.Date = action.payload;
+      return state;
+    },
+    updateItinTime: (state, action) => {
+      state.Time = action.payload;
+      handleTime(state.list, state.Time);
+      return state;
+    },
+    updateID: (state, action) => {
+      state.id = action.payload;
+      return state;
+    },
+    clearItin: (state, action) => {
+      return {
+        id: null,
+        Title: "My Itinerary",
+        Date: "",
+        Time: "12:00 ",
+        list: [],
+      };
     },
   },
 });
 
-const handleTime = (state) => {
-  let timeintin = "12:00";
+export const selectCurrentItin = (state) => state.currentItinerary.list;
+export const selectCurrentItinAll = (state) => state.currentItinerary;
+export const {
+  addItemToItin,
+  updateItin,
+  reorder,
+  updateTime,
+  updateItinTime,
+  updateID,
+  updateTitle,
+  updateDate,
+  clearItin,
+} = currentItinerarySlice.actions;
+export default currentItinerarySlice.reducer;
+
+const handleTime = (state, time) => {
+  let timeintin = time;
+
   state.forEach((el, i) => {
     if (i === 0) {
       let target = new Date("2020-02-20 " + timeintin);
@@ -41,6 +92,7 @@ const handleTime = (state) => {
       target.setMinutes(target.getMinutes() + [el][0].body.time.duration);
       state[i].body.time.endTime =
         target.getHours() + ":" + target.getMinutes();
+      debugger;
     } else {
       let target = new Date("2020-02-20 " + state[i - 1].body.time.endTime);
 
@@ -58,12 +110,3 @@ const handleTime = (state) => {
   });
   return state;
 };
-
-export const selectCurrentItin = (state) => state.currentItinerary;
-export const {
-  addItemToItin,
-  updateItin,
-  reorder,
-  updateTime,
-} = currentItinerarySlice.actions;
-export default currentItinerarySlice.reducer;

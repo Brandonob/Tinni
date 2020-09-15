@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { TextField } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import ItneraryList from "./ItineraryList";
@@ -6,21 +7,27 @@ import Edit from "@material-ui/icons/Edit";
 import IconButton from "@material-ui/core/IconButton";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import DoneIcon from "@material-ui/icons/Done";
-import { useSelector, useDispatch } from "react-redux";
 import SaveIcon from "@material-ui/icons/Save";
 import ShareIcon from "@material-ui/icons/Share";
 import LoginDialog from "../LoginDia/LoginDial";
 import ShareDialog from "../ShareForm/ShareFormDial";
-import { selectCurrentItin } from "../CurrentItinerary/currentItinerarySlice";
-
 import {
-  updateTime,
+  selectCurrentItin,
+  selectCurrentItinAll,
+} from "../CurrentItinerary/currentItinerarySlice";
+import { selectInfo, logOutUser, selectUserID } from "../Users/usersSlice";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  updateItinTime,
+  updateID,
   updateTitle,
   updateDate,
-  createID,
-  selectCurrentItinInfo,
-} from "./CurrentItinInfoSlice";
+} from "../CurrentItinerary/currentItinerarySlice";
 import "./ItineraryDisplay.css";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
+
+import { getAPI } from "../../util/utils";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -50,26 +57,30 @@ const useStyles = makeStyles((theme) => ({
 export default function ItineraryDisplay() {
   const classes = useStyles();
   const currentItinerary = useSelector(selectCurrentItin);
+  const currentUserId = useSelector(selectUserID);
+
+  const currentItineraryAll = useSelector(selectCurrentItinAll);
   const [ItineraryName, setItineraryName] = useState("My Itinerary");
   const [ItineraryDate, setItinerarydate] = useState("");
   const [ItineraryTime, setItineraryTime] = useState("12:00");
   const [editMode, setEditMode] = useState(false);
-  const user = useSelector(selectCurrentItin);
+  const userInformation = useSelector(selectInfo);
   const [currUser, setcurrUser] = useState(false);
   const [opendia, setOpenDia] = useState(false);
   const [opendiaEmail, setOpenDiaEmail] = useState(false);
-
+  const [openMessage, setopenMessage] = useState("none");
+  const API = getAPI();
   const dispatch = useDispatch();
 
+  function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+  }
   useEffect(() => {
     var now = new Date();
-
     var day = ("0" + now.getDate()).slice(-2);
     var month = ("0" + (now.getMonth() + 1)).slice(-2);
-
     var today = now.getFullYear() + "-" + month + "-" + day;
     setItinerarydate(today);
-
     dispatch(updateDate(today));
   }, []);
 
@@ -87,31 +98,81 @@ export default function ItineraryDisplay() {
   };
   const handleDone = () => {
     setEditMode(false);
-    dispatch(updateTime(ItineraryTime));
+
+    dispatch(updateItinTime(ItineraryTime));
     dispatch(updateTitle(ItineraryName));
     dispatch(updateDate(ItineraryDate));
   };
 
-  const handleClickReview = () => {
-    if (!currUser) {
+  const handleClickSave = () => {
+    if (!userInformation) {
+      setOpenDia(true);
+    } else {
+      saveItinerary(true);
+    }
+  };
+  const handleClickShare = () => {
+    debugger;
+    if (!userInformation) {
       setOpenDia(true);
     } else {
       setOpenDiaEmail(true);
     }
   };
-  const handleClickShare = () => {
-    // if (!currUser) {
-    //   setOpenDia(true);
-    // } else {
-    setOpenDiaEmail(true);
-    // }
+
+  const saveItinerary = async () => {
+    debugger;
+    console.log(currentItineraryAll);
+    if (!currentItineraryAll.id) {
+      try {
+        let res = await axios.post(`${API}/itineraries`, {
+          user_id: currentUserId,
+          itinerary_date: currentItineraryAll["Date"],
+          title: currentItineraryAll.Title,
+          itinerary_StartTime: currentItineraryAll.Time,
+        });
+
+        saveItems(res.data.payload[0].id);
+        dispatch(updateID(res.data.payload[0].id));
+        successMessage();
+        console.log("hi");
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
+  const successMessage = () => {
+    setopenMessage("block");
+  };
+
+  const saveItems = async (id) => {
+    currentItinerary.forEach(async (item) => {
+      try {
+        let activity = {
+          itin_id: id,
+          location: item.address,
+          longitude: item.longitude,
+          latitude: item.latitude,
+          activity_name: item.name,
+          image: item.image_url,
+          StartTime: item.time.startTime,
+          EndTime: item.time.endTime,
+          duration: item.time.duration,
+        };
+
+        await axios.post(`${API}/activites`, activity);
+      } catch (error) {
+        console.log(error);
+      }
+    });
   };
 
   const navButton = () => {
     return (
       <div id="navItin">
         <IconButton
-          onClick={handleClickReview}
+          onClick={handleClickSave}
           style={{ backgroundColor: "#09BC8A" }}
         >
           <SaveIcon />
@@ -219,14 +280,14 @@ export default function ItineraryDisplay() {
           style={{
             marginTop: "35px",
             marginLeft: "10px",
-            height: "350px",
+            height: "270px",
             marginRight: "0px",
             overflow: "scroll",
           }}
         >
           <ItneraryList time={ItineraryTime} />
           {currentItinerary.length ? (
-            navButton()
+            <>{navButton()}</>
           ) : (
             <p
               style={{ marginTop: "50px", color: "crimson", fontSize: "20px" }}
@@ -234,8 +295,9 @@ export default function ItineraryDisplay() {
               Add Items to Itinerary
             </p>
           )}
+          <p style={{ color: "green", display: openMessage }}>Success saved </p>
           <LoginDialog open={opendia} onClose={handleDiaClose} />
-          <ShareDialog open={opendiaEmail} onClose={handleEmailDiaClose} />
+
           {/* <SendSmsDialog open={opendiaText} onClose={handleTextItin} /> */}
         </div>
       </div>

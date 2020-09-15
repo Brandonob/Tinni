@@ -42,6 +42,7 @@ const useStyles = makeStyles((theme) => ({
 const API_KEY =
   // "8qnMAZ-CZ90tKgmGIL0GXzVK-teEHMAmfu0f-NlSKYgA-dSxs5WzkUz5DEu293l2ccgEUx9VMFEB3rMRMGXh0d7uU2cuybWSC91zVpq7-1l7Zq8LXBzoMVe9L8XvXnYx";
   "LFdo6C7hC-lOv9bETblPGtrgq3v7mv58fZYWAv9gQCSrfAWsFjfaB2zHEthT1WHpTcdJUaxGk7tBUyReInvmM672_yo2V2uQNS_fW5gKzzE7mOwKtUR21zESo14LX3Yx";
+
 const SearchBar = () => {
   const classes = useStyles();
   const [location, setLocation] = useState("");
@@ -101,18 +102,6 @@ const SearchBar = () => {
   return (
     <>
       <Paper component="form" className={classes.root} onSubmit={handleSubmit}>
-        {/* <InputLabel id="demo-simple-select-filled-label">Age</InputLabel> */}
-        {/* <Select
-          labelId="demo-simple-select-filled-label"
-          id="demo-simple-select-filled"
-          value={searchType}
-          onChange={handleChange}
-        >
-          <MenuItem value="Places">Places</MenuItem>
-          <MenuItem value="Events">Events</MenuItem>
-          <MenuItem value="Itineraries">Itineraries </MenuItem>
-        </Select>
-        <Divider className={classes.divider} orientation="vertical" /> */}
         <InputBase
           onChange={(e) => setTerm(e.currentTarget.value)}
           value={term}
@@ -136,7 +125,8 @@ const SearchBar = () => {
           className={classes.iconButton}
           // fontColor="white"
           // outlined
-          onClick={handleSubmit}
+          type="submit"
+          // onClick={handleSubmit}
           // endIcon={<SearchIcon />}
           align="baseline"
         >
