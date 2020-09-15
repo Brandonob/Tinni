@@ -16,12 +16,13 @@ import HomeButtonCards from "./homecomponents/homecards";
 import "./home.css";
 import Howto from "./HowTo/HowTo";
 import { logOutUser, addInfo } from "../Users/usersSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import firebase from "firebase/app";
 import logoImg from "../../logoImg.png";
 import logoText from "../../logoText.png";
 import { NavLink } from "react-router-dom";
-
+import { selectInfo } from "../Users/usersSlice";
+import MenuDropDown from "../MenuDropDown";
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -101,7 +102,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Album() {
   const classes = useStyles();
   const [currentUser, setCurrentUser] = useState("");
-
+  const userInformation = useSelector(selectInfo);
   const dispatch = useDispatch();
 
   const handleClick = (e) => {
@@ -137,37 +138,49 @@ export default function Album() {
                                               </Typography> */}
             </Grid>
             <Grid item>
-              {currentUser ? null : (
-                <NavLink to={"/login"}>
-                  <Button
-                    id="navbarButton"
-                    variant="contained"
-                    color="secondary"
-                  >
-                    login
-                  </Button>
-                </NavLink>
-              )}
-            </Grid>
-            <Grid item>
-              {currentUser ? null : (
-                <NavLink to={"signup"}>
-                  <Button variant="outlined" color="secondary">
-                    signup
-                  </Button>
-                </NavLink>
-              )}
-              {currentUser ? (
-                <NavLink>
+              {userInformation ? (
+                <div style={{ display: "flex", flexDirection: "row" }}>
+                  {/* <NavLink to={"/userprofile"}>
+                <Avatar
+                  style={{ margin: 5, marginLeft: 50 }}
+                  alt="avatar"
+                  src={userInformation.photoURL}
+                >
+                  {" "}
+                </Avatar>
+              </NavLink> */}
+                  <MenuDropDown />
                   <Button
                     onClick={handleClick}
                     variant="outlined"
                     color="secondary"
+                    style={{ margin: 5 }}
                   >
                     logout
                   </Button>
-                </NavLink>
-              ) : null}
+                </div>
+              ) : (
+                <div>
+                  <Button
+                    id="navbarButton"
+                    variant="contained"
+                    color="secondary"
+                    href="./login"
+                    style={{ marginLeft: 5 }}
+                  >
+                    login
+                  </Button>
+
+                  <Button
+                    variant="outlined"
+                    color="secondary"
+                    href="./login"
+                    style={{ marginLeft: 5 }}
+                  >
+                    signup
+                  </Button>
+                </div>
+              )}
             </Grid>
           </Grid>
         </Toolbar>

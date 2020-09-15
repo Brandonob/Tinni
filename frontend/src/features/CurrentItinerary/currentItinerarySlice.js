@@ -38,6 +38,10 @@ export const currentItinerarySlice = createSlice({
         action.payload.timeEnd;
       return state;
     },
+    setID: (state, action) => {
+      state.list[action.payload.index].body.id = action.payload.id;
+      return state;
+    },
     updateTitle: (state, action) => {
       state.Title = action.payload;
       return state;
@@ -79,6 +83,7 @@ export const {
   updateTitle,
   updateDate,
   clearItin,
+  setID,
 } = currentItinerarySlice.actions;
 export default currentItinerarySlice.reducer;
 

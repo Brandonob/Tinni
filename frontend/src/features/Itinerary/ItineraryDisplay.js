@@ -22,6 +22,7 @@ import {
   updateID,
   updateTitle,
   updateDate,
+  setID,
 } from "../CurrentItinerary/currentItinerarySlice";
 import "./ItineraryDisplay.css";
 import Snackbar from "@material-ui/core/Snackbar";
@@ -76,12 +77,21 @@ export default function ItineraryDisplay() {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
   }
   useEffect(() => {
-    var now = new Date();
-    var day = ("0" + now.getDate()).slice(-2);
-    var month = ("0" + (now.getMonth() + 1)).slice(-2);
-    var today = now.getFullYear() + "-" + month + "-" + day;
-    setItinerarydate(today);
-    dispatch(updateDate(today));
+    if (!currentItineraryAll.id) {
+      var now = new Date();
+      var day = ("0" + now.getDate()).slice(-2);
+      var month = ("0" + (now.getMonth() + 1)).slice(-2);
+      var today = now.getFullYear() + "-" + month + "-" + day;
+      setItinerarydate(today);
+      dispatch(updateDate(today));
+    } else {
+      setItinerarydate(currentItineraryAll["Date"]);
+      setItineraryTime(currentItineraryAll.Time);
+    }
+
+    setItineraryName(currentItineraryAll.Title);
+
+    // setItineraryTime(currentItineraryAll.Time);
   }, []);
 
   const handleDiaClose = (value) => {
@@ -135,11 +145,46 @@ export default function ItineraryDisplay() {
         saveItems(res.data.payload[0].id);
         dispatch(updateID(res.data.payload[0].id));
         successMessage();
-        console.log("hi");
       } catch (error) {
         console.log(error);
       }
+    } else if (currentItineraryAll.id) {
+      try {
+        let res = await axios.patch(
+          `${API}/itineraries/${currentItineraryAll.id}`,
+          {
+            user_id: currentUserId,
+            itinerary_date: currentItineraryAll["Date"],
+            title: currentItineraryAll.Title,
+            itinerary_StartTime: currentItineraryAll.Time,
+          }
+        );
+        currentItems(res.data.payload[0].id);
+      } catch (err) {
+        console.log(err);
+      }
     }
+
+    const currentItems = async (id) => {
+      currentItinerary.forEach(async (item) => {
+        try {
+          let patchActivity = {
+            itin_id: id,
+            location: item.address,
+            longitude: item.longitude,
+            latitude: item.latitude,
+            activity_name: item.name,
+            image: item.image_url,
+            StartTime: item.time.startTime,
+            EndTime: item.time.endTime,
+            duration: item.time.duration,
+          };
+          await axios.patch(`${API}/activites`, patchActivity);
+        } catch (error) {
+          console.log(error);
+        }
+      });
+    };
   };
 
   const successMessage = () => {
@@ -147,21 +192,25 @@ export default function ItineraryDisplay() {
   };
 
   const saveItems = async (id) => {
-    currentItinerary.forEach(async (item) => {
+    currentItinerary.forEach(async (item, i) => {
+      debugger;
       try {
         let activity = {
           itin_id: id,
-          location: item.address,
-          longitude: item.longitude,
-          latitude: item.latitude,
-          activity_name: item.name,
-          image: item.image_url,
-          StartTime: item.time.startTime,
-          EndTime: item.time.endTime,
-          duration: item.time.duration,
+          location: item.body.address,
+          longitude: item.body.longitude,
+          latitude: item.body.latitude,
+          activity_name: item.body.name,
+          image: item.body.image_url,
+          StartTime: item.body.time.startTime,
+          EndTime: item.body.time.endTime,
+          duration: item.body.time.duration,
         };
+        debugger;
+        let res = await axios.post(`${API}/activites`, activity);
 
-        await axios.post(`${API}/activites`, activity);
+        dispatch(setID({ id: res.data.payload.id, index: i }));
+        debugger;
       } catch (error) {
         console.log(error);
       }
