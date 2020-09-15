@@ -1,4 +1,4 @@
-const db = require("../../db/index");
+const db = require("../db/index");
 
 // get all Activities
 const getAllActivities = async (req, res, next) => {
@@ -44,8 +44,9 @@ const getActivity = async (req, res, next) => {
 // add activity
 const addActivity = async (req, res, next) => {
   try {
+    console.log(req.body);
     let activityAdded = await db.one(
-      `INSERT INTO activities (itin_id , location, longitude, latitude, activity_name, category,activity_time) VALUES ('${req.body.itin_id}','${req.body.location}','${req.body.longitude}','${req.body.latitude}','${req.body.activity_name}','${req.body.images}','${req.body.activity_time}') RETURNING *`
+      `INSERT INTO activities (itin_id , location, longitude, latitude, activity_name, image, activity_StartTime,activity_EndTime,duration) VALUES ('${req.body.itin_id}','${req.body.location}','${req.body.longitude}','${req.body.latitude}','${req.body.activity_name}','${req.body.image}','${req.body.StartTime}','${req.body.EndTime}','${req.body.duration}') RETURNING *`
     );
     res.status(200).json({
       status: "success",

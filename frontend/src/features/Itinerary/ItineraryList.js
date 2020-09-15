@@ -141,7 +141,7 @@ const ItneraryList = ({ time }) => {
                             className={classes.inline}
                             color="textPrimary"
                           >
-                            From: {convertTimeDisplay(item.body.time.startTime)}{" "}
+                            From: {convertTimeDisplay(item.body.time.startTime)}
                             - To {convertTimeDisplay(item.body.time.endTime)}
                           </Typography>
 

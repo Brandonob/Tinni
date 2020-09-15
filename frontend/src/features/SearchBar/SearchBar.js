@@ -101,18 +101,6 @@ const SearchBar = () => {
   return (
     <>
       <Paper component="form" className={classes.root} onSubmit={handleSubmit}>
-        {/* <InputLabel id="demo-simple-select-filled-label">Age</InputLabel> */}
-        {/* <Select
-          labelId="demo-simple-select-filled-label"
-          id="demo-simple-select-filled"
-          value={searchType}
-          onChange={handleChange}
-        >
-          <MenuItem value="Places">Places</MenuItem>
-          <MenuItem value="Events">Events</MenuItem>
-          <MenuItem value="Itineraries">Itineraries </MenuItem>
-        </Select>
-        <Divider className={classes.divider} orientation="vertical" /> */}
         <InputBase
           onChange={(e) => setTerm(e.currentTarget.value)}
           value={term}
@@ -136,7 +124,8 @@ const SearchBar = () => {
           className={classes.iconButton}
           // fontColor="white"
           // outlined
-          onClick={handleSubmit}
+          type="submit"
+          // onClick={handleSubmit}
           // endIcon={<SearchIcon />}
           align="baseline"
         >
