@@ -236,7 +236,7 @@ export default function Album() {
       <hr />
       <footer className={classes.footer}>
         <Typography variant="h6" align="center" gutterBottom>
-          Run your day, dont let your day run you!
+          Run your day, don't let your day run you!
         </Typography>
         <Typography
           variant="subtitle1"

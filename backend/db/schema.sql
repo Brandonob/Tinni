@@ -1,9 +1,9 @@
 -- This is schema
 -- example
--- DROP DATABASE IF EXISTS codename_ida;
--- CREATE DATABASE codename_ida;
+DROP DATABASE IF EXISTS codename_ida;
+CREATE DATABASE codename_ida;
 
--- \c codename_ida;
+\c codename_ida;
 
 DROP TABLE IF EXISTS participants;
 DROP TABLE IF EXISTS liked_itineraries;
