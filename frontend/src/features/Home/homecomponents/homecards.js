@@ -2,7 +2,10 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import Typography from "@material-ui/core/Typography";
-
+import axios from "axios";
+import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { receiveSearch } from "../../SearchBar/SearchBarSlice";
 // const images = [
 //   {
 //     url:
@@ -102,8 +105,38 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const API_KEY =
+  // "8qnMAZ-CZ90tKgmGIL0GXzVK-teEHMAmfu0f-NlSKYgA-dSxs5WzkUz5DEu293l2ccgEUx9VMFEB3rMRMGXh0d7uU2cuybWSC91zVpq7-1l7Zq8LXBzoMVe9L8XvXnYx";
+  "LFdo6C7hC-lOv9bETblPGtrgq3v7mv58fZYWAv9gQCSrfAWsFjfaB2zHEthT1WHpTcdJUaxGk7tBUyReInvmM672_yo2V2uQNS_fW5gKzzE7mOwKtUR21zESo14LX3Yx";
+
 export default function HomeButtonCards({ trendingTopics }) {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const handleClick = async (e) => {
+    e.preventDefault();
+
+    const config = {
+      method: "get",
+      url: `https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=${e.target.innerText}&location=manhattan&limit=50&sort_by=distance`,
+      headers: {
+        Authorization: `Bearer ${API_KEY}`,
+      },
+    };
+
+    try {
+      let res = await axios(config);
+
+      dispatch(receiveSearch(res.data.businesses));
+
+      //new page
+
+      history.push("/myitin");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className={classes.root} style={{ justifyContent: "center" }}>
@@ -111,12 +144,14 @@ export default function HomeButtonCards({ trendingTopics }) {
         <ButtonBase
           focusRipple
           key={image.title}
+          id={image.title}
           className={classes.image}
           focusVisibleClassName={classes.focusVisible}
           style={{
             width: image.width,
             margin: image.margin,
           }}
+          onClick={handleClick}
         >
           <span
             className={classes.imageSrc}

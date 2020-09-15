@@ -8,12 +8,14 @@ const ItineraryDisplayPage = () => {
   const itineraryResult = useSelector(selectSearchResults);
 
   const displayResults = () => {
+    let count = 0;
     return itineraryResult.map((result, i) => {
       if (result.rating > 3.5) {
+        count += 1;
         return (
           <>
             <ResultsDisplayCard
-              cardNum={i}
+              cardNum={count}
               key={result.id}
               image_url={result.image_url}
               id={result.id}
