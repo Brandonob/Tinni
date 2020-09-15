@@ -116,7 +116,7 @@ export default function MyItin() {
   };
 
   const openPin = () => {};
-
+  debugger;
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -161,22 +161,7 @@ export default function MyItin() {
             </div>
           )}
           <SearchBar />
-          {userInformation.length ? (
-            <div>
-              <Button
-                id="navbarButton"
-                variant="contained"
-                color="secondary"
-                href="./login"
-              >
-                login
-              </Button>
-
-              <Button variant="outlined" color="secondary" href="./login">
-                signup
-              </Button>
-            </div>
-          ) : (
+          {userInformation ? (
             <div style={{ display: "flex", flexDirection: "row" }}>
               <NavLink to={"/userprofile"}>
                 <Avatar
@@ -194,6 +179,27 @@ export default function MyItin() {
                 style={{ margin: 5 }}
               >
                 logout
+              </Button>
+            </div>
+          ) : (
+            <div>
+              <Button
+                id="navbarButton"
+                variant="contained"
+                color="secondary"
+                href="./login"
+                style={{ marginLeft: 5 }}
+              >
+                login
+              </Button>
+
+              <Button
+                variant="outlined"
+                color="secondary"
+                href="./login"
+                style={{ marginLeft: 5 }}
+              >
+                signup
               </Button>
             </div>
           )}

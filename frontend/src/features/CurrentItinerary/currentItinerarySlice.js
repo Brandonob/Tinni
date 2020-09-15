@@ -68,6 +68,7 @@ export const currentItinerarySlice = createSlice({
 });
 
 export const selectCurrentItin = (state) => state.currentItinerary.list;
+export const selectCurrentItinAll = (state) => state.currentItinerary;
 export const {
   addItemToItin,
   updateItin,
