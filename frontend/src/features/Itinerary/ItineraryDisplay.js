@@ -14,12 +14,11 @@ import ShareDialog from "../ShareForm/ShareFormDial";
 import { selectCurrentItin } from "../CurrentItinerary/currentItinerarySlice";
 
 import {
-  updateTime,
+  updateItinTime,
+  updateID,
   updateTitle,
   updateDate,
-  createID,
-  selectCurrentItinInfo,
-} from "./CurrentItinInfoSlice";
+} from "../CurrentItinerary/currentItinerarySlice";
 import "./ItineraryDisplay.css";
 
 const useStyles = makeStyles((theme) => ({
@@ -87,7 +86,8 @@ export default function ItineraryDisplay() {
   };
   const handleDone = () => {
     setEditMode(false);
-    dispatch(updateTime(ItineraryTime));
+
+    dispatch(updateItinTime(ItineraryTime));
     dispatch(updateTitle(ItineraryName));
     dispatch(updateDate(ItineraryDate));
   };

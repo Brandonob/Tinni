@@ -15,7 +15,7 @@ export const currentItinerarySlice = createSlice({
     addItemToItin: {
       reducer: (state, action) => {
         state.list.push(action.payload);
-        handleTime(state.list);
+        handleTime(state.list, state.Time);
         return state;
       },
       prepare: (body) => {
@@ -24,13 +24,13 @@ export const currentItinerarySlice = createSlice({
     },
     updateItin: (state, action) => {
       state.list.splice(action.payload, 1);
-      handleTime(state.list);
+      handleTime(state.list, state.Time);
       return state;
     },
     reorder: (state, action) => {
       const [removed] = state.list.splice(action.payload.startIndex, 1);
       state.list.splice(action.payload.endIndex, 0, removed);
-      handleTime(state.list);
+      handleTime(state.list, state.Time);
       return state;
     },
     updateTime: (state, action) => {
@@ -38,11 +38,51 @@ export const currentItinerarySlice = createSlice({
         action.payload.timeEnd;
       return state;
     },
+    updateTitle: (state, action) => {
+      state.Title = action.payload;
+      return state;
+    },
+    updateDate: (state, action) => {
+      state.Date = action.payload;
+      return state;
+    },
+    updateItinTime: (state, action) => {
+      state.Time = action.payload;
+      handleTime(state.list, state.Time);
+      return state;
+    },
+    updateID: (state, action) => {
+      state.id = action.payload;
+      return state;
+    },
+    clearItin: (state, action) => {
+      return {
+        id: null,
+        Title: "My Itinerary",
+        Date: "",
+        Time: "12:00 ",
+        list: [],
+      };
+    },
   },
 });
 
-const handleTime = (state) => {
-  let timeintin = "12:00";
+export const selectCurrentItin = (state) => state.currentItinerary.list;
+export const {
+  addItemToItin,
+  updateItin,
+  reorder,
+  updateTime,
+  updateItinTime,
+  updateID,
+  updateTitle,
+  updateDate,
+  clearItin,
+} = currentItinerarySlice.actions;
+export default currentItinerarySlice.reducer;
+
+const handleTime = (state, time) => {
+  let timeintin = time;
 
   state.forEach((el, i) => {
     if (i === 0) {
@@ -69,12 +109,3 @@ const handleTime = (state) => {
   });
   return state;
 };
-
-export const selectCurrentItin = (state) => state.currentItinerary.list;
-export const {
-  addItemToItin,
-  updateItin,
-  reorder,
-  updateTime,
-} = currentItinerarySlice.actions;
-export default currentItinerarySlice.reducer;
