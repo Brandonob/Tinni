@@ -24,6 +24,8 @@ import {
   updateDate,
 } from "../CurrentItinerary/currentItinerarySlice";
 import "./ItineraryDisplay.css";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
 
 import { getAPI } from "../../util/utils";
 
@@ -66,9 +68,13 @@ export default function ItineraryDisplay() {
   const [currUser, setcurrUser] = useState(false);
   const [opendia, setOpenDia] = useState(false);
   const [opendiaEmail, setOpenDiaEmail] = useState(false);
+  const [openMessage, setopenMessage] = useState("none");
   const API = getAPI();
   const dispatch = useDispatch();
 
+  function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+  }
   useEffect(() => {
     var now = new Date();
     var day = ("0" + now.getDate()).slice(-2);
@@ -127,12 +133,17 @@ export default function ItineraryDisplay() {
         });
 
         saveItems(res.data.payload[0].id);
-
+        dispatch(updateID(res.data.payload[0].id));
+        successMessage();
         console.log("hi");
       } catch (error) {
         console.log(error);
       }
     }
+  };
+
+  const successMessage = () => {
+    setopenMessage("block");
   };
 
   const saveItems = async (id) => {
@@ -144,7 +155,7 @@ export default function ItineraryDisplay() {
           longitude: item.longitude,
           latitude: item.latitude,
           activity_name: item.name,
-          image: "....",
+          image: item.image_url,
           StartTime: item.time.startTime,
           EndTime: item.time.endTime,
           duration: item.time.duration,
@@ -276,7 +287,7 @@ export default function ItineraryDisplay() {
         >
           <ItneraryList time={ItineraryTime} />
           {currentItinerary.length ? (
-            navButton()
+            <>{navButton()}</>
           ) : (
             <p
               style={{ marginTop: "50px", color: "crimson", fontSize: "20px" }}
@@ -284,8 +295,9 @@ export default function ItineraryDisplay() {
               Add Items to Itinerary
             </p>
           )}
+          <p style={{ color: "green", display: openMessage }}>Success saved </p>
           <LoginDialog open={opendia} onClose={handleDiaClose} />
-          <ShareDialog open={opendiaEmail} onClose={handleEmailDiaClose} />
+
           {/* <SendSmsDialog open={opendiaText} onClose={handleTextItin} /> */}
         </div>
       </div>

@@ -1,14 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+
 import SearchBar from "../SearchBar/SearchBar.js";
 import firebase from "firebase/app";
-import {
-  selectInfo,
-  addInfo,
-  addUser,
-  selectUserID,
-} from "../Users/usersSlice";
-import { useDispatch } from "react-redux";
+import { addInfo, addUser, selectUserID } from "../Users/usersSlice";
+
 import { getAPI } from "../../util/utils";
 import axios from "axios";
 import Avatar from "@material-ui/core/Avatar";
@@ -29,16 +24,28 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { ItinCards } from "./ItinCards";
 import logoText from "../../logoText.png";
-import { NavLink } from 'react-router-dom'
-
+import logoImg from "../../logoImg.png";
+import { NavLink } from "react-router-dom";
+import Nav from "../Nav";
+import MenuDropDown from "../MenuDropDown";
+import { selectInfo, logOutUser } from "../Users/usersSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit" href="/">
-        CodeName IDA
-      </Link>
-      {new Date().getFullYear()}
+      <NavLink to={"/"}>
+        <img
+          src={logoImg}
+          style={{ marginTop: 5, height: "50px" }}
+          alt="logo text"
+        ></img>
+      </NavLink>
+
+      <div>
+        {" Tinni © "}
+        {new Date().getFullYear()}
+      </div>
     </Typography>
   );
 }
@@ -101,6 +108,7 @@ export default function ItinResPage() {
   const [userExists, setUserExists] = useState(false);
   const [open, setOpen] = useState(false);
   const [mapWidth, setmapWidth] = useState("600px");
+  const history = useHistory();
   // debugger
   const dispatch = useDispatch();
 
@@ -116,6 +124,14 @@ export default function ItinResPage() {
       }
     });
   }, []);
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    firebase.auth().signOut();
+    dispatch(logOutUser());
+    history.push("/");
+    //call other actions to clear react state
+  };
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -176,12 +192,12 @@ export default function ItinResPage() {
     }
   };
 
-  const handleClick = (e) => {
-    e.preventDefault();
-    firebase.auth().signOut();
-    setCurrentUser("");
-    //call other actions to clear react state
-  };
+  // const handleClick = (e) => {
+  //   e.preventDefault();
+  //   firebase.auth().signOut();
+  //   setCurrentUser("");
+  //   //call other actions to clear react state
+  // };
 
   const handleUser = () => {
     dispatch(addUser(currentUser.uid));
@@ -190,11 +206,14 @@ export default function ItinResPage() {
 
   return (
     <>
-      {/* {currentUser ? checkDBForUser : null} */}
-      {/* {console.log("is user in db", userExists)} */}
       <CssBaseline />
-      <AppBar position="relative">
-      <Toolbar>
+      <AppBar
+        position="fixed"
+        className={clsx(classes.appBar, {
+          [classes.appBarShift]: open,
+        })}
+      >
+        <Toolbar>
           <NavLink to={"/"}>
             <img
               src={logoText}
@@ -229,23 +248,9 @@ export default function ItinResPage() {
             </div>
           )}
           <SearchBar />
-          {userInformation.length ? (
-            <div>
-              <Button
-                id="navbarButton"
-                variant="contained"
-                color="secondary"
-                href="./login"
-              >
-                login
-              </Button>
-              <Button variant="outlined" color="secondary" href="./login">
-                signup
-              </Button>
-            </div>
-          ) : (
+          {userInformation ? (
             <div style={{ display: "flex", flexDirection: "row" }}>
-              <NavLink to={"/userprofile"}>
+              {/* <NavLink to={"/userprofile"}>
                 <Avatar
                   style={{ margin: 5, marginLeft: 50 }}
                   alt="avatar"
@@ -253,7 +258,8 @@ export default function ItinResPage() {
                 >
                   {" "}
                 </Avatar>
-              </NavLink>
+              </NavLink> */}
+              <MenuDropDown />
               <Button
                 onClick={handleClick}
                 variant="outlined"
@@ -263,15 +269,38 @@ export default function ItinResPage() {
                 logout
               </Button>
             </div>
+          ) : (
+            <div>
+              <Button
+                id="navbarButton"
+                variant="contained"
+                color="secondary"
+                href="./login"
+                style={{ marginLeft: 5 }}
+              >
+                login
+              </Button>
+
+              <Button
+                variant="outlined"
+                color="secondary"
+                href="./login"
+                style={{ marginLeft: 5 }}
+              >
+                signup
+              </Button>
+            </div>
           )}
         </Toolbar>
       </AppBar>
+
       <div
         style={{
           maxwidth: "100%",
           height: "300px",
           display: "flex",
           justifyContent: "center",
+          marginTop: "50px",
         }}
       >
         <div
@@ -294,19 +323,22 @@ export default function ItinResPage() {
           </div>
         </div>
       </div>
-      <div style={{ display: "flex",
-                    backgroundcolor: "grey",
-                    opacity: "0.5",
-                    border: "2px grey",
-                    borderRadius: "8px" }}>
+      <div
+        style={{
+          display: "flex",
+          backgroundcolor: "grey",
+          opacity: "0.5",
+          border: "2px grey",
+          borderRadius: "8px",
+          mariginBottom: 20,
+        }}
+      >
         <Grid container className={classes.root2} spacing={2}>
           <ItinCards />
         </Grid>
       </div>
-      <div>
-        <Typography variant="h6" align="center" gutterBottom>
-          Footer
-        </Typography>
+      <div style={{ mariginTop: 20 }}>
+        <hr></hr>
         <Typography
           variant="subtitle1"
           align="center"
@@ -316,7 +348,7 @@ export default function ItinResPage() {
           Run your day, dont let your day run you!
         </Typography>
         <Copyright />
-        End footer
+
         {console.log(userInformation)}
       </div>
       {currentUser ? handleUser() : null}

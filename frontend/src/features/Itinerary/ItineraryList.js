@@ -128,7 +128,7 @@ const ItneraryList = ({ time }) => {
                         height: "50px",
                         width: "50px",
                       }}
-                      src="https://upload.wikimedia.org/wikipedia/commons/c/cf/Radio_City_Music_Hall_Panorama.jpg"
+                      src={item.body.image_url}
                     />
 
                     <ListItemText
