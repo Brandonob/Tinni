@@ -20,9 +20,16 @@ import {
   Toolbar,
   Link,
 } from "@material-ui/core";
+import clsx from "clsx";
+import IconButton from "@material-ui/core/IconButton";
+import MenuIcon from "@material-ui/icons/Menu";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { ItinCards } from "./ItinCards";
+import logoText from "../../logoText.png";
+import { NavLink } from 'react-router-dom'
 
 function Copyright() {
   return (
@@ -87,10 +94,13 @@ export default function ItinResPage() {
   const classes = useStyles();
   // const itineraryResult = useSelector(selectSearchResults);
   // const currentItinerary = useSelector(selectCurrentItin);
+  const theme = useTheme();
   const userInformation = useSelector(selectInfo);
   const currentUserID = useSelector(selectUserID);
   const [currentUser, setCurrentUser] = useState("");
   const [userExists, setUserExists] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [mapWidth, setmapWidth] = useState("600px");
   // debugger
   const dispatch = useDispatch();
 
@@ -106,6 +116,16 @@ export default function ItinResPage() {
       }
     });
   }, []);
+
+  const handleDrawerOpen = () => {
+    setOpen(true);
+    setmapWidth("320px");
+  };
+
+  const handleDrawerClose = () => {
+    setOpen(false);
+    setmapWidth("600px");
+  };
 
   const checkDBForUser = async (user) => {
     console.log("function hit");
@@ -174,45 +194,76 @@ export default function ItinResPage() {
       {/* {console.log("is user in db", userExists)} */}
       <CssBaseline />
       <AppBar position="relative">
-        <Toolbar>
-          <Typography variant="h6" color="inherit">
-            <Link href="/home">codenameIDA</Link>
-            <Link href="/home">codenameIDA</Link>
-          </Typography>
-
-          <Grid container spacing={2} justify="flex-end">
-            <Grid item>
-              <SearchBar />
-            </Grid>
-            <Grid item>
-              {currentUser ? null : (
-                <Button
-                  id="navbarButton"
-                  variant="contained"
-                  color="secondary"
-                  href="./login"
+      <Toolbar>
+          <NavLink to={"/"}>
+            <img
+              src={logoText}
+              style={{ height: "75px", paddingBottom: "10px" }}
+              alt="logo text"
+            ></img>
+          </NavLink>
+          {open === true ? (
+            <div className={classes.toolbar}>
+              <IconButton onClick={handleDrawerClose}>
+                {theme.direction === "rtl" ? (
+                  <ChevronRightIcon />
+                ) : (
+                  <ChevronLeftIcon />
+                )}
+              </IconButton>
+            </div>
+          ) : (
+            <div>
+              <Button
+                color="inherit"
+                aria-label="open drawer"
+                onClick={handleDrawerOpen}
+                edge="start"
+                className={clsx(classes.menuButton, {
+                  [classes.hide]: open,
+                })}
+              >
+                <p>View Itinerary</p>
+                <MenuIcon />
+              </Button>
+            </div>
+          )}
+          <SearchBar />
+          {userInformation.length ? (
+            <div>
+              <Button
+                id="navbarButton"
+                variant="contained"
+                color="secondary"
+                href="./login"
+              >
+                login
+              </Button>
+              <Button variant="outlined" color="secondary" href="./login">
+                signup
+              </Button>
+            </div>
+          ) : (
+            <div style={{ display: "flex", flexDirection: "row" }}>
+              <NavLink to={"/userprofile"}>
+                <Avatar
+                  style={{ margin: 5, marginLeft: 50 }}
+                  alt="avatar"
+                  src={userInformation.photoURL}
                 >
-                  login
-                </Button>
-              )}
-            </Grid>
-            <Grid item>
-              {currentUser ? null : (
-                <Button variant="outlined" color="secondary" href="./login">
-                  signup
-                </Button>
-              )}
-              {currentUser ? (
-                <Button
-                  onClick={handleClick}
-                  variant="outlined"
-                  color="secondary"
-                >
-                  logout
-                </Button>
-              ) : null}
-            </Grid>
-          </Grid>
+                  {" "}
+                </Avatar>
+              </NavLink>
+              <Button
+                onClick={handleClick}
+                variant="outlined"
+                color="secondary"
+                style={{ margin: 5 }}
+              >
+                logout
+              </Button>
+            </div>
+          )}
         </Toolbar>
       </AppBar>
       <div
@@ -243,7 +294,11 @@ export default function ItinResPage() {
           </div>
         </div>
       </div>
-      <div style={{ display: "flex" }}>
+      <div style={{ display: "flex",
+                    backgroundcolor: "grey",
+                    opacity: "0.5",
+                    border: "2px grey",
+                    borderRadius: "8px" }}>
         <Grid container className={classes.root2} spacing={2}>
           <ItinCards />
         </Grid>
