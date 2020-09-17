@@ -139,9 +139,9 @@ export default function ItineraryDisplay() {
           user_id: currentUserId,
           itinerary_date: currentItineraryAll["Date"],
           title: currentItineraryAll.Title,
-          itinerary_StartTime: currentItineraryAll.Time,
+          itinerary_StartTime: currentItineraryAll["Time"],
         });
-
+        debugger;
         saveItems(res.data.payload[0].id);
         dispatch(updateID(res.data.payload[0].id));
         successMessage();
@@ -205,6 +205,7 @@ export default function ItineraryDisplay() {
           StartTime: item.body.time.startTime,
           EndTime: item.body.time.endTime,
           duration: item.body.time.duration,
+          id: item.body.id,
         };
         debugger;
         let res = await axios.post(`${API}/activites`, activity);
@@ -347,9 +348,11 @@ export default function ItineraryDisplay() {
           <p style={{ color: "green", display: openMessage }}>Success saved </p>
           <LoginDialog open={opendia} onClose={handleDiaClose} />
 
-          <ShareDialog open={opendiaEmail} onClose={handleEmailDiaClose} setOpenDiaEmail={setOpenDiaEmail}/>
-
-
+          <ShareDialog
+            open={opendiaEmail}
+            onClose={handleEmailDiaClose}
+            setOpenDiaEmail={setOpenDiaEmail}
+          />
 
           {/* <SendSmsDialog open={opendiaText} onClose={handleTextItin} /> */}
         </div>

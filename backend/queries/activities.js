@@ -44,9 +44,9 @@ const getActivity = async (req, res, next) => {
 // add activity
 const addActivity = async (req, res, next) => {
   try {
-    console.log(req.body);
+    // console.log(req.body);
     let activityAdded = await db.one(
-      `INSERT INTO activities (itin_id , location, longitude, latitude, activity_name, image, activity_StartTime,activity_EndTime,duration) VALUES ('${req.body.itin_id}','${req.body.location}','${req.body.longitude}','${req.body.latitude}','${req.body.activity_name}','${req.body.image}','${req.body.StartTime}','${req.body.EndTime}','${req.body.duration}') RETURNING *`
+      `INSERT INTO activities (itin_id , location, longitude, latitude, activity_name, image, activity_StartTime,activity_EndTime,duration,id) VALUES ('${req.body.itin_id}','${req.body.location}','${req.body.longitude}','${req.body.latitude}','${req.body.activity_name}','${req.body.image}','${req.body.StartTime}','${req.body.EndTime}','${req.body.duration}','${req.body.id}') RETURNING *`
     );
     res.status(200).json({
       status: "success",
@@ -84,9 +84,32 @@ const deleteActivity = async (req, res, next) => {
   }
 };
 
+const getActivitybyitinerary = async (req, res, next) => {
+  try {
+    let activities = await db.any(
+      "SELECT * FROM activities WHERE itin_id = $1 ORDER BY  activity_starttime",
+      [req.params.id]
+    );
+    res.status(200).json({
+      status: "success",
+      message: "retrieved all activities",
+      payload: activities,
+    });
+  } catch (err) {
+    res.status(555).json({
+      status: err,
+      message: "activity not found",
+      payload: null,
+    });
+
+    next(err);
+  }
+};
+
 module.exports = {
   getAllActivities,
   getActivity,
   addActivity,
   deleteActivity,
+  getActivitybyitinerary,
 };

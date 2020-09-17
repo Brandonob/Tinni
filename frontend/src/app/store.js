@@ -5,7 +5,6 @@ import itinerariesReducer from "../features/Itinerary/itinerarySlice";
 import businessReducer from "../features/BusinessInfo/BusinessInfoSlice";
 import currentItineraryReducer from "../features/CurrentItinerary/currentItinerarySlice";
 import modalReducer from "../features/Modal/ModalSlice";
-import CurrentItinInfoReducer from "../features/Itinerary/CurrentItinInfoSlice";
 
 import logger from "redux-logger";
 
