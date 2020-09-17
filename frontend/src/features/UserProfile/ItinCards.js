@@ -33,6 +33,11 @@ export const ItinCards = () => {
 
   const dispatch = useDispatch();
 
+  const handleEdit = (e) => {
+    debugger;
+    console.log("hi");
+  };
+
   // useEffect(() => {
   //   dispatch(fetchItineraries(currentUserID))
   // },[])
@@ -44,7 +49,7 @@ export const ItinCards = () => {
       {itineraries.map((el) => {
         return (
           <Grid item xs={3}>
-            <Card className={classes.root}>
+            <Card className={classes.root} id={el.id} key={el.id}>
               <CardActionArea>
                 <CardMedia
                   className={classes.media}
@@ -56,7 +61,12 @@ export const ItinCards = () => {
                 </Typography>
               </CardActionArea>
               <CardActions>
-                <Button size="small" color="primary">
+                <Button
+                  size="small"
+                  color="primary"
+                  onClick={handleEdit}
+                  id={el.itinerary_id}
+                >
                   Edit
                 </Button>
                 <Button
