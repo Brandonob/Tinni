@@ -38,11 +38,11 @@ const getItinById = async (req, res, next) => {
 };
 
 const addItin = async (req, res, next) => {
+  console.log("hi");
   try {
-    let data = req.body;
-    let itin = await db.one(
-      "INSERT INTO itineraries (user_id,itinerary_date,title,itinerary_StartTime) VALUES ('${user_id}', ${itinerary_date}, ${title},${itinerary_StartTime}) RETURNING *",
-      data
+    // let data = req.body;
+    let itin = await db.any(
+      `INSERT INTO itineraries ( user_id,itinerary_date,title,itinerary_StartTime) VALUES ('${req.body.user_id}', '${req.body.itinerary_date}','${req.body.title}','${req.body.itinerary_StartTime}') RETURNING *`
     );
 
     res.status(200).json({
@@ -51,6 +51,7 @@ const addItin = async (req, res, next) => {
       payload: itin,
     });
   } catch (err) {
+    console.log(err);
     res.status(500).json({
       status: "Error",
       message: "Unable to create new itinerary.",

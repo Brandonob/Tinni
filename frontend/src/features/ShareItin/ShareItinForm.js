@@ -96,7 +96,7 @@ export default function ShareItinForm({ handleCloseEmail, setOpenDiaEmail }) {
       },
       "user_a2eO6xZSmNLBjX2Day31P"
     );
-    setOpenDiaEmail(false)
+    setOpenDiaEmail(false);
   };
 
   return (
@@ -120,6 +120,7 @@ export default function ShareItinForm({ handleCloseEmail, setOpenDiaEmail }) {
                 fullWidth
                 id="yourName"
                 label="Your Name"
+                value={fromName}
                 onChange={(e) => setFromName(e.target.value)}
                 autoFocus
               />
@@ -133,6 +134,7 @@ export default function ShareItinForm({ handleCloseEmail, setOpenDiaEmail }) {
                 fullWidth
                 id="senderName"
                 label="Receiver Name"
+                value={replyName}
                 onChange={(e) => setReplyName(e.target.value)}
                 autoFocus
               />
@@ -147,6 +149,7 @@ export default function ShareItinForm({ handleCloseEmail, setOpenDiaEmail }) {
                 label="Reciever Email"
                 name="email"
                 autoComplete="email"
+                value={replyEmail}
                 onChange={(e) => setReplyEmail(e.target.value)}
               />
             </Grid>

@@ -98,7 +98,7 @@ function ProductHowItWorks(props) {
                   className={classes.image}
                 />
                 <Typography variant="h5" align="center">
-                  Customize your time, date and name your Itinerary!
+                  Customize your time, date and name your itinerary!
                 </Typography>
               </div>
             </Grid>

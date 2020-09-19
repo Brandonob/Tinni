@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { selectSearchResults } from "../SearchBar/SearchBarSlice";
 // import SearchResult from "../Search/SearchResultsCard"
@@ -39,9 +39,10 @@ const ItineraryDisplayPage = () => {
         className={"resultIndex"}
         style={{
           // paddingLeft: "20px",
-          width: "500px",
-          height: "500px",
           overflow: "scroll",
+          height: "600px",
+          marginRight: "2px",
+          width: itineraryResult.length ? "none" : "500px",
         }}
       >
         <div className={"topHeader"}>

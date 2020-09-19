@@ -111,7 +111,7 @@ export default function ItinResPage() {
   const theme = useTheme();
   const userInformation = useSelector(selectInfo);
   const currentUserID = useSelector(selectUserID);
-
+  const userItineraries = useSelector(selectItins);
   const [currentUser, setCurrentUser] = useState("");
   const [userExists, setUserExists] = useState(false);
   const [open, setOpen] = useState(false);
@@ -129,7 +129,8 @@ export default function ItinResPage() {
         setCurrentUser(user);
         getAllUsers();
         checkDBForUser(user);
-        dispatch(fetchItineraries(currentUserID));
+        dispatch(fetchItineraries(user.uid));
+        debugger;
       }
     });
   }, []);
@@ -337,7 +338,7 @@ export default function ItinResPage() {
               </Card>
             </Grid>
 
-            <ItinCards />
+            {userItineraries ? <ItinCards /> : null}
           </Grid>
         </div>
       </div>
