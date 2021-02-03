@@ -4,7 +4,7 @@ Welcome to our app **Tinni**!. Our site allows users to have access to core Yelp
 
 Built with React.js, Node.js with Express, and PostgreSQL.
 
-![Image of Tinni](https://i.ibb.co/tHbvZ72/Screen-Shot-2020-09-28-at-6-14-20-PM.png)
+![Image of Tinni](./ReadmeImgs/tinniHome)
 
 ## Features
 
