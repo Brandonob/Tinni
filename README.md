@@ -4,7 +4,8 @@ Welcome to our app **Tinni**!. Our site allows users to have access to core Yelp
 
 Built with React.js, Node.js with Express, and PostgreSQL.
 
-![Image of Tinni](./ReadmeImgs/tinniHome)
+![Image of Tinni](./ReadmeImgs/tinniHome.png)
+
 
 ## Features
 
@@ -16,7 +17,7 @@ Users are able to:
 * Craft an intinerary and share it with others by email
 * Organize your itineraries from your personalized user profile
 
-
+![Image of Tinni](https://i.ibb.co/jz7zztW/Screen-Shot-2020-09-28-at-6-24-09-PM.png)
 
 ## Future Implementations
 
@@ -45,24 +46,33 @@ Users will be able to:
 
 2. Install dependencies for the Node/Express Server (`backend` folder):
 
+    ```
     cd backend && npm install
+    ```
     
 3. Install dependencies the React App (`frontend` folder):
 
+    ```
     cd frontend && npm install
+    ```
 
 4. Create database:
 
+    ```
     cd backend && cd db
     psql -f db.sql
+    ```
     
 5. To launch the React App, inside the `frontend` folder, and view the web application:
 
+    ```
     cd frontend && npm start
+    ```
 
-### Run your day, don't let your day run you!
 
-![Image of Tinni](https://i.ibb.co/jz7zztW/Screen-Shot-2020-09-28-at-6-24-09-PM.png)
+
+## Run your day, don't let your day run you!
+
 
 
 
