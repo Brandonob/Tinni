@@ -81,7 +81,6 @@ export const ItinCards = () => {
             endTime: activity.activity_endtime,
           },
         };
-
         dispatch(addItemToItin(body));
       });
 
@@ -90,6 +89,10 @@ export const ItinCards = () => {
       console.log(error);
     }
   };
+
+    const handleCardClick = async (e) => {
+      // e.preventDefault();
+    }
 
   return (
     <>
