@@ -10,6 +10,14 @@ Built with React.js, Node.js with Express, and PostgreSQL.
 
 Users are able to:
 
+* Create or log-in to their own personalized account with email, facebook or gmail accounts
+* Search for multiple locations and establishments by topic/name (ex. burgers, park, Mcdonalds, etc.), within a 25 mile radius of location input
+* View your search results on an interactive map 
+* Craft an intinerary and share it with others by email
+* Organize your itineraries from your personalized user profile
+
+
+
 ## Future Implementations
 
 Users will be able to:
@@ -23,12 +31,17 @@ Users will be able to:
 * CSS3
 * React
 * Redux Toolkit
+* Emailjs
+* Google Maps API
+* Yelp API
+* Material UI
+* Heroku
 
 ## Local Setup
 
 1. Clone this repo:
 
-    git clone https://github.com/Brandonob/Flashbook.git && cd Flashbook
+    git clone https://github.com/Brandonob/Tinni.git && cd Flashbook
 
 2. Install dependencies for the Node/Express Server (`backend` folder):
 
@@ -47,11 +60,7 @@ Users will be able to:
 
     cd frontend && npm start
 
-Backend: For the Database, we have opted to use Postgress. We used Express and helper packages body-parser, cors. This enabled us to create get, post, and patch routes. The backend was then deployed to Heroku.
-
-
-
-Frontend: For the frontend, We have decided to use React-Redux ToolKit. This frame wire has been set up to encompass core components with their state under each corresponding folder. For routing, we used react-router-dom that let us set up individual webpages as well as pass ids throughout the app. For user login and signup I decided to use Google's firebase that allowed for better security. We also choose to also enable users to sign up via google and Facebook. Users can search using a combination of Yelp's API and Google maps API. After saving they are able to share via email! Tinni is the one website you need. Run your day, don't let your day run you!
+### Run your day, don't let your day run you!
 
 ![Image of Tinni](https://i.ibb.co/jz7zztW/Screen-Shot-2020-09-28-at-6-24-09-PM.png)
 
