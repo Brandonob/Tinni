@@ -14,7 +14,7 @@ Users are able to:
 * Create or log-in to their own personalized account with email, facebook or gmail accounts
 * Search for multiple locations and establishments by topic/name (ex. burgers, park, Mcdonalds, etc.), within a 25 mile radius of location input
 * View your search results on an interactive map 
-* Craft an intinerary and share it with others by email
+* Craft an itinerary and share it with others by email
 * Organize your itineraries from your personalized user profile
 
 ![Image of Tinni](https://i.ibb.co/jz7zztW/Screen-Shot-2020-09-28-at-6-24-09-PM.png)
@@ -22,6 +22,11 @@ Users are able to:
 ## Future Implementations
 
 Users will be able to:
+
+* Book reservations at restaurants offered by the Opentable API
+* Interact with other users on this platform with a chat feature and our own ratings/reviews
+* Access their itineraries from a **Tinni** mobile app
+* Access **Tinni** on any site by creating a chrome extension, that'll allow users to add locations to your itineraries
 
 ## Technologies Used
 
@@ -42,7 +47,9 @@ Users will be able to:
 
 1. Clone this repo:
 
+    ```
     git clone https://github.com/Brandonob/Tinni.git && cd Flashbook
+    ```
 
 2. Install dependencies for the Node/Express Server (`backend` folder):
 
