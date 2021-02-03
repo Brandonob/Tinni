@@ -30,6 +30,7 @@ export const ItinCards = () => {
     const currentUserID = useSelector(selectUserID)
 
     const [showShareForm, setShowShareForm] = useState(false);
+    const [currentItinID, setCurrentItinID] = useState("");
 
     const dispatch = useDispatch();
 
@@ -37,8 +38,13 @@ export const ItinCards = () => {
       dispatch(fetchItineraries(currentUserID))
     },[])
 
+    const handleCardClick = async (e) => {
+      // e.preventDefault();
+    }
+
   return (
     <>
+    {currentItinID ? handleCardClick() : null}
     <Grid container spacing={3}></Grid>
       {console.log(itineraries)}
       {itineraries.map(el => {
@@ -50,6 +56,7 @@ export const ItinCards = () => {
                 className={classes.media}
                 image={itinpic}
                 title="Itinerary Pic"
+                onClick={setCurrentItinID(el.id)}
               />
               <Typography gutterBottom variant="h5" component="h2">
                   {el.title}
