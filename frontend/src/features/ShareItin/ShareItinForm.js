@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ShareItinForm({ handleCloseEmail }) {
+export default function ShareItinForm({ handleCloseEmail, setOpenDiaEmail }) {
   const classes = useStyles();
 
   const [replyEmail, setReplyEmail] = useState("");
@@ -96,6 +96,7 @@ export default function ShareItinForm({ handleCloseEmail }) {
       },
       "user_a2eO6xZSmNLBjX2Day31P"
     );
+    setOpenDiaEmail(false);
   };
 
   return (
@@ -119,6 +120,7 @@ export default function ShareItinForm({ handleCloseEmail }) {
                 fullWidth
                 id="yourName"
                 label="Your Name"
+                value={fromName}
                 onChange={(e) => setFromName(e.target.value)}
                 autoFocus
               />
@@ -132,6 +134,7 @@ export default function ShareItinForm({ handleCloseEmail }) {
                 fullWidth
                 id="senderName"
                 label="Receiver Name"
+                value={replyName}
                 onChange={(e) => setReplyName(e.target.value)}
                 autoFocus
               />
@@ -146,6 +149,7 @@ export default function ShareItinForm({ handleCloseEmail }) {
                 label="Reciever Email"
                 name="email"
                 autoComplete="email"
+                value={replyEmail}
                 onChange={(e) => setReplyEmail(e.target.value)}
               />
             </Grid>

@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SimpleDialog = (props) => {
-  const { onClose, selectedValue, open, handleADD } = props;
+  const { onClose, selectedValue, open, handleADD, setOpenDiaEmail } = props;
   const classes = useStyles();
 
   const handleClick = () => {
@@ -37,7 +37,7 @@ const SimpleDialog = (props) => {
       <DialogTitle id="simple-dialog-title">Share</DialogTitle>
       {/* <Login />
        */}
-      <Emailform />
+      <Emailform setOpenDiaEmail={setOpenDiaEmail} />
     </Dialog>
   );
 };

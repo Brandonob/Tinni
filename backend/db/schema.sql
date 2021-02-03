@@ -1,4 +1,5 @@
--- This is schema
+-- This
+-- is schema
 -- example
 DROP DATABASE IF EXISTS codename_ida;
 CREATE DATABASE codename_ida;
@@ -31,14 +32,14 @@ CREATE TABLE itineraries
   user_id VARCHAR REFERENCES users(id) ON DELETE CASCADE,
   time_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   itinerary_date DATE NOT NULL,
-  itinerary_StartTime VARCHAR,
+  itinerary_StartTime TIME,
   title VARCHAR NOT NULL DEFAULT 'Your Itinerary',
   itin_pic VARCHAR NOT NULL DEFAULT ' ',
   private BOOLEAN NOT NULL DEFAULT FALSE
 );
 CREATE TABLE activities
 (
-  id SERIAL PRIMARY KEY,
+  id VARCHAR PRIMARY KEY,
   itin_id INT REFERENCES itineraries(id) ON DELETE CASCADE,
   location VARCHAR ,
   longitude VARCHAR ,

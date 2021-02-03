@@ -88,8 +88,8 @@ const Login = () => {
       console.log("you have succesfully logged in");
       let user = res.user.uid;
       dispatch(addUser(res.user.uid));
-      debugger;
-      history.push("/home");
+
+      history.push("/userprofile");
     } catch (error) {
       setErrMessage(error.message);
     }

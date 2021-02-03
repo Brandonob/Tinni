@@ -38,6 +38,10 @@ export const currentItinerarySlice = createSlice({
         action.payload.timeEnd;
       return state;
     },
+    setID: (state, action) => {
+      state.list[action.payload.index].body.id = action.payload.id;
+      return state;
+    },
     updateTitle: (state, action) => {
       state.Title = action.payload;
       return state;
@@ -64,6 +68,15 @@ export const currentItinerarySlice = createSlice({
         list: [],
       };
     },
+    addInfo: (state, action) => {
+      return {
+        id: action.payload.id,
+        Title: action.payload.title,
+        Date: action.payload.date,
+        Time: action.payload.time,
+        list: [],
+      };
+    },
   },
 });
 
@@ -79,6 +92,8 @@ export const {
   updateTitle,
   updateDate,
   clearItin,
+  setID,
+  addInfo,
 } = currentItinerarySlice.actions;
 export default currentItinerarySlice.reducer;
 

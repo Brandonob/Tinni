@@ -31,6 +31,13 @@ import MenuDropDown from "../MenuDropDown";
 import { selectInfo, logOutUser } from "../Users/usersSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { fetchItineraries, selectItins } from "../Itinerary/itinerarySlice";
+import Card from "@material-ui/core/Card";
+import CardActionArea from "@material-ui/core/CardActionArea";
+import CardActions from "@material-ui/core/CardActions";
+import CardMedia from "@material-ui/core/CardMedia";
+import itinpic from "../../images/itinpic.png";
+import { clearItin } from "../CurrentItinerary/currentItinerarySlice";
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -104,6 +111,7 @@ export default function ItinResPage() {
   const theme = useTheme();
   const userInformation = useSelector(selectInfo);
   const currentUserID = useSelector(selectUserID);
+  const userItineraries = useSelector(selectItins);
   const [currentUser, setCurrentUser] = useState("");
   const [userExists, setUserExists] = useState(false);
   const [open, setOpen] = useState(false);
@@ -121,6 +129,8 @@ export default function ItinResPage() {
         setCurrentUser(user);
         getAllUsers();
         checkDBForUser(user);
+        dispatch(fetchItineraries(user.uid));
+        debugger;
       }
     });
   }, []);
@@ -192,12 +202,10 @@ export default function ItinResPage() {
     }
   };
 
-  // const handleClick = (e) => {
-  //   e.preventDefault();
-  //   firebase.auth().signOut();
-  //   setCurrentUser("");
-  //   //call other actions to clear react state
-  // };
+  const handleNewItin = () => {
+    dispatch(clearItin());
+    history.push("/myitin");
+  };
 
   const handleUser = () => {
     dispatch(addUser(currentUser.uid));
@@ -276,8 +284,7 @@ export default function ItinResPage() {
           // flexDirection: "column",
           justifyContent: "center",
 
-          marginBottom: "20px"
-
+          marginBottom: "20px",
         }}
       >
         <div
@@ -292,8 +299,7 @@ export default function ItinResPage() {
             alt="avatar"
             src={userInformation.photoURL}
             className={classes.large}
-            style={{ marginTop: "50px",
-                      marginLeft: "40px"}}
+            style={{ marginTop: "50px", marginLeft: "40px" }}
           ></Avatar>
 
           <div style={{ marginTop: "30px", height: "50px" }}>
@@ -302,24 +308,42 @@ export default function ItinResPage() {
         </div>
       </div>
 
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            backgroundColor: "rgba(0,67,70,0.9)",
+            width: "1000px",
+            border: "2px solid grey",
+            borderRadius: "8px",
+          }}
+        >
+          <Grid container className={classes.root2} spacing={2}>
+            <Grid container spacing={3}></Grid>
 
-      <div style={{ display: "flex",
-                    justifyContent: "center" }}>
-      <div style={{ display: "flex",
-                    justifyContent: "center",
-                    backgroundColor: "rgba(0,67,70,0.9)",
-                    width: "1000px",
-                    border: "2px solid grey",
-                    borderRadius: "8px" }}>
-        <Grid container className={classes.root2} spacing={2} >
-          <ItinCards />
-        </Grid>
-      </div>
+            <Grid item xs={3}>
+              <Card onClick={handleNewItin} className={classes.root}>
+                <CardActionArea>
+                  <CardMedia
+                    className={classes.media}
+                    image={itinpic}
+                    title="Itinerary Pic"
+                  />
+                  <Typography gutterBottom variant="h5" component="h2">
+                    Create a new itinerary
+                  </Typography>
+                </CardActionArea>
+                <CardActions></CardActions>
+              </Card>
+            </Grid>
+
+            {userItineraries ? <ItinCards /> : null}
+          </Grid>
+        </div>
       </div>
 
       <div>
-     
-
         <hr></hr>
 
         <Typography
