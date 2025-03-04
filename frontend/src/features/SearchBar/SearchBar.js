@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import axios from "axios";
-import { useHistory } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import LocationSearch from "./locationSearch";
-import { receiveSearch } from "../SearchBar/SearchBarSlice";
-import "./searchbar.css";
+import React, { useState } from 'react';
+import axios from 'axios';
+import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import LocationSearch from './locationSearch';
+import { receiveSearch } from '../SearchBar/SearchBarSlice';
+import './searchbar.css';
 // import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from '@material-ui/core/styles';
 import {
   Paper,
   InputBase,
@@ -15,13 +15,13 @@ import {
   Button,
 
   // InputLabel,
-} from "@material-ui/core";
+} from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    padding: "2px 4px",
-    display: "flex",
-    alignItems: "center",
+    padding: '2px 4px',
+    display: 'flex',
+    alignItems: 'center',
     width: 600,
   },
   input: {
@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
   iconButton: {
     padding: 10,
-    color: "secondary",
+    color: 'secondary',
   },
   divider: {
     height: 28,
@@ -41,24 +41,28 @@ const useStyles = makeStyles((theme) => ({
 // const API_KEY = process.env.REACT_APP_API_KEY;
 const API_KEY =
   // "8qnMAZ-CZ90tKgmGIL0GXzVK-teEHMAmfu0f-NlSKYgA-dSxs5WzkUz5DEu293l2ccgEUx9VMFEB3rMRMGXh0d7uU2cuybWSC91zVpq7-1l7Zq8LXBzoMVe9L8XvXnYx";
-  "LFdo6C7hC-lOv9bETblPGtrgq3v7mv58fZYWAv9gQCSrfAWsFjfaB2zHEthT1WHpTcdJUaxGk7tBUyReInvmM672_yo2V2uQNS_fW5gKzzE7mOwKtUR21zESo14LX3Yx";
+  'LFdo6C7hC-lOv9bETblPGtrgq3v7mv58fZYWAv9gQCSrfAWsFjfaB2zHEthT1WHpTcdJUaxGk7tBUyReInvmM672_yo2V2uQNS_fW5gKzzE7mOwKtUR21zESo14LX3Yx';
 
 const SearchBar = () => {
   const classes = useStyles();
-  const [location, setLocation] = useState("");
-  const [term, setTerm] = useState("");
-  const [latitude, setLatitude] = useState("");
-  const [longitude, setLongitude] = useState("");
+  const [location, setLocation] = useState('');
+  const [term, setTerm] = useState('');
+  const [latitude, setLatitude] = useState('');
+  const [longitude, setLongitude] = useState('');
   const dispatch = useDispatch();
   const history = useHistory();
-  const [searchType, setSearchType] = useState("Places");
+  const [searchType, setSearchType] = useState('Places');
   const [loading, SetLoading] = useState(false);
 
   const locationURL = () => {
-    if (location) {
-      return `https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=${term}&location=${location}&limit=50&sort_by=distance`;
-    } else {
+    // Only use lat/long if both values are present
+    if (latitude && longitude) {
       return `https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=${term}&latitude=${latitude}&longitude=${longitude}&limit=50&sort_by=distance`;
+    } else {
+      // Default to location-based search if no coordinates
+      // If no location is set, default to 'manhattan' or another default location
+      const searchLocation = location || 'manhattan';
+      return `https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=${term}&location=${searchLocation}&limit=50&sort_by=distance`;
     }
   };
 
@@ -67,7 +71,7 @@ const SearchBar = () => {
     e.preventDefault();
     const url = locationURL();
     const config = {
-      method: "get",
+      method: 'get',
       url: url,
       headers: {
         Authorization: `Bearer ${API_KEY}`,
@@ -81,7 +85,7 @@ const SearchBar = () => {
 
       //new page
       SetLoading(false);
-      history.push("/myitin");
+      history.push('/myitin');
     } catch (error) {
       SetLoading(true);
       console.log(error);
@@ -89,10 +93,10 @@ const SearchBar = () => {
   };
 
   const handleSubmit = async (e) => {
-    if (searchType === "Places") {
+    if (searchType === 'Places') {
       searchPlaces(e);
-    } else if (searchType === "Events") {
-    } else if (searchType === "Itineraries") {
+    } else if (searchType === 'Events') {
+    } else if (searchType === 'Itineraries') {
     }
   };
 
@@ -101,34 +105,34 @@ const SearchBar = () => {
   };
   return (
     <>
-      <Paper component="form" className={classes.root} onSubmit={handleSubmit}>
+      <Paper component='form' className={classes.root} onSubmit={handleSubmit}>
         <InputBase
           onChange={(e) => setTerm(e.currentTarget.value)}
           value={term}
           className={classes.input}
-          placeholder="Search term"
-          variant="outlined"
+          placeholder='Search term'
+          variant='outlined'
           // fullWidth="false"
-          autoFocus="true"
+          autoFocus='true'
         />
-        <Divider className={classes.divider} orientation="vertical" />
+        <Divider className={classes.divider} orientation='vertical' />
         <LocationSearch
-          color="secondary"
+          color='secondary'
           setLatitude={setLatitude}
           setLongitude={setLongitude}
         />
-        <Divider className={classes.divider} orientation="vertical" />
+        <Divider className={classes.divider} orientation='vertical' />
 
         <Button
-          variant="contained"
-          color="secondary"
+          variant='contained'
+          color='secondary'
           className={classes.iconButton}
           // fontColor="white"
           // outlined
-          type="submit"
+          type='submit'
           // onClick={handleSubmit}
           // endIcon={<SearchIcon />}
-          align="baseline"
+          align='baseline'
         >
           Search
         </Button>
